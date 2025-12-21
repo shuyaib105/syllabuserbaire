@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>সিলেবাসের বাইরে | LMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: #FEFBF0;
+            color: #1A1A1A;
+            font-size: 14px; /* সব কিছু ছোট দেখানোর জন্য বেস সাইজ কমানো হয়েছে */
+        }
+        .container-custom { max-width: 1000px; margin: 0 auto; }
+        
+        .nav-blur {
+            background: rgba(254, 251, 240, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        /* ছোট ও কমপ্যাক্ট বাটন */
+        .btn {
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: 0.2s;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-yellow { background: #F7B91B; color: #000; border: 1.5px solid #000; }
+        .btn-black { background: #1A1A1A; color: #F7B91B; border: 1.5px solid #1A1A1A; }
+        .btn-outline { border: 1.5px solid #000; color: #000; }
+        
+        .btn:hover { transform: translateY(-1px); box-shadow: 3px 3px 0px #000; }
+
+        h1 { font-size: 42px !important; line-height: 1.1; letter-spacing: -1px; }
+        h2 { font-size: 28px !important; }
+    </style>
+</head>
+<body>
+
+    <header class="fixed top-0 w-full z-50 nav-blur">
+        <div class="container-custom px-6 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <img src="https://i.ibb.co/LkhKqM0/1000052948.jpg" alt="Logo" class="h-9 w-auto border border-black rounded shadow-sm">
+                <span class="text-lg font-bold">সিলেবাসের বাইরে</span>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-sm font-semibold">
+                <a href="#" class="hover:text-yellow-600">কোর্সসমূহ</a>
+                <a href="#" class="hover:text-yellow-600">আমাদের সম্পর্কে</a>
+            </nav>
+            <button class="btn btn-black !py-1 text-xs">লগইন</button>
+        </div>
+    </header>
+
+    <main class="pt-28 pb-12">
+        <section class="container-custom px-6 text-center">
+            <h1 class="font-bold mb-4">
+                শিখুন যা প্রথাগত <br>
+                <span style="color: #F7B91B; -webkit-text-stroke: 1px black;">সিলেবাসের বাইরে</span>
+            </h1>
+            <p class="text-gray-600 max-w-lg mx-auto mb-8 font-medium">
+                রিয়েল-লাইফ স্কিল এবং প্রজেক্ট ভিত্তিক লার্নিং নিয়ে আমরা তৈরি করছি আগামী দিনের দক্ষ বাংলাদেশ।
+            </p>
+
+            <div class="flex flex-row justify-center gap-3">
+                <a href="#" class="btn btn-yellow">কোর্স দেখুন</a>
+                <a href="#" class="btn btn-black">ফ্রি গাইড</a>
+                <a href="#" class="btn btn-outline">আমাদের টিম</a>
+            </div>
+        </section>
+
+        <section class="container-custom px-6 py-20">
+            <div class="bg-white border-2 border-black p-8 rounded-2xl flex flex-col md:flex-row gap-8 items-center shadow-sm">
+                <div class="md:w-3/5 text-left">
+                    <h2 class="font-bold mb-4">আমাদের সম্পর্কে</h2>
+                    <p class="text-gray-600 leading-relaxed mb-4">
+                        গতানুগতিক সিলেবাসের বাইরে গিয়ে নতুন কিছু শেখাই আমাদের মূল লক্ষ্য। আমরা বিশ্বাস করি দক্ষতাই একমাত্র পরিচয়।
+                    </p>
+                    <div class="flex gap-4">
+                        <div class="bg-yellow-50 px-3 py-1 rounded border border-yellow-200 text-xs font-bold">১০+ মেন্টর</div>
+                        <div class="bg-yellow-50 px-3 py-1 rounded border border-yellow-200 text-xs font-bold">৫কে+ লার্নার</div>
+                    </div>
+                </div>
+                <div class="md:w-2/5">
+                    <img src="https://i.ibb.co/LkhKqM0/1000052948.jpg" alt="About" class="w-full h-40 object-cover rounded-xl border-2 border-black shadow-md">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-[#1A1A1A] text-white py-10 px-6">
+        <div class="container-custom grid md:grid-cols-3 gap-8">
+            <div>
+                <div class="flex items-center gap-2 mb-4">
+                    <img src="https://i.ibb.co/LkhKqM0/1000052948.jpg" alt="Logo" class="h-8 border border-yellow-500 rounded">
+                    <span class="font-bold text-[#F7B91B]">সিলেবাসের বাইরে</span>
+                </div>
+                <p class="text-gray-400 text-xs leading-relaxed">দক্ষ জনশক্তি তৈরিই আমাদের লক্ষ্য।</p>
+            </div>
+            <div class="text-xs">
+                <h4 class="text-[#F7B91B] font-bold mb-3">যোগাযোগ</h4>
+                <p>ashadurrahman254@gmail.com</p>
+                <p class="mt-1">০১৭১৯-১৫৫২২৫</p>
+            </div>
+            <div class="text-xs">
+                <h4 class="text-[#F7B91B] font-bold mb-3">ফলো করুন</h4>
+                <div class="flex gap-3">
+                    <a href="#" class="hover:text-yellow-500">Facebook</a>
+                    <a href="#" class="hover:text-yellow-500">YouTube</a>
+                </div>
+            </div>
+        </div>
+        <div class="container-custom mt-8 pt-4 border-t border-gray-800 text-[10px] text-gray-500 flex justify-between">
+            <p>&copy; ২০২৫ সিলেবাসের বাইরে</p>
+            <p>সকল অধিকার সংরক্ষিত</p>
+        </div>
+    </footer>
+
+</body>
+</html>
+p{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .profile .stats{
+      display:flex;
+      justify-content:space-between;
+      gap:6px;
+      margin-top:12px;
+    }
+    .stat{
+      flex:1;
+      background:var(--glass);
+      padding:10px 8px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,0.02);
+    }
+    .stat b{
+      display:block;
+      font-size:15px;
+    }
+    .stat span{
+      font-size:11px;
+      color:var(--muted);
+      line-height:1.3;
+    }
+
+    /* sections */
+    section{
+      margin-top:20px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+      padding:16px;
+      border-radius:12px;
+      border:1px solid var(--glass-border);
+    }
+    .section-title{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:12px;
+      flex-direction: column;
+    }
+    .section-title h3{
+      margin:0;
+      font-size:18px;
+    }
+    .section-title p{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    /* projects grid - mobile optimized */
+    .projects-grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:12px;
+    }
+    .project{
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+      padding:14px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,0.03);
+      transition: transform .18s, box-shadow .18s;
+    }
+    .project:active{
+      transform:translateY(-4px);
+      box-shadow:0 12px 30px rgba(2,8,20,0.6);
+    }
+    .project .thumb{
+      height:100px;
+      border-radius:10px;
+      background: linear-gradient(135deg, rgba(96,165,250,0.12), rgba(110,231,183,0.08));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      color:var(--white);
+      margin-bottom:10px;
+      font-size:14px;
+    }
+    .project h4{
+      margin:6px 0;
+      font-size:15px;
+      line-height:1.3;
+    }
+    .project p{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.5;
+    }
+
+    /* skills - mobile optimized */
+    .skills{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .chip{
+      background: rgba(255,255,255,0.02);
+      padding:7px 12px;
+      border-radius:999px;
+      font-weight:700;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.02);
+      font-size:13px;
+    }
+
+    /* contact form - mobile optimized */
+    .contact-grid{
+      display:flex;
+      flex-direction: column;
+      gap:16px;
+    }
+    .input, textarea{
+      width:100%;
+      padding:12px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,0.03);
+      background:transparent;
+      color:var(--white);
+      outline:none;
+      font-size:14px;
+      font-family: "Hind Siliguri", sans-serif;
+    }
+    textarea{
+      min-height:120px;
+      resize:vertical;
+    }
+    .btn{
+      display:inline-block;
+      padding:10px 16px;
+      background:linear-gradient(90deg,var(--accent-2),var(--accent));
+      color:#022026;
+      border-radius:10px;
+      font-weight:800;
+      border:none;
+      cursor:pointer;
+      text-decoration:none;
+      font-size:14px;
+      text-align: center;
+    }
+
+    footer{
+      margin-top:20px;
+      text-align:center;
+      color:var(--muted);
+      font-size:12px;
+      padding:0 10px;
+      line-height:1.5;
+    }
+
+    /* mobile menu for very small screens */
+    .mobile-menu-btn{
+      display: none;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 20px;
+      cursor: pointer;
+      padding: 5px;
+    }
+
+    /* touch-friendly improvements */
+    button, .btn, .cta, .nav-link, .socials a, .project {
+      touch-action: manipulation;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    input, textarea {
+      font-size: 16px !important; /* prevents zoom on iOS */
+    }
+
+    /* responsive */
+    @media (min-width: 640px) {
+      .wrap{
+        padding:20px;
+        margin:30px auto;
+      }
+      
+      header{
+        padding:16px 20px;
+        top:16px;
+      }
+      
+      .hero{
+        flex-direction: row;
+        gap:20px;
+        align-items: flex-start;
+      }
+      
+      .intro{
+        flex: 2;
+        order: 1;
+      }
+      
+      .profile{
+        flex: 1;
+        order: 2;
+        min-width: 280px;
+      }
+      
+      .avatar{
+        width:120px;
+        height:120px;
+      }
+      
+      .projects-grid{
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .contact-grid{
+        flex-direction: row;
+        gap:20px;
+      }
+      
+      .contact-grid > * {
+        flex: 1;
+      }
+      
+      .section-title{
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .projects-grid{
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      .hero{
+        gap:30px;
+        margin-top:30px;
+      }
+      
+      .intro h2{
+        font-size:24px;
+      }
+      
+      .avatar{
+        width:140px;
+        height:140px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .wrap{
+        padding:12px;
+        margin:12px auto;
+      }
+      
+      header{
+        flex-wrap: wrap;
+        padding:12px;
+      }
+      
+      .brand{
+        width:100%;
+        margin-bottom:8px;
+      }
+      
+      nav{
+        width:100%;
+        justify-content: space-between;
+      }
+      
+      .socials a{
+        min-width: calc(50% - 4px);
+        font-size:11px;
+        padding:8px;
+      }
+      
+      .avatar{
+        width:90px;
+        height:90px;
+      }
+      
+      .avatar-fallback {
+        font-size: 32px;
+      }
+      
+      .intro h2{
+        font-size:20px;
+      }
+      
+      .intro p{
+        font-size:13px;
+      }
+    }
+
+    /* subtle animations */
+    .fade-up{
+      opacity:0;
+      transform:translateY(8px);
+      transition:all .5s ease-out;
+    }
+    .fade-up.in{
+      opacity:1;
+      transform:translateY(0);
+    }
+    
+    /* image loading animation */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .avatar-img.loaded {
+      animation: fadeIn 0.5s ease-in;
+    }
+    
+    /* lazy loading styles */
+    .avatar-img.lazy {
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .avatar-img.lazy-loaded {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">S</div>
+        <div>
+          <h1>Shuyaib Islam</h1>
+          <p>Frontend Developer • Designer</p>
+        </div>
+      </div>
+
+      <nav>
+        <a class="nav-link" href="#about">About</a>
+        <a class="nav-link" href="#projects">Projects</a>
+        <a class="nav-link" href="#skills">Skills</a>
+        <a class="nav-link" href="#contact">Contact</a>
+        <a class="cta" href="#contact">Hire me</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <div class="hero">
+        <div class="intro fade-up in">
+          <div class="eyebrow">Available for freelance</div>
+          <h2>Hi, I'm <span style="color:var(--accent)">Shuyaib</span> — a designer & front-end developer.</h2>
+          <p>I create fast, modern and accessible web experiences. আমি জাভাস্ক্রিপ্ট, এইচটিএমএল, সিএসএস দিয়ে প্রোডাক্ট-লেভেল UI বানাই।</p>
+
+          <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
+            <a class="btn" href="#" onclick="event.preventDefault()" style="flex:1;min-width:140px;">Download CV</a>
+            <a class="nav-link" href="#projects" style="flex:1;min-width:140px;text-align:center;">See my work →</a>
+          </div>
+
+          <div class="socials" style="margin-top:16px">
+            <a href="#" title="GitHub">GH • github.com/shuyaib</a>
+            <a href="#" title="LinkedIn">LI • linkedin.com/in/shuyaib</a>
+            <a href="#" title="Behance">BE • behance.net/shuyaib</a>
+          </div>
+        </div>
+
+        <aside class="profile fade-up in">
+          <div class="avatar">
+            <!-- GitHub Raw Image with lazy loading -->
+            <img 
+              src="https://raw.githubusercontent.com/shuyaib105/portfolio/refs/heads/main/IMG_20251024_105517_020.jpg" 
+              alt="Shuyaib Islam" 
+              class="avatar-img lazy"
+              loading="lazy"
+              onload="handleImageLoad(this)"
+              onerror="handleImageError(this)"
+            >
+            <div class="avatar-loading" id="avatarLoading">
+              <div class="spinner"></div>
+            </div>
+            <div class="avatar-fallback" style="display:none;">SI</div>
+          </div>
+          <h3>Shuyaib Islam</h3>
+          <p>UI / Front-end • Graphic Designer</p>
+
+          <div style="margin-top:10px">
+            <strong style="color:var(--accent)">Bangladesh</strong> • Open to remote work
+          </div>
+
+          <div class="stats" style="margin-top:12px">
+            <div class="stat">
+              <b>6+</b>
+              <span>Years experience</span>
+            </div>
+            <div class="stat">
+              <b>40+</b>
+              <span>Projects</span>
+            </div>
+            <div class="stat">
+              <b>98%</b>
+              <span>Client sat.</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- ABOUT -->
+      <section id="about" class="fade-up in" style="margin-top:20px">
+        <div class="section-title">
+          <h3>About</h3>
+          <p>Short & sweet</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div>
+            <p style="color:var(--muted);margin-top:0;font-size:14px;line-height:1.6">
+              I'm a UI-focused front-end developer who loves building fast, accessible and pixel-perfect web interfaces. I combine clean code with strong visual design — so products not only work well but look great.
+            </p>
+
+            <ul style="color:var(--muted);margin-top:12px;padding-left:18px;font-size:13px;line-height:1.6">
+              <li>Specialties: HTML, CSS, JavaScript, Responsive UI, Performance</li>
+              <li>Design tools: Figma, Canva (Pro), Adobe Illustrator</li>
+              <li>Preferred workflow: Component-driven, mobile-first</li>
+            </ul>
+          </div>
+
+          <div>
+            <div style="background:var(--glass); padding:14px; border-radius:12px; border:1px solid var(--glass-border)">
+              <h4 style="margin:0 0 8px;font-size:16px">Quick facts</h4>
+              <p style="margin:0;color:var(--muted);font-size:13px;line-height:1.5">I craft designs in Bangla & English. I use Hind Siliguri font for Bangla UIs. Available for freelance & full-time roles.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section id="projects" class="fade-up in">
+        <div class="section-title">
+          <h3>Projects</h3>
+          <p>Selected works (tap any card)</p>
+        </div>
+
+        <div class="projects-grid">
+          <!-- Project 1 -->
+          <article class="project" tabindex="0">
+            <div class="thumb">Web App</div>
+            <h4>Pro Study Planner — Web App</h4>
+            <p>Smart study planner with dynamic routines, live timers and printable routines. UI in Bangla with Hind Siliguri.</p>
+          </article>
+
+          <!-- Project 2 -->
+          <article class="project" tabindex="0">
+            <div class="thumb">Design</div>
+            <h4>Branding for SME Academy</h4>
+            <p>Logo, stationery and social templates — minimal and premium visual language.</p>
+          </article>
+
+          <!-- Project 3 -->
+          <article class="project" tabindex="0">
+            <div class="thumb">Tool</div>
+            <h4>Mobile-friendly OMR Checker</h4>
+            <p>Colab & web-based OMR tool for MCQ sheets with CSV export and QR practice flow.</p>
+          </article>
+
+          <!-- Project 4 -->
+          <article class="project" tabindex="0">
+            <div class="thumb">Frontend</div>
+            <h4>Expense Tracker</h4>
+            <p>Pro-level responsive expense tracker with charts and CSV export (HTML/CSS/JS).</p>
+          </article>
+
+          <!-- Project 5 -->
+          <article class="project" tabindex="0">
+            <div class="thumb">UI Kit</div>
+            <h4>Bangla Islamic App UI</h4>
+            <p>Complete UI kit with Surah list, Namaz timings and user profile components.</p>
+          </article>
+
+          <!-- Project 6 -->
+          <article class="project" tabindex="0">
+            <div class="thumb">Tool</div>
+            <h4>Synonym Finder</h4>
+            <p>English (Datamuse) + Bangla built-in dataset tool with sleek, mobile-first UI.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- SKILLS -->
+      <section id="skills" class="fade-up in">
+        <div class="section-title">
+          <h3>Skills</h3>
+          <p>What I work with</p>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div>
+            <h4 style="margin:6px 0 10px;font-size:16px">Development</h4>
+            <div class="skills">
+              <div class="chip">HTML</div>
+              <div class="chip">CSS / SCSS</div>
+              <div class="chip">Vanilla JS</div>
+              <div class="chip">React (basic)</div>
+              <div class="chip">Accessibility</div>
+            </div>
+          </div>
+
+          <div>
+            <h4 style="margin:6px 0 10px;font-size:16px">Design & Tools</h4>
+            <div class="skills">
+              <div class="chip">Figma</div>
+              <div class="chip">Canva Pro</div>
+              <div class="chip">Illustrator</div>
+              <div class="chip">Prototyping</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" class="fade-up in">
+        <div class="section-title">
+          <h3>Contact</h3>
+          <p>Let's build something great together</p>
+        </div>
+
+        <div class="contact-grid">
+          <form onsubmit="handleContact(event)" style="display:flex;flex-direction:column;gap:10px">
+            <input class="input" id="name" placeholder="Your name" required />
+            <input class="input" id="email" type="email" placeholder="Email address" required />
+            <textarea id="message" placeholder="Message — explain the project or ask a question" required></textarea>
+
+            <div style="display:flex;flex-direction:column;gap:10px;align-items:stretch">
+              <button class="btn" type="submit" style="width:100%;">Send message</button>
+              <a class="nav-link" href="mailto:info@yourdomain.com" style="text-align:center;">Or email directly</a>
+            </div>
+          </form>
+
+          <div style="padding:10px">
+            <h4 style="font-size:16px;margin-bottom:10px;">Quick contact</h4>
+            <p style="color:var(--muted);font-size:14px;margin-bottom:8px;">ই-মেইল: <strong style="color:var(--accent)">info@yourdomain.com</strong></p>
+            <p style="color:var(--muted);font-size:14px;margin-bottom:15px;">Location: Dhaka, Bangladesh</p>
+
+            <div style="margin-top:14px">
+              <h4 style="font-size:16px;margin-bottom:10px;">Available for</h4>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+                <div class="chip">Freelance</div>
+                <div class="chip">Full-time</div>
+                <div class="chip">Design systems</div>
+              </div>
+            </div>
+
+            <div style="margin-top:18px">
+              <a class="btn" href="#" onclick="event.preventDefault()" style="display:block;text-align:center;">Schedule a call</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        © <span id="year"></span> Shuyaib Islam • Built with ❤️ — Responsive, accessible & Bangla-friendly UI.
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Image loading handler
+    function handleImageLoad(img) {
+      img.classList.remove('lazy');
+      img.classList.add('lazy-loaded');
+      document.getElementById('avatarLoading').style.display = 'none';
+      console.log('Image loaded successfully from GitHub Raw');
+    }
+
+    function handleImageError(img) {
+      console.error('Failed to load image from GitHub Raw');
+      document.getElementById('avatarLoading').style.display = 'none';
+      document.querySelector('.avatar-fallback').style.display = 'flex';
+      
+      // Try alternative URL after 1 second
+      setTimeout(() => {
+        const fallbackUrl = 'https://raw.githubusercontent.com/shuyaib105/portfolio/main/IMG_20251024_105517_020.jpg';
+        console.log('Trying alternative URL:', fallbackUrl);
+        img.src = fallbackUrl;
+        img.onerror = null; // Remove error handler to prevent infinite loop
+      }, 1000);
+    }
+
+    // basic contact handler (non-blocking: demonstrates UX, replace with real backend)
+    function handleContact(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      if(!name || !email || !message) return alert('Please fill all fields.');
+      // for demo we just open mail client
+      const subject = encodeURIComponent("Portfolio inquiry from " + name);
+      const body = encodeURIComponent(message + "\\n\\n— " + name + " (" + email + ")");
+      window.location.href = `mailto:info@yourdomain.com?subject=${subject}&body=${body}`;
+    }
+
+    // small reveal animation for fade-up elements on load
+    window.addEventListener('load',()=>{
+      document.querySelectorAll('.fade-up').forEach((el, i)=>{
+        setTimeout(()=> el.classList.add('in'), 80 * i);
+      });
+      
+      // Pre-check image availability
+      const imgUrl = 'https://raw.githubusercontent.com/shuyaib105/portfolio/refs/heads/main/IMG_20251024_105517_020.jpg';
+      console.log('Checking image URL:', imgUrl);
+      
+      // Force load the image
+      const avatarImg = document.querySelector('.avatar-img');
+      if(avatarImg) {
+        // Set a timeout to show fallback if image takes too long
+        const loadTimeout = setTimeout(() => {
+          if(!avatarImg.complete || avatarImg.naturalHeight === 0) {
+            console.log('Image loading timeout, showing fallback');
+            document.getElementById('avatarLoading').style.display = 'none';
+            document.querySelector('.avatar-fallback').style.display = 'flex';
+          }
+        }, 5000);
+        
+        // Clear timeout when image loads
+        avatarImg.onload = function() {
+          clearTimeout(loadTimeout);
+          handleImageLoad(this);
+        };
+        
+        avatarImg.onerror = function() {
+          clearTimeout(loadTimeout);
+          handleImageError(this);
+        };
+      }
+    });
+
+    // smooth scroll for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const target = document.querySelector(a.getAttribute('href'));
+        if(target){
+          e.preventDefault();
+          target.scrollIntoView({behavior:'smooth', block:'start'});
+        }
+      });
+    });
+
+    // improve touch experience
+    document.addEventListener('touchstart', function(){}, {passive: true});
+    
+    // Retry loading image if network issue
+    document.addEventListener('online', function() {
+      const avatarImg = document.querySelector('.avatar-img');
+      const fallback = document.querySelector('.avatar-fallback');
+      
+      if(fallback.style.display === 'flex' && avatarImg) {
+        console.log('Network restored, retrying image load...');
+        fallback.style.display = 'none';
+        document.getElementById('avatarLoading').style.display = 'flex';
+        
+        // Add cache busting parameter
+        const newUrl = avatarImg.src + (avatarImg.src.includes('?') ? '&' : '?') + 't=' + Date.now();
+        avatarImg.src = newUrl;
+      }
+    });
+  </script>
+</body>
+</html>
