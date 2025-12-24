@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACS FRB Exams | সিলেবাসের বাইরে</title>
+    <title>ACS FRB | এক্সাম ড্যাশবোর্ড</title>
     
-    <!-- ফন্ট ইমপোর্ট -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -14,412 +13,321 @@
 
     <style>
         :root {
-            --bg-cream: #FFFDF5;
-            --accent-yellow: #FFD200;
-            --dark-gold: #B8860B;
-            --text-main: #333;
+            --bg: #F8F9FA;
             --white: #ffffff;
-            --shadow: 0 5px 20px rgba(0,0,0,0.05);
-            --danger: #e74c3c;
-            --danger-hover: #c0392b;
+            --black: #0F172A;
+            --accent: #FFD200;
+            --text-dark: #1E293B;
+            --text-light: #64748B;
+            --border: #E2E8F0;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
-            background-color: var(--bg-cream);
-            color: var(--text-main);
-            overflow-x: hidden;
+            background-color: var(--bg);
+            color: var(--text-dark);
             font-family: 'Tiro Bangla', serif;
+            line-height: 1.6;
         }
 
-        /* --- হেডার --- */
+        .eng { font-family: 'Montserrat', sans-serif !important; }
+
+        /* --- Header --- */
         header {
             background: var(--white);
-            padding: 10px 5%;
+            padding: 12px 6%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.03);
-            height: 70px;
         }
 
-        .logo-img { height: 45px; width: auto; cursor: pointer; }
+        .logo-box img { height: 40px; cursor: pointer; }
 
-        .header-right { display: flex; gap: 8px; align-items: center; }
-
-        .nav-btn {
-            text-decoration: none;
-            padding: 8px 12px;
-            border-radius: 50px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 10px;
-            font-weight: 700;
-            transition: 0.3s;
+        .profile-btn {
             display: flex;
             align-items: center;
-            gap: 5px;
-            border: none;
+            gap: 10px;
+            background: #F1F5F9;
+            padding: 6px 12px;
+            border-radius: 50px;
             cursor: pointer;
-            text-transform: uppercase;
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+            border: 1px solid transparent;
         }
 
-        .btn-home { background: #000; color: #fff; }
-        .btn-logout { background: #ffebee; color: var(--danger); }
-        .btn-logout:hover { background: var(--danger); color: #fff; }
+        .profile-btn:hover {
+            background: var(--white);
+            border-color: var(--accent);
+        }
 
-        /* --- কন্টেন্ট এরিয়া --- */
-        .container { padding: 25px 5% 100px; max-width: 800px; margin: 0 auto; }
+        .avatar {
+            width: 32px;
+            height: 32px;
+            background: var(--black);
+            color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 14px;
+        }
+
+        /* --- Container --- */
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
 
         .course-header {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 35px;
         }
 
         .course-header h1 {
-            font-family: 'Montserrat', sans-serif;
+            font-size: 32px;
             font-weight: 800;
-            font-size: 28px;
-            color: #000;
+            color: var(--black);
             margin-bottom: 5px;
         }
 
-        .wish-text {
-            font-family: 'Tiro Bangla', serif;
-            font-size: 16px;
-            color: var(--dark-gold);
+        .course-header p {
+            color: var(--text-light);
+            font-weight: 600;
         }
 
-        /* --- সার্চ বার --- */
-        .search-box {
-            background: #fff;
-            padding: 12px;
-            border-radius: 15px;
-            box-shadow: var(--shadow);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
+        .search-wrapper {
+            margin-bottom: 30px;
             position: relative;
-        }
-
-        .search-box i {
-            position: absolute;
-            left: 25px;
-            color: #aaa;
         }
 
         .search-input {
             width: 100%;
-            padding: 12px 15px 12px 40px;
-            border: 1px solid #eee;
-            border-radius: 10px;
+            background: var(--white);
+            padding: 16px 20px 16px 50px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
             font-family: 'Tiro Bangla', serif;
-            font-size: 15px;
+            font-size: 16px;
             outline: none;
             transition: 0.3s;
         }
 
         .search-input:focus {
-            border-color: var(--accent-yellow);
-            box-shadow: 0 0 10px rgba(255, 210, 0, 0.1);
+            border-color: var(--accent);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
         }
 
-        /* --- এক্সাম কার্ডস --- */
-        .exam-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+        .search-wrapper i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
         }
 
-        .exam-row {
+        /* --- Modern Table List --- */
+        .table-container {
             background: var(--white);
-            border-radius: 15px;
-            padding: 15px;
-            box-shadow: var(--shadow);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            border: 1px solid var(--border);
+        }
+
+        .table-head {
             display: grid;
-            grid-template-columns: 1fr auto;
+            grid-template-columns: 2.5fr 1fr 1fr 1.2fr;
+            background: #F8FAFC;
+            padding: 20px 30px;
+            border-bottom: 2px solid #F1F5F9;
+            font-weight: 800;
+            font-size: 13px;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .table-row {
+            display: grid;
+            grid-template-columns: 2.5fr 1fr 1fr 1.2fr;
+            padding: 22px 30px;
+            border-bottom: 1px solid #F1F5F9;
             align-items: center;
-            gap: 15px;
-            border-left: 5px solid var(--accent-yellow);
-            transition: transform 0.2s;
-        }
-
-        .exam-row:hover {
-            transform: translateY(-2px);
-        }
-
-        .exam-row.hidden { display: none; }
-
-        .exam-details h4 {
-            font-family: 'Tiro Bangla', serif;
-            font-size: 18px;
-            color: #111;
-            margin-bottom: 3px;
-        }
-
-        .topic-info {
-            font-family: 'Tiro Bangla', serif;
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 8px;
-        }
-
-        .meta-data {
-            display: flex;
-            gap: 15px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--dark-gold);
-        }
-
-        .start-btn {
-            background: #000;
-            color: #fff;
-            padding: 12px 20px;
-            border-radius: 12px;
-            font-family: 'Tiro Bangla', serif;
-            font-weight: 700;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border: none;
-            cursor: pointer;
             transition: 0.3s;
-            white-space: nowrap;
         }
 
-        .start-btn:hover {
-            background: var(--accent-yellow);
-            color: #000;
+        .table-row:last-child { border-bottom: none; }
+        .table-row:hover { background: #FFFDF5; }
+
+        .subject-tag {
+            background: #E0F2FE;
+            color: #0369A1;
+            padding: 2px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 800;
+            display: inline-block;
+            margin-bottom: 5px;
         }
 
-        /* --- লগআউট মোডাল (Warning) --- */
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(5px);
-            display: none; /* শুরুতে লুকানো */
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .modal-card {
-            background: #fff;
-            padding: 30px;
-            border-radius: 25px;
-            max-width: 380px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-            transform: scale(0.9);
-            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-
-        @keyframes popIn {
-            to { transform: scale(1); }
-        }
-
-        .modal-icon {
-            font-size: 50px;
-            color: var(--danger);
-            margin-bottom: 15px;
-        }
-
-        .modal-card h3 {
-            font-family: 'Tiro Bangla';
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #000;
-        }
-
-        .modal-card p {
-            font-family: 'Tiro Bangla';
-            color: #666;
-            margin-bottom: 25px;
-        }
-
-        .modal-btns {
-            display: flex;
-            gap: 12px;
-        }
-
-        .m-btn {
-            flex: 1;
-            padding: 12px;
-            border-radius: 12px;
-            border: none;
+        .topic-name {
+            display: block;
+            font-size: 18px;
             font-weight: 700;
-            font-family: 'Tiro Bangla';
-            cursor: pointer;
-            font-size: 16px;
-            transition: 0.2s;
+            color: var(--black);
         }
 
-        .m-cancel { background: #f5f5f5; color: #333; }
-        .m-cancel:hover { background: #eee; }
-        .m-confirm { background: var(--danger); color: #fff; }
-        .m-confirm:hover { background: var(--danger-hover); }
-
-        @media (max-width: 480px) {
-            .exam-row { grid-template-columns: 1fr; }
-            .start-btn { width: 100%; justify-content: center; }
-            .course-header h1 { font-size: 24px; }
+        .meta-info {
+            color: var(--text-light);
+            font-weight: 700;
+            font-size: 14px;
         }
+
+        .meta-info i { margin-right: 6px; color: #CBD5E1; }
+
+        .btn-start {
+            background: var(--black);
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 14px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 700;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-start:hover {
+            background: var(--accent);
+            color: var(--black);
+            transform: translateX(3px);
+        }
+
+        /* মোবাইল রেসপন্সিভ */
+        @media (max-width: 800px) {
+            .table-head { display: none; }
+            .table-row {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                padding: 25px;
+                text-align: center;
+            }
+            .btn-start { width: 100%; }
+        }
+
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
-    <!-- লগআউট সতর্কবার্তা মোডাল -->
-    <div class="modal-overlay" id="logoutModal">
-        <div class="modal-card">
-            <div class="modal-icon"><i class="fas fa-exclamation-circle"></i></div>
-            <h3>লগআউট করতে চান?</h3>
-            <p>আপনি কি নিশ্চিত যে আপনি আপনার প্রোফাইল থেকে লগআউট করতে চান?</p>
-            <div class="modal-btns">
-                <button class="m-btn m-cancel" onclick="closeModal()">না, ফিরে যাই</button>
-                <button class="m-btn m-confirm" onclick="confirmLogout()">হ্যাঁ, লগআউট</button>
-            </div>
-        </div>
-    </div>
-
     <header>
-        <div class="header-left">
-            <img src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" class="logo-img" onclick="location.href='index.html'">
+        <div class="logo-box">
+            <img src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" onclick="location.href='dashboard.html'">
         </div>
-        <div class="header-right">
-            <a href="dashboard.html" class="nav-btn btn-home">DASHBOARD</a>
-            <button class="nav-btn btn-logout" onclick="showWarning()">LOGOUT</button>
-        </div>
+        
+        <!-- প্রোফাইল আইকনে ক্লিক করলে ড্যাশবোর্ডে যাবে -->
+        <a href="dashboard.html" class="profile-btn">
+            <div class="avatar eng">S</div>
+            <span class="eng" style="font-weight: 800; font-size: 12px;">DASHBOARD</span>
+        </a>
     </header>
 
     <div class="container">
+        <!-- একদম উপরে কোর্সের নাম -->
         <div class="course-header">
-            <h1>ACS FRB EXAMS</h1>
-            <div class="wish-text">আপনার কাঙ্ক্ষিত পরীক্ষাটি খুঁজে নিন</div>
+            <h1 class="eng">ACS HSC 25 FRB</h1>
+            <p>অধ্যায় ভিত্তিক এক্সাম তালিকা</p>
         </div>
 
-        <!-- সার্চ বার -->
-        <div class="search-box">
+        <div class="search-wrapper">
             <i class="fas fa-search"></i>
-            <input type="text" id="searchInput" class="search-input" placeholder="বিষয় বা অধ্যায় দিয়ে সার্চ করুন..." onkeyup="filterExams()">
+            <input type="text" id="searchInput" class="search-input" placeholder="অধ্যায় সার্চ করুন..." onkeyup="filterExams()">
         </div>
 
-        <div class="exam-container" id="examContainer">
-            <!-- Exam 1 -->
-            <div class="exam-row" data-search="physics পদার্থবিজ্ঞান ভেক্টর vector">
-                <div class="exam-details">
-                    <h4>পদার্থবিজ্ঞান ১ম পত্র: ভেক্টর</h4>
-                    <div class="topic-info">টপিক: সামান্তরিক সূত্র ও নদী নৌকা</div>
-                    <div class="meta-data">
-                        <span><i class="far fa-clock"></i> 25 MINS</span>
-                        <span><i class="far fa-file-alt"></i> 20 MCQS</span>
-                    </div>
-                </div>
-                <button class="start-btn">শুরু করো <i class="fas fa-arrow-right"></i></button>
+        <div class="table-container">
+            <div class="table-head eng">
+                <div>Topic & Subject</div>
+                <div>Duration</div>
+                <div>MCQs</div>
+                <div>Action</div>
             </div>
 
-            <!-- Exam 2 -->
-            <div class="exam-row" data-search="chemistry রসায়ন পরিবেশ রসায়ন chemistry 2nd">
-                <div class="exam-details">
-                    <h4>রসায়ন ২য় পত্র: পরিবেশ রসায়ন</h4>
-                    <div class="topic-info">টপিক: বয়েল ও চার্লস সূত্র</div>
-                    <div class="meta-data">
-                        <span><i class="far fa-clock"></i> 20 MINS</span>
-                        <span><i class="far fa-file-alt"></i> 15 MCQS</span>
-                    </div>
+            <!-- Row 1 -->
+            <div class="table-row" data-search="physics পদার্থবিজ্ঞান ভেক্টর নদী নৌকা">
+                <div>
+                    <span class="subject-tag eng">PHYSICS 1ST PAPER</span>
+                    <span class="topic-name">ভেক্টর ও নদী নৌকা</span>
                 </div>
-                <button class="start-btn">শুরু করো <i class="fas fa-arrow-right"></i></button>
+                <div class="meta-info eng"><i class="far fa-clock"></i> 25:00</div>
+                <div class="meta-info eng"><i class="far fa-list-alt"></i> 20</div>
+                <div>
+                    <a href="ex1.html" class="btn-start">শুরু করুন <i class="fas fa-chevron-right" style="font-size: 10px;"></i></a>
+                </div>
             </div>
 
-            <!-- Exam 3 -->
-            <div class="exam-row" data-search="math গণিত ম্যাট্রিক্স নির্ণায়ক math 1st">
-                <div class="exam-details">
-                    <h4>গণিত ১ম পত্র: ম্যাট্রিক্স ও নির্ণায়ক</h4>
-                    <div class="topic-info">টপিক: বিপরীত ম্যাট্রিক্স ও ক্র্যামারের নিয়ম</div>
-                    <div class="meta-data">
-                        <span><i class="far fa-clock"></i> 30 MINS</span>
-                        <span><i class="far fa-file-alt"></i> 25 MCQS</span>
-                    </div>
+            <!-- Row 2 -->
+            <div class="table-row" data-search="chemistry রসায়ন গুণগত গুণগত রসায়ন">
+                <div>
+                    <span class="subject-tag eng" style="background:#F0FDF4; color:#166534;">CHEMISTRY 1ST PAPER</span>
+                    <span class="topic-name">গুণগত রসায়ন</span>
                 </div>
-                <button class="start-btn">শুরু করো <i class="fas fa-arrow-right"></i></button>
+                <div class="meta-info eng"><i class="far fa-clock"></i> 20:00</div>
+                <div class="meta-info eng"><i class="far fa-list-alt"></i> 15</div>
+                <div>
+                    <a href="chem_exam.html" class="btn-start">শুরু করুন <i class="fas fa-chevron-right" style="font-size: 10px;"></i></a>
+                </div>
             </div>
 
-            <!-- Exam 4 -->
-            <div class="exam-row" data-search="biology জীববিজ্ঞান রক্ত সঞ্চালন প্রাণিবিজ্ঞান">
-                <div class="exam-details">
-                    <h4>জীববিজ্ঞান ২য় পত্র: রক্ত ও সঞ্চালন</h4>
-                    <div class="topic-info">টপিক: হৃদপিণ্ড ও রক্তকণিকা</div>
-                    <div class="meta-data">
-                        <span><i class="far fa-clock"></i> 15 MINS</span>
-                        <span><i class="far fa-file-alt"></i> 20 MCQS</span>
-                    </div>
+            <!-- Row 3 -->
+            <div class="table-row" data-search="math গণিত ম্যাট্রিক্স নির্ণায়ক">
+                <div>
+                    <span class="subject-tag eng" style="background:#FFF7ED; color:#9A3412;">MATH 1ST PAPER</span>
+                    <span class="topic-name">ম্যাট্রিক্স ও নির্ণায়ক</span>
                 </div>
-                <button class="start-btn">শুরু করো <i class="fas fa-arrow-right"></i></button>
+                <div class="meta-info eng"><i class="far fa-clock"></i> 30:00</div>
+                <div class="meta-info eng"><i class="far fa-list-alt"></i> 25</div>
+                <div>
+                    <a href="math_exam.html" class="btn-start">শুরু করুন <i class="fas fa-chevron-right" style="font-size: 10px;"></i></a>
+                </div>
             </div>
+
         </div>
     </div>
 
     <script>
-        // সার্চ ফিল্টার লজিক
+        // লগইন চেক স্ক্রিপ্ট
+        window.onload = function() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            // if (!isLoggedIn) window.location.href = 'index.html';
+        };
+
+        // সার্চ ফাংশন
         function filterExams() {
-            const input = document.getElementById('searchInput').value.toLowerCase();
-            const rows = document.getElementsByClassName('exam-row');
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let rows = document.querySelectorAll('.table-row');
             
-            for (let i = 0; i < rows.length; i++) {
-                const searchTags = rows[i].getAttribute('data-search').toLowerCase();
-                const visibleText = rows[i].innerText.toLowerCase();
-                
-                if (searchTags.includes(input) || visibleText.includes(input)) {
-                    rows[i].classList.remove('hidden');
+            rows.forEach(row => {
+                let tags = row.getAttribute('data-search').toLowerCase();
+                let text = row.innerText.toLowerCase();
+                if (tags.includes(input) || text.includes(input)) {
+                    row.classList.remove('hidden');
                 } else {
-                    rows[i].classList.add('hidden');
+                    row.classList.add('hidden');
                 }
-            }
-        }
-
-        // লগআউট মোডাল কন্ট্রোল
-        function showWarning() {
-            document.getElementById('logoutModal').style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.getElementById('logoutModal').style.display = 'none';
-        }
-
-        function confirmLogout() {
-            // লোকাল স্টোরেজ ক্লিয়ার করা
-            localStorage.removeItem('isLoggedIn');
-            localStorage.removeItem('userEmail');
-            
-            // লগইন পেজে নিয়ে যাওয়া
-            window.location.href = "login.html";
-        }
-
-        // মোডালের বাইরে ক্লিক করলে বন্ধ হবে
-        window.onclick = function(event) {
-            const modal = document.getElementById('logoutModal');
-            if (event.target == modal) {
-                closeModal();
-            }
+            });
         }
     </script>
 </body>
