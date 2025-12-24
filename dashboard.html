@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="bn">
 <head>
@@ -5,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ড্যাশবোর্ড | সিলেবাসের বাইরে</title>
     
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Montserrat:wght@400;500;600;700;800&display=swap');
-    </style>
+    <!-- ফন্ট ইমপোর্ট (Tiro Bangla & Montserrat) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
@@ -18,443 +20,480 @@
             --dark-gold: #B8860B;
             --text-main: #333;
             --white: #ffffff;
-            --shadow: 0 10px 30px rgba(0,0,0,0.06);
+            --shadow: 0 5px 20px rgba(0,0,0,0.05);
+            --danger: #e74c3c;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+            -webkit-tap-highlight-color: transparent;
+        }
 
         body {
             background-color: var(--bg-cream);
             color: var(--text-main);
-            font-family: 'Tiro Bangla', serif;
-            padding-bottom: 80px; /* For Bottom Navigation */
+            overflow-x: hidden;
+            font-family: 'Tiro Bangla', 'SolaimanLipi', serif;
         }
 
-        /* --- Header --- */
+        /* --- প্রিমিয়াম হেডার --- */
         header {
             background: var(--white);
-            padding: 10px 6%;
+            padding: 10px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.03);
+            height: 70px;
         }
 
-        .logo-img { height: 50px; width: auto; }
+        .header-left { display: flex; align-items: center; }
+        .logo-img { height: 45px; width: auto; cursor: pointer; }
 
-        .user-info {
+        .header-right { display: flex; gap: 8px; align-items: center; }
+
+        .nav-btn {
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            transition: 0.3s;
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-family: 'Montserrat', sans-serif;
-            background: #f8f8f8;
-            padding: 5px 15px;
-            border-radius: 50px;
-            border: 1px solid #eee;
+            gap: 5px;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
         }
 
-        .user-info i { color: var(--dark-gold); }
-        .user-info span { font-weight: 600; font-size: 13px; color: #555; }
+        .btn-home { background: #000; color: #fff; }
+        .btn-logout { background: #ffebee; color: var(--danger); }
 
-        /* --- Welcome Section --- */
-        .welcome-area {
-            padding: 30px 6% 20px;
-        }
-
-        .welcome-area h2 {
-            font-size: 26px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .welcome-area p {
-            color: #777;
+        /* --- কন্টেন্ট এরিয়া --- */
+        .container { padding: 30px 5% 100px; }
+        
+        .welcome-header { margin-bottom: 25px; }
+        .welcome-header h2 { font-size: 28px; color: #000; margin-bottom: 2px; font-weight: 700; }
+        
+        /* উইশ টেক্সট ইউআই */
+        .wish-text {
             font-size: 16px;
+            color: #666;
+            margin-bottom: 12px;
+            font-family: 'Tiro Bangla', serif;
         }
 
-        /* --- Dashboard Content Sections --- */
-        .content-section {
-            padding: 10px 6%;
-            display: none;
-            animation: fadeIn 0.4s ease;
+        /* ফিক্সড ইমেইল ট্যাগ ইউআই */
+        .user-tag { 
+            display: inline-block; 
+            font-family: 'Montserrat', sans-serif; 
+            font-size: 13px; 
+            background: #fff8e1; 
+            color: var(--dark-gold); 
+            padding: 5px 12px; 
+            border-radius: 6px;
+            font-weight: 700;
+            border: 1px solid #ffe082;
+            min-width: 100px;
         }
 
-        .content-section.active { display: block; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* --- এডিট বাটন ইউআই --- */
+        .manage-section-btn {
+            background: #000;
+            color: #fff;
+            padding: 15px;
+            width: 100%;
+            border-radius: 12px;
+            border: none;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+            font-family: 'Tiro Bangla', serif;
         }
 
-        /* --- Course Cards --- */
-        .grid-container {
+        /* --- কোর্স গ্রিড --- */
+        .course-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
-            margin-top: 20px;
         }
 
-        .card {
+        .course-card {
             background: var(--white);
             border-radius: 20px;
-            padding: 20px;
+            padding: 25px;
             box-shadow: var(--shadow);
-            position: relative;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: 1px solid transparent;
-            transition: 0.3s;
             cursor: pointer;
         }
 
-        .card:hover { border-color: var(--accent-yellow); transform: translateY(-5px); }
+        .course-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-yellow);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+        }
 
-        .card h3 {
+        .course-card h3 {
             font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
             font-size: 18px;
             margin-bottom: 10px;
             color: #000;
         }
 
-        .card p { font-size: 15px; color: #666; margin-bottom: 15px; }
+        .course-card p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-family: 'Tiro Bangla', serif;
+        }
 
-        .course-btn {
-            background: #000;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            display: inline-block;
+        .enter-link {
             font-family: 'Montserrat', sans-serif;
-        }
-
-        /* --- Edit Mode --- */
-        .edit-controls {
+            font-weight: 800;
+            font-size: 13px;
+            color: var(--dark-gold);
             display: flex;
-            justify-content: flex-end;
-            margin-bottom: 15px;
-        }
-
-        .edit-btn {
-            background: var(--dark-gold);
-            color: white;
-            border: none;
-            padding: 8px 18px;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            font-family: 'Tiro Bangla';
-        }
-
-        /* Course Selector List */
-        .selector-list {
-            background: #fff;
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            margin-top: 20px;
-        }
-
-        .course-item {
-            display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 15px;
-            border-bottom: 1px solid #f0f0f0;
+            gap: 5px;
+            text-transform: uppercase;
         }
 
-        .course-item:last-child { border-bottom: none; }
-
-        .add-remove-btn {
-            border: none;
-            padding: 6px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 700;
-            font-family: 'Montserrat';
-        }
-
-        .btn-add { background: #e8f5e9; color: #2e7d32; }
-        .btn-remove { background: #ffebee; color: #c62828; }
-
-        /* --- Tutorial Section --- */
-        .tutorial-box {
+        /* --- সিলেক্টর বক্স --- */
+        .selector-box {
             background: #fff;
             padding: 25px;
             border-radius: 20px;
             box-shadow: var(--shadow);
-            margin-top: 15px;
+            display: none;
+            animation: fadeIn 0.3s ease;
         }
 
-        .tutorial-step {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .step-num {
-            background: var(--accent-yellow);
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
+        .course-list-item {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            flex-shrink: 0;
+            padding: 15px 0;
+            border-bottom: 1px solid #f9f9f9;
         }
 
-        /* --- Bottom Navigation (App Style) --- */
+        .action-btn {
+            padding: 8px 18px;
+            border-radius: 8px;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 11px;
+            cursor: pointer;
+        }
+        .btn-add { background: #e8f5e9; color: #2e7d32; }
+        .btn-remove { background: #ffebee; color: #c62828; }
+
+        /* --- টিউটোরিয়াল এরিয়া --- */
+        .info-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            border-left: 5px solid var(--accent-yellow);
+            box-shadow: var(--shadow);
+        }
+
+        /* --- নিচের ট্যাব নেভিগেশন --- */
         .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            background: #ffffff;
+            background: #fff;
             display: flex;
-            justify-content: space-around;
-            padding: 12px 0;
             box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
+            height: 70px;
             z-index: 1000;
         }
 
         .nav-item {
-            text-align: center;
-            color: #999;
-            text-decoration: none;
             flex: 1;
-            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #ccc;
             cursor: pointer;
         }
-
-        .nav-item i { font-size: 22px; display: block; margin-bottom: 4px; }
-        .nav-item span { font-size: 12px; font-weight: 700; }
 
         .nav-item.active { color: var(--dark-gold); }
+        .nav-item i { font-size: 22px; margin-bottom: 4px; }
+        .nav-item span { font-size: 13px; font-weight: 700; font-family: 'Tiro Bangla', serif; }
 
-        /* Logout button */
-        .logout-btn {
-            background: #ffebee;
-            color: #c62828;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 10px;
-            font-weight: 700;
-            cursor: pointer;
-            font-family: 'Montserrat';
-            margin-top: 30px;
-            width: 100%;
+        /* --- লগআউট মোডাল এনিমেশন --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(4px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 25px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            transform: scale(0.8);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: scale(1);
+        }
+
+        .modal-card i { font-size: 50px; color: var(--danger); margin-bottom: 15px; }
+        .modal-btns { display: flex; gap: 10px; margin-top: 25px; }
+        .m-btn {
+            flex: 1; padding: 12px; border-radius: 12px; border: none; font-weight: 700; cursor: pointer; font-family: 'Tiro Bangla', serif; font-size: 16px;
+        }
+        .m-cancel { background: #f0f0f0; color: #333; }
+        .m-confirm { background: var(--danger); color: #fff; }
 
     </style>
 </head>
 <body>
 
+    <!-- Logout Modal -->
+    <div class="modal-overlay" id="logoutModal">
+        <div class="modal-card">
+            <i class="fas fa-exclamation-circle"></i>
+            <h3 style="font-family: 'Tiro Bangla'; font-size: 22px; margin-bottom: 10px;">আপনি কি নিশ্চিত?</h3>
+            <p style="font-family: 'Tiro Bangla'; color: #666; line-height: 1.6;">লগআউট করলে আপনার ড্যাশবোর্ডের সকল কোর্স সিলেকশন ডাটা <b>স্থায়ীভাবে মুছে যাবে</b>।</p>
+            <div class="modal-btns">
+                <button class="m-btn m-cancel" onclick="closeModal()">না, থাক</button>
+                <button class="m-btn m-confirm" onclick="confirmLogout()">লগআউট</button>
+            </div>
+        </div>
+    </div>
+
     <header>
-        <img src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" class="logo-img">
-        <div class="user-info">
-            <i class="fas fa-circle-user"></i>
-            <span id="displayUser">User</span>
+        <div class="header-left">
+            <img src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" class="logo-img" onclick="location.href='index.html'">
+        </div>
+        <div class="header-right">
+            <a href="index.html" class="nav-btn btn-home">
+                <i class="fas fa-home"></i> HOME
+            </a>
+            <button class="nav-btn btn-logout" onclick="showWarning()">
+                <i class="fas fa-sign-out-alt"></i> LOGOUT
+            </button>
         </div>
     </header>
 
-    <div class="welcome-area">
-        <h2 id="welcomeText">আসসালামু আলাইকুম</h2>
-        <p>আপনার প্রোফাইলে স্বাগতম। আজকের প্রস্তুতি কেমন চলছে?</p>
+    <div class="container">
+        <div class="welcome-header">
+            <h2 id="welcomeUser">আসসালামু আলাইকুম!</h2>
+            <div class="wish-text">আপনার প্রস্তুতির জন্য শুভকামনা</div>
+            <div class="user-tag" id="userEmailTag">user@example.com</div>
+        </div>
+
+        <section id="main-content">
+            <!-- ড্যাশবোর্ড ট্যাব -->
+            <div id="tab-dashboard" class="tab-view">
+                <button class="manage-section-btn" onclick="toggleEdit()" id="editToggleBtn">
+                    <i class="fas fa-plus-circle"></i> কোর্স যোগ বা পরিবর্তন করুন
+                </button>
+
+                <div id="courses-grid" class="course-grid">
+                    <!-- Cards Load Here -->
+                </div>
+
+                <div id="selector-box" class="selector-box">
+                    <h3 style="font-family: 'Tiro Bangla'; margin-bottom: 15px;">কোর্স নির্বাচন করুন:</h3>
+                    <div id="full-list-container"></div>
+                    <button class="manage-section-btn" style="margin-top:20px; background:var(--dark-gold);" onclick="toggleEdit()">সেভ করে ড্যাশবোর্ডে ফিরুন</button>
+                </div>
+            </div>
+
+            <!-- টিউটোরিয়াল ট্যাব -->
+            <div id="tab-tutorial" class="tab-view" style="display: none;">
+                <div class="info-card">
+                    <h4 style="font-family: Montserrat; font-weight: 800; font-size: 16px; margin-bottom: 5px;">01. ADD COURSES</h4>
+                    <p>ম্যানেজ বাটন থেকে আপনার প্রয়োজনীয় কোর্সটি লিস্টে যুক্ত করুন।</p>
+                </div>
+                <div class="info-card">
+                    <h4 style="font-family: Montserrat; font-weight: 800; font-size: 16px; margin-bottom: 5px;">02. ACCESS CLASS</h4>
+                    <p>কার্ডের "ENTER CLASS" বাটনে ক্লিক করলে সরাসরি ক্লাসের লিংক ওপেন হবে।</p>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <!-- কোর্সসমূহ সেকশন -->
-    <section id="courses-section" class="content-section active">
-        <div class="edit-controls">
-            <button class="edit-btn" onclick="toggleEditMode()">
-                <i class="fas fa-cog"></i> কোর্স ম্যানেজ করুন
-            </button>
-        </div>
-
-        <!-- সিলেক্টেড কোর্স কার্ড -->
-        <div id="selected-courses-grid" class="grid-container">
-            <!-- JavaScript will load cards here -->
-        </div>
-
-        <!-- কোর্স সিলেক্টর (ডিফল্টভাবে লুকানো) -->
-        <div id="course-selector" class="selector-list" style="display: none;">
-            <h3 style="margin-bottom: 15px;">৫টি কোর্সের মধ্য থেকে নির্বাচন করুন:</h3>
-            <div id="full-course-list">
-                <!-- JavaScript will load all 5 courses here -->
-            </div>
-            <button class="edit-btn" style="margin-top: 15px; width: 100%;" onclick="toggleEditMode()">শেষ করুন</button>
-        </div>
-    </section>
-
-    <!-- টিউটোরিয়াল সেকশন -->
-    <section id="tutorial-section" class="content-section">
-        <h3 style="margin-bottom: 15px;">কিভাবে কোর্স সম্পন্ন করবেন?</h3>
-        <div class="tutorial-box">
-            <div class="tutorial-step">
-                <div class="step-num">১</div>
-                <div>
-                    <h4 style="font-family: Montserrat;">Enrollment</h4>
-                    <p>প্রথমে কোর্স লিস্ট থেকে আপনার কাঙ্ক্ষিত কোর্সটি "ADD" বাটনে ক্লিক করে ড্যাশবোর্ডে যুক্ত করুন।</p>
-                </div>
-            </div>
-            <div class="tutorial-step">
-                <div class="step-num">২</div>
-                <div>
-                    <h4 style="font-family: Montserrat;">Access Content</h4>
-                    <p>কোর্স কার্ডের "Enter Class" বাটনে ক্লিক করলে আপনি সরাসরি ক্লাসের পেজে চলে যাবেন।</p>
-                </div>
-            </div>
-            <div class="tutorial-step">
-                <div class="step-num">৩</div>
-                <div>
-                    <h4 style="font-family: Montserrat;">Stay Updated</h4>
-                    <p>লোকাল স্টোরেজ ব্যবহার করার কারণে আপনার ডাটা এই ব্রাউজারে সুরক্ষিত থাকবে। ব্রাউজার ডাটা ক্লিয়ার করবেন না।</p>
-                </div>
-            </div>
-        </div>
-
-        <button class="logout-btn" onclick="logout()">LOGOUT ACCOUNT</button>
-    </section>
-
-    <!-- Bottom Navigation -->
     <nav class="bottom-nav">
-        <div class="nav-item active" onclick="switchNav(this, 'courses-section')">
-            <i class="fas fa-book-open"></i>
-            <span>কোর্সসমূহ</span>
+        <div class="nav-item active" onclick="switchTab(this, 'tab-dashboard')">
+            <i class="fas fa-th-large"></i>
+            <span>ড্যাশবোর্ড</span>
         </div>
-        <div class="nav-item" onclick="switchNav(this, 'tutorial-section')">
+        <div class="nav-item" onclick="switchTab(this, 'tab-tutorial')">
             <i class="fas fa-play-circle"></i>
             <span>টিউটোরিয়াল</span>
         </div>
     </nav>
 
     <script>
-        // --- ১. অথেনটিকেশন ও ডাটা লোডিং ---
-        window.onload = function() {
-            const isLoggedIn = localStorage.getItem('isLoggedIn');
-            const userEmail = localStorage.getItem('userEmail');
-
-            if (isLoggedIn !== 'true') {
-                window.location.href = "login.html"; // লগইন না থাকলে রিডাইরেক্ট
-                return;
-            }
-
-            document.getElementById('displayUser').innerText = userEmail.split('@')[0].toUpperCase();
-            renderSelectedCourses();
-        };
-
-        // --- ২. কোর্স ডাটাবেজ (৫টি কোর্স) ---
-        const allAvailableCourses = [
-            { id: 1, name: "Final Revision Course", desc: "HSC এর শেষ মুহূর্তের সেরা প্রস্তুতি।", link: "revision.html" },
-            { id: 2, name: "BP Chemistry", desc: "বেসিক থেকে প্রো লেভেল কেমিস্ট্রি কোর্স।", link: "chemistry.html" },
-            { id: 3, name: "Udvash FRB", desc: "উদ্ভাস ইঞ্জিনিয়ারিং ফাউন্ডেশন ও রিভিশন।", link: "udvash.html" },
-            { id: 4, name: "ACS FRB", desc: "এসিএস এর স্পেশাল ফাইনাল রিভিশন ব্যাচ।", link: "acs.html" },
-            { id: 5, name: "Physics Booster", desc: "ফিজিক্সের জটিল সমস্যা সমাধানের মাস্টারক্লাস।", link: "physics.html" }
+        const allCourses = [
+            { id: 1, name: "Final Revision Course", desc: "HSC এর পূর্ণাঙ্গ রিভিশন গাইডলাইন ও সল্যুশন।", link: "revision.html" },
+            { id: 2, name: "BP Chemistry", desc: "কেমিস্ট্রির সকল বেসিক ও সিকিউ মাস্টারক্লাস।", link: "chemistry.html" },
+            { id: 3, name: "Udvash FRB", desc: "উদ্ভাস এর ফাইনাল রিভিশন ব্যাচের কন্টেন্ট।", link: "udvash.html" },
+            { id: 4, name: "ACS FRB", desc: "এসিএস এর সকল শর্ট সিলেবাস এক্সক্লুসিভ কোর্স।", link: "acs.html" },
+            { id: 5, name: "Physics Booster", desc: "ফিজিক্সের গাণিতিক সমস্যার দ্রুত সমাধান কৌশল।", link: "physics.html" }
         ];
 
-        // --- ৩. কোর্স ম্যানেজমেন্ট ফাংশন ---
-        
-        function getSelectedIds() {
-            const ids = localStorage.getItem('selectedCourses');
-            return ids ? JSON.parse(ids) : [];
-        }
+        window.onload = function() {
+            const auth = localStorage.getItem('isLoggedIn');
+            const email = localStorage.getItem('userEmail');
 
-        function toggleCourse(id) {
-            let selectedIds = getSelectedIds();
-            if (selectedIds.includes(id)) {
-                selectedIds = selectedIds.filter(courseId => courseId !== id);
-            } else {
-                selectedIds.push(id);
-            }
-            localStorage.setItem('selectedCourses', JSON.stringify(selectedIds));
-            renderSelectedCourses();
-            renderSelectorList();
-        }
-
-        function renderSelectedCourses() {
-            const grid = document.getElementById('selected-courses-grid');
-            const selectedIds = getSelectedIds();
-            grid.innerHTML = "";
-
-            if (selectedIds.length === 0) {
-                grid.innerHTML = `<div style="text-align:center; padding: 40px; color: #999; grid-column: 1/-1;">
-                                    <i class="fas fa-folder-open" style="font-size: 40px; margin-bottom: 10px;"></i>
-                                    <p>কোন কোর্স যোগ করা নেই। "ম্যানেজ করুন" এ ক্লিক করে অ্যাড করুন।</p>
-                                  </div>`;
+            if (auth !== 'true') {
+                window.location.href = "login.html";
                 return;
             }
 
-            allAvailableCourses.forEach(course => {
-                if (selectedIds.includes(course.id)) {
+            if(email) document.getElementById('userEmailTag').innerText = email;
+            renderDashboard();
+        };
+
+        function renderDashboard() {
+            const grid = document.getElementById('courses-grid');
+            const userCourses = JSON.parse(localStorage.getItem('userCourses') || "[]");
+            grid.innerHTML = "";
+
+            if (userCourses.length === 0) {
+                grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #999; font-family: 'Tiro Bangla';"><p>আপনার ড্যাশবোর্ড খালি। কোর্স যোগ করুন।</p></div>`;
+                return;
+            }
+
+            allCourses.forEach(c => {
+                if (userCourses.includes(c.id)) {
                     grid.innerHTML += `
-                        <div class="card" onclick="location.href='${course.link}'">
-                            <h3>${course.name}</h3>
-                            <p>${course.desc}</p>
-                            <a href="${course.link}" class="course-btn">Enter Class <i class="fas fa-arrow-right"></i></a>
+                        <div class="course-card" onclick="secureEntry('${c.link}')">
+                            <h3>${c.name}</h3>
+                            <p>${c.desc}</p>
+                            <div class="enter-link">ENTER CLASS <i class="fas fa-arrow-right"></i></div>
                         </div>
                     `;
                 }
             });
         }
 
-        function renderSelectorList() {
-            const listContainer = document.getElementById('full-course-list');
-            const selectedIds = getSelectedIds();
-            listContainer.innerHTML = "";
+        function secureEntry(url) {
+            if (localStorage.getItem('isLoggedIn') === 'true') {
+                window.location.href = url;
+            } else {
+                window.location.href = "login.html";
+            }
+        }
 
-            allAvailableCourses.forEach(course => {
-                const isSelected = selectedIds.includes(course.id);
-                listContainer.innerHTML += `
-                    <div class="course-item">
-                        <div>
-                            <span style="font-family: Montserrat; font-weight:700;">${course.name}</span>
-                        </div>
-                        <button class="add-remove-btn ${isSelected ? 'btn-remove' : 'btn-add'}" onclick="toggleCourse(${course.id})">
-                            ${isSelected ? 'REMOVE' : 'ADD'}
+        function renderSelector() {
+            const list = document.getElementById('full-list-container');
+            const userCourses = JSON.parse(localStorage.getItem('userCourses') || "[]");
+            list.innerHTML = "";
+
+            allCourses.forEach(c => {
+                const added = userCourses.includes(c.id);
+                list.innerHTML += `
+                    <div class="course-list-item">
+                        <span style="font-family: Montserrat; font-weight: 700; font-size: 14px;">${c.name}</span>
+                        <button class="action-btn ${added ? 'btn-remove' : 'btn-add'}" onclick="toggleSelect(${c.id})">
+                            ${added ? 'REMOVE' : 'ADD'}
                         </button>
                     </div>
                 `;
             });
         }
 
-        function toggleEditMode() {
-            const grid = document.getElementById('selected-courses-grid');
-            const selector = document.getElementById('course-selector');
-            const editBtn = document.querySelector('.edit-btn');
-
-            if (selector.style.display === 'none') {
-                selector.style.display = 'block';
-                grid.style.display = 'none';
-                renderSelectorList();
-                editBtn.innerHTML = '<i class="fas fa-check"></i> সেভ করুন';
+        function toggleSelect(id) {
+            let userCourses = JSON.parse(localStorage.getItem('userCourses') || "[]");
+            if (userCourses.includes(id)) {
+                userCourses = userCourses.filter(cid => cid !== id);
             } else {
-                selector.style.display = 'none';
+                userCourses.push(id);
+            }
+            localStorage.setItem('userCourses', JSON.stringify(userCourses));
+            renderSelector();
+            renderDashboard();
+        }
+
+        function toggleEdit() {
+            const grid = document.getElementById('courses-grid');
+            const box = document.getElementById('selector-box');
+            const btn = document.getElementById('editToggleBtn');
+
+            if (box.style.display === 'none' || box.style.display === '') {
+                box.style.display = 'block';
+                grid.style.display = 'none';
+                btn.style.display = 'none';
+                renderSelector();
+            } else {
+                box.style.display = 'none';
                 grid.style.display = 'grid';
-                editBtn.innerHTML = '<i class="fas fa-cog"></i> কোর্স ম্যানেজ করুন';
+                btn.style.display = 'flex';
             }
         }
 
-        // --- ৪. নেভিগেশন সুইচ ---
-        function switchNav(el, sectionId) {
-            // বাটন এক্টিভ করা
-            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+        function switchTab(el, id) {
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            document.querySelectorAll('.tab-view').forEach(v => v.style.display = 'none');
             el.classList.add('active');
-
-            // সেকশন শো করা
-            document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
-            document.getElementById(sectionId).classList.add('active');
+            document.getElementById(id).style.display = 'block';
         }
 
-        // --- ৫. লগআউট ---
-        function logout() {
-            localStorage.removeItem('isLoggedIn');
+        // --- লগআউট ও ওয়ার্নিং ফাংশন ---
+        function showWarning() { 
+            const modal = document.getElementById('logoutModal');
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('active'), 10);
+        }
+
+        function closeModal() { 
+            const modal = document.getElementById('logoutModal');
+            modal.classList.remove('active');
+            setTimeout(() => modal.style.display = 'none', 300);
+        }
+
+        function confirmLogout() {
+            localStorage.clear();
             window.location.href = "index.html";
         }
     </script>
-
 </body>
 </html>
 
