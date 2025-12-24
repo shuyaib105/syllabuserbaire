@@ -36,7 +36,7 @@
             font-family: 'Tiro Bangla', serif;
         }
 
-        /* --- Hero Section Typography (Tiro Bangla) --- */
+        /* --- Hero Section Typography --- */
         .hero-content h1 {
             font-family: 'Tiro Bangla', serif !important;
             font-size: 2.5rem;
@@ -53,23 +53,6 @@
             color: #444;
         }
 
-        /* --- Action Buttons (COURSES, QB, CONTACT) Typography (Montserrat) --- */
-        .img-btn span {
-            font-family: 'Montserrat', sans-serif !important;
-            position: relative;
-            z-index: 2;
-            color: white;
-            font-size: 15px;
-            font-weight: 800;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-            letter-spacing: 1px;
-        }
-
-        /* অন্যান্য ইংরেজি ও বাটন টেক্সট */
-        .auth-btn, .hero-btn-en, .tab-btn, .enroll-btn, .footer-bottom, h2, h3 {
-            font-family: 'Montserrat', sans-serif;
-        }
-
         /* --- Header Styles --- */
         header {
             background: rgba(255, 255, 255, 0.98);
@@ -84,16 +67,9 @@
             height: 70px;
         }
 
-        .logo-img {
-            height: 55px;
-            width: auto;
-        }
+        .logo-img { height: 55px; width: auto; }
 
-        .header-controls {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        .header-controls { display: flex; align-items: center; gap: 12px; }
 
         .auth-btn {
             text-decoration: none;
@@ -101,6 +77,7 @@
             color: #fff;
             padding: 10px 18px;
             border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
             font-size: 12px;
             font-weight: 700;
             display: flex;
@@ -111,11 +88,9 @@
             text-transform: uppercase;
         }
 
-        .auth-btn:hover { background: var(--dark-gold); }
+        .menu-icon { font-size: 22px; cursor: pointer; color: var(--text-main); }
 
-        .menu-icon { font-size: 22px; cursor: pointer; color: var(--text-main); margin-left: 5px; }
-
-        /* --- Side Slide Menu --- */
+        /* --- Side Menu --- */
         .side-menu {
             position: fixed;
             top: 0;
@@ -130,7 +105,6 @@
         }
 
         .side-menu.active { right: 0; }
-
         .side-menu ul { list-style: none; margin-top: 30px; }
         .side-menu ul li { margin-bottom: 20px; }
         .side-menu ul li a {
@@ -140,10 +114,9 @@
             font-weight: 600;
             font-family: 'Tiro Bangla', serif;
         }
-
         .close-menu { position: absolute; top: 15px; left: 20px; font-size: 24px; cursor: pointer; }
 
-        /* --- Hero Section --- */
+        /* --- Hero --- */
         .hero {
             display: flex;
             align-items: center;
@@ -152,108 +125,33 @@
             flex-wrap: wrap;
             gap: 20px;
         }
-
         .hero-content { flex: 1; min-width: 300px; }
         .hero-image { flex: 1; display: flex; justify-content: center; min-width: 300px; }
+        .hero-image img { width: 100%; max-width: 350px; border-radius: 20px; border: 5px solid white; box-shadow: var(--shadow); }
 
-        .hero-image img {
-            width: 100%;
-            max-width: 350px;
-            border-radius: 20px;
-            border: 5px solid white;
-            box-shadow: var(--shadow);
-        }
-
-        .hero-btn-en {
-            display: inline-block;
-            padding: 12px 30px;
-            background: #000;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-
-        /* --- Action Buttons Container --- */
-        .action-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            padding: 10px 8%;
-            margin-top: -20px;
-        }
-
+        /* --- Action Buttons --- */
+        .action-buttons { display: flex; justify-content: center; gap: 15px; padding: 10px 8%; margin-top: -20px; }
         .img-btn {
-            width: 160px;
-            height: 75px;
-            background-size: cover;
-            background-position: center;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: 0.3s ease;
+            width: 160px; height: 75px;
+            background-size: cover; background-position: center;
+            border-radius: 12px; display: flex; align-items: center; justify-content: center;
+            text-decoration: none; position: relative; overflow: hidden; box-shadow: var(--shadow); transition: 0.3s ease;
         }
+        .img-btn::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.45); }
+        .img-btn span { font-family: 'Montserrat', sans-serif; position: relative; z-index: 2; color: white; font-size: 15px; font-weight: 800; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); }
 
-        .img-btn:hover { transform: translateY(-5px); }
-
-        .img-btn::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.45);
-        }
-
-        /* --- Courses Section --- */
+        /* --- Courses --- */
         #courses-section { padding: 80px 8% 50px; text-align: center; }
-
-        .tab-box {
-            background: #f0f0f0;
-            padding: 5px;
-            border-radius: 12px;
-            display: inline-flex;
-            margin-bottom: 35px;
-        }
-
-        .tab-btn {
-            padding: 8px 22px;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            font-size: 15px;
-            font-weight: 600;
-            border-radius: 8px;
-            transition: 0.3s;
-            color: #666;
-        }
-
-        .tab-btn.active {
-            background: var(--white);
-            color: var(--dark-gold);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
+        .tab-box { background: #f0f0f0; padding: 5px; border-radius: 12px; display: inline-flex; margin-bottom: 35px; }
+        .tab-btn { padding: 8px 22px; border: none; background: transparent; cursor: pointer; font-size: 15px; font-weight: 600; border-radius: 8px; color: #666; font-family: 'Montserrat'; }
+        .tab-btn.active { background: var(--white); color: var(--dark-gold); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
         .tab-content { display: none; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
         .tab-content.active { display: grid; }
-
-        .course-card {
-            background: var(--white);
-            border-radius: 20px;
-            overflow: hidden;
-            text-align: left;
-            box-shadow: var(--shadow);
-        }
-
+        .course-card { background: var(--white); border-radius: 20px; overflow: hidden; text-align: left; box-shadow: var(--shadow); }
         .course-thumb { width: 100%; height: 180px; object-fit: cover; }
         .course-info { padding: 20px; }
-        .course-info h3 { margin-bottom: 10px; font-size: 20px; font-family: 'Montserrat'; }
-        .course-info p { font-size: 17px; font-family: 'Tiro Bangla'; }
+        .course-info h3 { font-family: 'Montserrat'; font-size: 20px; margin-bottom: 10px; }
+        .course-info p { font-size: 17px; line-height: 1.5; color: #555; }
 
         .enroll-btn {
             display: inline-block;
@@ -264,53 +162,89 @@
             text-decoration: none;
             font-weight: 700;
             margin-top: 15px;
+            font-family: 'Montserrat';
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            transition: 0.3s;
         }
+        .enroll-btn:hover { background: #e1b900; }
+
+        /* --- Enroll Popup Design (Premium Icons) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        .modal-card {
+            background: #fff;
+            padding: 40px 30px;
+            border-radius: 30px;
+            width: 90%;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid #f8f8f8;
+        }
+        @keyframes popIn { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        
+        .modal-icon-container {
+            width: 90px; height: 90px;
+            background: #fffdf0;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 20px rgba(255, 210, 0, 0.15);
+        }
+        .modal-icon { font-size: 45px; }
+        .icon-gold { color: var(--dark-gold); }
+        .icon-blue { color: #3498db; }
+
+        .modal-title { font-family: 'Montserrat'; font-weight: 800; font-size: 20px; display: block; margin-bottom: 12px; color: #111; letter-spacing: -0.5px; }
+        .modal-desc { font-family: 'Tiro Bangla'; font-size: 18px; color: #444; line-height: 1.6; margin-bottom: 30px; }
+        .modal-action-btn {
+            background: #000; color: #fff; padding: 15px; border-radius: 12px;
+            font-family: 'Montserrat'; font-weight: 800; font-size: 16px; width: 100%;
+            border: none; cursor: pointer; transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            text-transform: uppercase;
+        }
+        .modal-action-btn:hover { background: var(--dark-gold); transform: translateY(-2px); }
 
         /* --- Footer --- */
-        footer {
-            background: #111;
-            color: #fff;
-            padding: 50px 8% 25px;
-            margin-top: 60px;
-            border-radius: 30px 30px 0 0;
-        }
-
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 25px;
-            border-bottom: 1px solid #222;
-            padding-bottom: 25px;
-        }
-
-        .footer-logo-img { height: 50px; width: auto; }
-
+        footer { background: #111; color: #fff; padding: 50px 8% 25px; margin-top: 60px; border-radius: 30px 30px 0 0; }
+        .footer-content { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 25px; border-bottom: 1px solid #222; padding-bottom: 25px; }
+        .footer-logo-img { height: 50px; }
         .footer-links { display: flex; gap: 15px; }
-        .footer-links a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 14px;
-            background: #222;
-            padding: 10px 18px;
-            border-radius: 50px;
-        }
-
-        .footer-bottom { text-align: center; margin-top: 25px; font-size: 13px; color: #555; }
+        .footer-links a { color: #fff; text-decoration: none; font-size: 14px; background: #222; padding: 10px 18px; border-radius: 50px; font-family: 'Tiro Bangla'; }
+        .footer-bottom { text-align: center; margin-top: 25px; font-size: 13px; color: #555; font-family: 'Montserrat'; }
 
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">
-            <img src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="লোগো" class="logo-img">
+    <!-- Enroll Popup Modal -->
+    <div class="modal-overlay" id="enrollModal">
+        <div class="modal-card">
+            <div class="modal-icon-container" id="modalIconBox">
+                <!-- আইকন জাভাস্ক্রিপ্ট থেকে আসবে -->
+            </div>
+            <span id="modalCourseTitle" class="modal-title">কোর্সের নাম</span>
+            <p id="modalMessage" class="modal-desc"></p>
+            <button class="modal-action-btn" onclick="executeRedirect()">Enroll Now</button>
         </div>
-        
+    </div>
+
+    <header>
+        <img src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" class="logo-img">
         <div class="header-controls">
-            <!-- ডাইনামিক অ্যাকাউন্ট বাটন -->
-            <a href="login.html" id="dynamicAuthBtn" class="auth-btn">
+            <a href="login.html" id="authBtn" class="auth-btn">
                 <i class="fas fa-user-circle"></i>
                 <span id="authText">ACCOUNT</span>
             </a>
@@ -325,7 +259,7 @@
             <li><a href="#courses-section" onclick="toggleMenu()">কোর্সসমূহ</a></li>
             <li><a href="#" onclick="toggleMenu()">আমাদের সম্পর্কে</a></li>
             <li id="sideAuthLi"><a href="login.html" id="sideAuthLink">লগইন করুন</a></li>
-            <li id="logoutLi" style="display: none;"><a href="#" onclick="logoutUser()" style="color: #e74c3c;">লগ আউট</a></li>
+            <li id="logoutLi" style="display: none;"><a href="#" onclick="logout()" style="color: #e74c3c;">লগ আউট</a></li>
         </ul>
     </div>
 
@@ -333,10 +267,9 @@
         <div class="hero-content">
             <h1>প্রস্তুতি হোক <span style="color:var(--dark-gold)">সেরা মেন্টরদের</span> সাথে</h1>
             <p>সহজ ব্যাখ্যা আর আধুনিক টেকনিকের মাধ্যমে আমরা তোমার সিলেবাসের ভয় দূর করবো ইনশাআল্লাহ্‌।</p>
-            <a href="#courses-section" class="hero-btn-en">SEE COURSES</a>
         </div>
         <div class="hero-image">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJtYXVvM3Z6Zmd6ZzZqZzZqZzZqZzZqZzZqZzZqZzZqZzZqJmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKVUn7iM8FMEU24/giphy.gif" alt="Study Animation">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJtYXVvM3Z6Zmd6ZzZqZzZqZzZqZzZqZzZqZzZqZzZqZzZqJmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKVUn7iM8FMEU24/giphy.gif" alt="Study">
         </div>
     </section>
 
@@ -354,30 +287,30 @@
 
         <div id="hsc26" class="tab-content active">
             <div class="course-card">
-                <img src="https://img.freepik.com/free-photo/high-angle-physics-books-with-copy-space_23-2148756545.jpg" alt="Physics" class="course-thumb">
+                <img src="https://img.freepik.com/free-photo/high-angle-physics-books-with-copy-space_23-2148756545.jpg" class="course-thumb">
                 <div class="course-info">
                     <h3>Physics Master Batch</h3>
                     <p>HSC 26 এর জন্য পূর্ণাঙ্গ ফিজিক্স কোর্স। প্রতিটি অধ্যায়ের কনসেপ্ট হবে ক্লিয়ার।</p>
-                    <a href="#" class="enroll-btn">Enroll Now</a>
+                    <button class="enroll-btn" onclick="openEnrollPopup('Physics Master Batch')">Enroll Now</button>
                 </div>
             </div>
             <div class="course-card">
-                <img src="https://img.freepik.com/free-photo/bottles-filled-with-colored-liquid-lab_23-2148756534.jpg" alt="Chemistry" class="course-thumb">
+                <img src="https://img.freepik.com/free-photo/bottles-filled-with-colored-liquid-lab_23-2148756534.jpg" class="course-thumb">
                 <div class="course-info">
                     <h3>Chemistry Mission</h3>
                     <p>জৈব ও অজৈব রসায়নের স্পেশাল ব্যাচ।</p>
-                    <a href="#" class="enroll-btn">Enroll Now</a>
+                    <button class="enroll-btn" onclick="openEnrollPopup('Chemistry Mission')">Enroll Now</button>
                 </div>
             </div>
         </div>
 
         <div id="hsc25" class="tab-content">
             <div class="course-card">
-                <img src="https://img.freepik.com/free-photo/top-view-math-formulas-with-copy-space_23-2148756540.jpg" alt="Math" class="course-thumb">
+                <img src="https://img.freepik.com/free-photo/top-view-math-formulas-with-copy-space_23-2148756540.jpg" class="course-thumb">
                 <div class="course-info">
                     <h3>Higher Math A-Z</h3>
                     <p>এইচএসসি ২৫ এর শেষ মুহূর্তের প্রস্তুতি।</p>
-                    <a href="#" class="enroll-btn">Enroll Now</a>
+                    <button class="enroll-btn" onclick="openEnrollPopup('Higher Math A-Z')">Enroll Now</button>
                 </div>
             </div>
         </div>
@@ -385,55 +318,70 @@
 
     <footer>
         <div class="footer-content">
-            <div class="footer-logo-container">
-                <img src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="ফুটার লোগো" class="footer-logo-img">
-                <div style="font-size: 18px; color: var(--accent-yellow); font-weight: 700; font-family: 'Tiro Bangla';">সিলেবাসের বাইরে</div>
+            <div>
+                <img src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" class="footer-logo-img">
+                <div style="font-size: 18px; color: var(--accent-yellow); font-weight: 700; font-family: 'Tiro Bangla';">যোগাযোগ করুন</div>
             </div>
             <div class="footer-links">
                 <a href="#"><i class="fab fa-telegram-plane"></i> টেলিগ্রাম</a>
                 <a href="#"><i class="fas fa-robot"></i> সাপোর্ট বট</a>
             </div>
         </div>
-        <div class="footer-bottom">
-            &copy; 2025 SYLLABUSER BAIRE - Education Made Simple.
-        </div>
+        <div class="footer-bottom">&copy; 2025 SYLLABUSER BAIRE - Education Made Simple.</div>
     </footer>
 
     <script>
-        // অথেনটিকেশন চেক ফাংশন
+        // অথেনটিকেশন স্ট্যাটাস চেক
         function checkAuthStatus() {
-            const isLoggedIn = localStorage.getItem('isLoggedIn');
-            const authBtn = document.getElementById('dynamicAuthBtn');
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
             const authText = document.getElementById('authText');
+            const authBtn = document.getElementById('authBtn');
             const sideAuthLink = document.getElementById('sideAuthLink');
             const logoutLi = document.getElementById('logoutLi');
 
-            if (isLoggedIn === 'true') {
-                // লগইন করা থাকলে
+            if (isLoggedIn) {
                 authText.innerText = "DASHBOARD";
-                authBtn.href = "dashboard.html"; // ড্যাশবোর্ড পেজে নিয়ে যাবে
-                
+                authBtn.href = "dashboard.html";
                 sideAuthLink.innerText = "ড্যাশবোর্ড";
                 sideAuthLink.href = "dashboard.html";
-                logoutLi.style.display = "block"; // লগআউট অপশন দেখাবে
+                logoutLi.style.display = "block";
             } else {
-                // লগইন করা না থাকলে
                 authText.innerText = "ACCOUNT";
-                authBtn.href = "login.html"; // লগইন পেজে নিয়ে যাবে
-                
+                authBtn.href = "login.html";
                 sideAuthLink.innerText = "লগইন করুন";
                 sideAuthLink.href = "login.html";
                 logoutLi.style.display = "none";
             }
         }
 
-        // লগআউট ফাংশন (টেস্টিং এর জন্য)
-        function logoutUser() {
-            localStorage.removeItem('isLoggedIn');
-            localStorage.removeItem('userEmail');
-            checkAuthStatus();
-            toggleMenu();
-            window.location.reload(); // পেজ রিফ্রেশ করে পরিবর্তন দেখাবে
+        // পপ-আপ ওপেন ফাংশন
+        function openEnrollPopup(courseName) {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const modal = document.getElementById('enrollModal');
+            const iconBox = document.getElementById('modalIconBox');
+            const titleSpan = document.getElementById('modalCourseTitle');
+            const msgP = document.getElementById('modalMessage');
+
+            titleSpan.innerText = courseName;
+            modal.style.display = "flex";
+
+            if (isLoggedIn) {
+                iconBox.innerHTML = '<i class="fas fa-certificate modal-icon icon-gold"></i>';
+                msgP.innerText = "কোর্সে Enroll করার জন্য ধন্যবাদ, Dasborad থেকে আপনার পছন্দের course Erroll করুন";
+            } else {
+                iconBox.innerHTML = '<i class="fas fa-user-lock modal-icon icon-blue"></i>';
+                msgP.innerText = "Login করা না থাকলে Login করবেন এবং এবং Dasboad থেকে কোর্স সিলেক্ট করে নিবেন";
+            }
+        }
+
+        function executeRedirect() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            window.location.href = isLoggedIn ? "dashboard.html" : "login.html";
+        }
+
+        function logout() {
+            localStorage.clear();
+            window.location.reload();
         }
 
         function toggleMenu() {
@@ -441,20 +389,21 @@
         }
 
         function openTab(evt, tabName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].classList.remove("active");
-            }
-            tablinks = document.getElementsByClassName("tab-btn");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].classList.remove("active");
-            }
+            const tabcontent = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabcontent.length; i++) tabcontent[i].classList.remove("active");
+            const tablinks = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < tablinks.length; i++) tablinks[i].classList.remove("active");
             document.getElementById(tabName).classList.add("active");
             evt.currentTarget.classList.add("active");
         }
 
-        // পেজ লোড হলে স্ট্যাটাস চেক করবে
+        // পপ-আপের বাইরে ক্লিক করলে বন্ধ হবে
+        window.onclick = function(e) {
+            if(e.target == document.getElementById('enrollModal')) {
+                document.getElementById('enrollModal').style.display = "none";
+            }
+        }
+
         window.onload = checkAuthStatus;
     </script>
 </body>
