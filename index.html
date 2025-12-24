@@ -1,14 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>সিলেবাসের বাইরে | Tiro Bangla Fixed</title>
+    <title>সিলেবাসের বাইরে | Typography Fixed</title>
     
     <!-- ফন্ট ইমপোর্ট -->
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Montserrat:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Montserrat:wght@400;500;600;700;800&display=swap');
     </style>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -34,21 +33,40 @@
             background-color: var(--bg-cream);
             color: var(--text-main);
             overflow-x: hidden;
-            font-family: 'Tiro Bangla', serif; /* ডিফল্ট ফন্ট */
+            font-family: 'Tiro Bangla', serif;
         }
 
-        /* হিরো এবং হেডার টেক্সট ফিক্স */
-        .hero-content h1, 
-        .hero-content p,
-        .side-menu ul li a,
-        .footer-logo-container div,
-        .login-card h2,
-        .login-card p {
+        /* --- Hero Section Typography (Tiro Bangla) --- */
+        .hero-content h1 {
             font-family: 'Tiro Bangla', serif !important;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            line-height: 1.3;
         }
 
-        /* ইংরেজি এবং বাটন ফন্ট */
-        h2, h3, .enroll-btn, .tab-btn, .img-btn span, .footer-bottom, .auth-btn, .hero-btn-en {
+        .hero-content p {
+            font-family: 'Tiro Bangla', serif !important;
+            font-size: 20px;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        /* --- Action Buttons (COURSES, QB, CONTACT) Typography (Montserrat) --- */
+        .img-btn span {
+            font-family: 'Montserrat', sans-serif !important;
+            position: relative;
+            z-index: 2;
+            color: white;
+            font-size: 15px;
+            font-weight: 800; /* Extra Bold for visibility */
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+            letter-spacing: 1px;
+        }
+
+        /* অন্যান্য ইংরেজি ও বাটন টেক্সট */
+        .auth-btn, .hero-btn-en, .tab-btn, .enroll-btn, .footer-bottom, h2, h3 {
             font-family: 'Montserrat', sans-serif;
         }
 
@@ -67,7 +85,7 @@
         }
 
         .logo-img {
-            height: 60px;
+            height: 55px;
             width: auto;
         }
 
@@ -81,7 +99,7 @@
             text-decoration: none;
             background: #000;
             color: #fff;
-            padding: 8px 18px;
+            padding: 10px 20px;
             border-radius: 50px;
             font-size: 13px;
             font-weight: 700;
@@ -93,11 +111,9 @@
             border: none;
         }
 
-        .menu-icon {
-            font-size: 24px;
-            cursor: pointer;
-            color: var(--text-main);
-        }
+        .auth-btn:hover { background: var(--dark-gold); }
+
+        .menu-icon { font-size: 24px; cursor: pointer; color: var(--text-main); }
 
         /* --- Side Slide Menu --- */
         .side-menu {
@@ -113,69 +129,32 @@
             padding: 40px 20px;
         }
 
-        .side-menu.active {
-            right: 0;
-        }
+        .side-menu.active { right: 0; }
 
-        .side-menu ul {
-            list-style: none;
-            margin-top: 30px;
-        }
-
-        .side-menu ul li {
-            margin-bottom: 20px;
-        }
-
+        .side-menu ul { list-style: none; margin-top: 30px; }
+        .side-menu ul li { margin-bottom: 20px; }
         .side-menu ul li a {
             text-decoration: none;
             color: var(--text-main);
             font-size: 18px;
             font-weight: 600;
+            font-family: 'Tiro Bangla', serif;
         }
 
-        .close-menu {
-            position: absolute;
-            top: 15px;
-            left: 20px;
-            font-size: 24px;
-            cursor: pointer;
-        }
+        .close-menu { position: absolute; top: 15px; left: 20px; font-size: 24px; cursor: pointer; }
 
         /* --- Hero Section --- */
         .hero {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 40px 8%;
+            padding: 40px 8% 30px;
             flex-wrap: wrap;
             gap: 20px;
         }
 
-        .hero-content {
-            flex: 1;
-            min-width: 280px;
-        }
-
-        .hero-content h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            font-weight: 700;
-            line-height: 1.3;
-        }
-
-        .hero-content p {
-            font-size: 20px;
-            margin-bottom: 25px;
-            line-height: 1.6;
-            color: #444;
-        }
-
-        .hero-image {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            min-width: 280px;
-        }
+        .hero-content { flex: 1; min-width: 300px; }
+        .hero-image { flex: 1; display: flex; justify-content: center; min-width: 300px; }
 
         .hero-image img {
             width: 100%;
@@ -185,21 +164,33 @@
             box-shadow: var(--shadow);
         }
 
-        /* --- Action Buttons --- */
+        .hero-btn-en {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #000;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        /* --- Action Buttons Container --- */
         .action-buttons {
             display: flex;
             justify-content: center;
-            gap: 12px;
+            gap: 15px;
             padding: 10px 8%;
             margin-top: -20px;
         }
 
         .img-btn {
             width: 160px;
-            height: 70px;
+            height: 75px;
             background-size: cover;
             background-position: center;
-            border-radius: 10px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -210,38 +201,28 @@
             transition: 0.3s ease;
         }
 
-        .img-btn span {
-            position: relative;
-            z-index: 2;
-            color: white;
-            font-size: 15px;
-            font-weight: 700;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-        }
+        .img-btn:hover { transform: translateY(-5px); }
 
         .img-btn::after {
             content: '';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.4);
+            background: rgba(0,0,0,0.45);
         }
 
-        /* --- Tab System & Courses --- */
-        #courses-section {
-            padding: 80px 8% 50px;
-            text-align: center;
-        }
+        /* --- Courses Section --- */
+        #courses-section { padding: 80px 8% 50px; text-align: center; }
 
         .tab-box {
-            background: #eee;
+            background: #f0f0f0;
             padding: 5px;
             border-radius: 12px;
             display: inline-flex;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
 
         .tab-btn {
-            padding: 8px 20px;
+            padding: 8px 22px;
             border: none;
             background: transparent;
             cursor: pointer;
@@ -258,18 +239,8 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
-        .tab-content {
-            display: none;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            opacity: 0;
-            transition: 0.3s;
-        }
-
-        .tab-content.active {
-            display: grid;
-            opacity: 1;
-        }
+        .tab-content { display: none; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .tab-content.active { display: grid; }
 
         .course-card {
             background: var(--white);
@@ -277,14 +248,12 @@
             overflow: hidden;
             text-align: left;
             box-shadow: var(--shadow);
-            transition: 0.3s;
         }
-
-        .course-card:hover { transform: translateY(-5px); }
 
         .course-thumb { width: 100%; height: 180px; object-fit: cover; }
         .course-info { padding: 20px; }
-        .course-info h3 { margin-bottom: 10px; font-size: 20px; }
+        .course-info h3 { margin-bottom: 10px; font-size: 20px; font-family: 'Montserrat'; }
+        .course-info p { font-size: 17px; font-family: 'Tiro Bangla'; }
 
         .enroll-btn {
             display: inline-block;
@@ -294,15 +263,15 @@
             border-radius: 8px;
             text-decoration: none;
             font-weight: 700;
-            margin-top: 10px;
+            margin-top: 15px;
         }
 
         /* --- Footer --- */
         footer {
-            background: #1a1a1a;
+            background: #111;
             color: #fff;
-            padding: 40px 8% 20px;
-            margin-top: 50px;
+            padding: 50px 8% 25px;
+            margin-top: 60px;
             border-radius: 30px 30px 0 0;
         }
 
@@ -311,9 +280,9 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 20px;
-            border-bottom: 1px solid #333;
-            padding-bottom: 20px;
+            gap: 25px;
+            border-bottom: 1px solid #222;
+            padding-bottom: 25px;
         }
 
         .footer-logo-img { height: 50px; width: auto; }
@@ -323,37 +292,16 @@
             color: #fff;
             text-decoration: none;
             font-size: 14px;
-            background: #333;
-            padding: 8px 15px;
+            background: #222;
+            padding: 10px 18px;
             border-radius: 50px;
         }
 
-        .footer-bottom { text-align: center; margin-top: 20px; font-size: 12px; color: #888; }
-
-        /* Login Overlay */
-        #login-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 253, 245, 0.98); z-index: 2000;
-            display: none; flex-direction: column; align-items: center; justify-content: center;
-        }
-
-        .login-card {
-            background: white; padding: 40px; border-radius: 20px; box-shadow: var(--shadow);
-            text-align: center; max-width: 350px; width: 90%;
-        }
+        .footer-bottom { text-align: center; margin-top: 25px; font-size: 13px; color: #555; }
 
     </style>
 </head>
 <body>
-
-    <div id="login-overlay">
-        <div class="login-card">
-            <h2>লগইন</h2>
-            <p>আপনার অ্যাকাউন্টে প্রবেশ করতে নিচের বাটনে ক্লিক করুন।</p>
-            <button onclick="loginUser()" style="width: 100%; padding: 12px; background: #000; color: #fff; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-family: 'Montserrat';">LOGIN NOW</button>
-            <p onclick="closeLogin()" style="margin-top: 15px; color: var(--dark-gold); cursor: pointer; font-size: 14px;">ফিরে যান</p>
-        </div>
-    </div>
 
     <header>
         <div class="logo">
@@ -361,10 +309,11 @@
         </div>
         
         <div class="header-controls">
-            <button id="authBtn" class="auth-btn" onclick="handleAuth()">
+            <!-- Redirects directly to login.html -->
+            <a href="login.html" id="authBtn" class="auth-btn">
                 <i class="fas fa-user-circle"></i>
-                <span id="authLabel">ACCOUNT</span>
-            </button>
+                <span>ACCOUNT</span>
+            </a>
             <div class="menu-icon" onclick="toggleMenu()"><i class="fas fa-bars-staggered"></i></div>
         </div>
     </header>
@@ -375,7 +324,7 @@
             <li><a href="#" onclick="toggleMenu()">হোম</a></li>
             <li><a href="#courses-section" onclick="toggleMenu()">কোর্সসমূহ</a></li>
             <li><a href="#" onclick="toggleMenu()">আমাদের সম্পর্কে</a></li>
-            <li id="logoutBtn" style="display:none;"><a href="#" onclick="logoutUser()" style="color: red;">লগ আউট</a></li>
+            <li><a href="login.html" style="color: var(--dark-gold);">লগইন করুন</a></li>
         </ul>
     </div>
 
@@ -383,7 +332,7 @@
         <div class="hero-content">
             <h1>প্রস্তুতি হোক <span style="color:var(--dark-gold)">সেরা মেন্টরদের</span> সাথে</h1>
             <p>সহজ ব্যাখ্যা আর আধুনিক টেকনিকের মাধ্যমে আমরা তোমার সিলেবাসের ভয় দূর করবো ইনশাআল্লাহ্‌।</p>
-            <a href="#courses-section" class="hero-btn-en" style="padding: 12px 30px; background: #000; color: #fff; text-decoration: none; border-radius: 8px; font-size: 15px; font-weight: 600;">SEE COURSES</a>
+            <a href="#courses-section" class="hero-btn-en">SEE COURSES</a>
         </div>
         <div class="hero-image">
             <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJtYXVvM3Z6Zmd6ZzZqZzZqZzZqZzZqZzZqZzZqZzZqZzZqJmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKVUn7iM8FMEU24/giphy.gif" alt="Study Animation">
@@ -404,17 +353,17 @@
 
         <div id="hsc26" class="tab-content active">
             <div class="course-card">
-                <img src="https://img.freepik.com/free-photo/high-angle-physics-books-with-copy-space_23-2148756545.jpg" alt="Physics Course" class="course-thumb">
+                <img src="https://img.freepik.com/free-photo/high-angle-physics-books-with-copy-space_23-2148756545.jpg" alt="Physics" class="course-thumb">
                 <div class="course-info">
-                    <h3 class="course-title">Physics Master Batch</h3>
-                    <p>HSC 26 এর জন্য পূর্ণাঙ্গ ফিজিক্স কোর্স।</p>
+                    <h3>Physics Master Batch</h3>
+                    <p>HSC 26 এর জন্য পূর্ণাঙ্গ ফিজিক্স কোর্স। প্রতিটি অধ্যায়ের কনসেপ্ট হবে ক্লিয়ার।</p>
                     <a href="#" class="enroll-btn">Enroll Now</a>
                 </div>
             </div>
             <div class="course-card">
-                <img src="https://img.freepik.com/free-photo/bottles-filled-with-colored-liquid-lab_23-2148756534.jpg" alt="Chemistry Course" class="course-thumb">
+                <img src="https://img.freepik.com/free-photo/bottles-filled-with-colored-liquid-lab_23-2148756534.jpg" alt="Chemistry" class="course-thumb">
                 <div class="course-info">
-                    <h3 class="course-title">Chemistry Mission</h3>
+                    <h3>Chemistry Mission</h3>
                     <p>জৈব ও অজৈব রসায়নের স্পেশাল ব্যাচ।</p>
                     <a href="#" class="enroll-btn">Enroll Now</a>
                 </div>
@@ -423,9 +372,9 @@
 
         <div id="hsc25" class="tab-content">
             <div class="course-card">
-                <img src="https://img.freepik.com/free-photo/top-view-math-formulas-with-copy-space_23-2148756540.jpg" alt="Math Course" class="course-thumb">
+                <img src="https://img.freepik.com/free-photo/top-view-math-formulas-with-copy-space_23-2148756540.jpg" alt="Math" class="course-thumb">
                 <div class="course-info">
-                    <h3 class="course-title">Higher Math A-Z</h3>
+                    <h3>Higher Math A-Z</h3>
                     <p>এইচএসসি ২৫ এর শেষ মুহূর্তের প্রস্তুতি।</p>
                     <a href="#" class="enroll-btn">Enroll Now</a>
                 </div>
@@ -437,7 +386,7 @@
         <div class="footer-content">
             <div class="footer-logo-container">
                 <img src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="ফুটার লোগো" class="footer-logo-img">
-                <div style="font-size: 18px; color: var(--accent-yellow); font-weight: 700;">সিলেবাসের বাইরে</div>
+                <div style="font-size: 18px; color: var(--accent-yellow); font-weight: 700; font-family: 'Tiro Bangla';">যোগাযোগ করুন</div>
             </div>
             <div class="footer-links">
                 <a href="#"><i class="fab fa-telegram-plane"></i> টেলিগ্রাম</a>
@@ -450,45 +399,6 @@
     </footer>
 
     <script>
-        function checkUserAuth() {
-            const isLogged = localStorage.getItem('isLoggedIn');
-            const authLabel = document.getElementById('authLabel');
-            const logoutBtn = document.getElementById('logoutBtn');
-
-            if (isLogged === 'true') {
-                authLabel.innerText = "DASHBOARD";
-                logoutBtn.style.display = "block";
-            } else {
-                authLabel.innerText = "ACCOUNT";
-                logoutBtn.style.display = "none";
-            }
-        }
-
-        function handleAuth() {
-            const isLogged = localStorage.getItem('isLoggedIn');
-            if (isLogged === 'true') {
-                window.location.href = "/dashboard"; 
-            } else {
-                document.getElementById('login-overlay').style.display = 'flex';
-            }
-        }
-
-        function loginUser() {
-            localStorage.setItem('isLoggedIn', 'true');
-            document.getElementById('login-overlay').style.display = 'none';
-            checkUserAuth();
-        }
-
-        function logoutUser() {
-            localStorage.removeItem('isLoggedIn');
-            checkUserAuth();
-            toggleMenu();
-        }
-
-        function closeLogin() {
-            document.getElementById('login-overlay').style.display = 'none';
-        }
-
         function toggleMenu() {
             document.getElementById('sideMenu').classList.toggle('active');
         }
@@ -498,19 +408,14 @@
             tabcontent = document.getElementsByClassName("tab-content");
             for (i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].classList.remove("active");
-                tabcontent[i].style.opacity = "0";
             }
             tablinks = document.getElementsByClassName("tab-btn");
             for (i = 0; i < tablinks.length; i++) {
                 tablinks[i].classList.remove("active");
             }
-            const activeTab = document.getElementById(tabName);
-            activeTab.classList.add("active");
-            setTimeout(() => { activeTab.style.opacity = "1"; }, 50);
+            document.getElementById(tabName).classList.add("active");
             evt.currentTarget.classList.add("active");
         }
-
-        window.onload = checkUserAuth;
     </script>
 </body>
 </html>
