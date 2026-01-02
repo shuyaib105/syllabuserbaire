@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>সিলেবাসের বাইরে | Typography Fixed</title>
+    <title>সিলেবাসের বাইরে | Auto Enroll Flow</title>
     
     <!-- ফন্ট ইমপোর্ট -->
     <style>
@@ -170,7 +170,7 @@
         }
         .enroll-btn:hover { background: #e1b900; }
 
-        /* --- Enroll Popup Design (Premium Icons) --- */
+        /* --- Enroll Popup Design --- */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -237,7 +237,7 @@
             </div>
             <span id="modalCourseTitle" class="modal-title">কোর্সের নাম</span>
             <p id="modalMessage" class="modal-desc"></p>
-            <button class="modal-action-btn" onclick="executeRedirect()">Enroll Now</button>
+            <button class="modal-action-btn" onclick="executeRedirect()">Proceed to Enroll</button>
         </div>
     </div>
 
@@ -246,7 +246,7 @@
         <div class="header-controls">
             <a href="login.html" id="authBtn" class="auth-btn">
                 <i class="fas fa-user-circle"></i>
-                <span id="authText">ACCOUNT</span>
+                <span id="authText">Log In</span>
             </a>
             <div class="menu-icon" onclick="toggleMenu()"><i class="fas fa-bars-staggered"></i></div>
         </div>
@@ -265,17 +265,18 @@
 
     <section class="hero">
         <div class="hero-content">
-            <h1>প্রস্তুতি হোক <span style="color:var(--dark-gold)">সেরা মেন্টরদের</span> সাথে</h1>
+            <h1>তোমার <span style="color:var(--dark-gold)">সেরা 
+            প্রস্তুতির</span> শুরু  হোক এখানে থেকেই </h1>
             <p>সহজ ব্যাখ্যা আর আধুনিক টেকনিকের মাধ্যমে আমরা তোমার সিলেবাসের ভয় দূর করবো ইনশাআল্লাহ্‌।</p>
         </div>
         <div class="hero-image">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJtYXVvM3Z6Zmd6ZzZqZzZqZzZqZzZqZzZqZzZqZzZqZzZqJmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKVUn7iM8FMEU24/giphy.gif" alt="Study">
+            <img src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/college%20entrance%20exam-cuate.png" alt="Study">
         </div>
     </section>
 
     <div class="action-buttons">
         <a href="#courses-section" class="img-btn" style="background-image: url('https://img.freepik.com/free-photo/books-stacked-table_23-2148213871.jpg');"><span>COURSES</span></a>
-        <a href="#" class="img-btn" style="background-image: url('https://img.freepik.com/free-photo/workplace-with-question-mark_23-2148405524.jpg');"><span>QB</span></a>
+        <a href="#" class="img-btn" style="background-image: url('https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=1000&auto=format&fit=crop');"><span><center>Question Bank</center></span></a>
         <a href="#" class="img-btn" style="background-image: url('https://img.freepik.com/free-photo/customer-service-call-center-contact-us-concept_53876-127638.jpg');"><span>CONTACT</span></a>
     </div>
 
@@ -320,14 +321,14 @@
         <div class="footer-content">
             <div>
                 <img src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" class="footer-logo-img">
-                <div style="font-size: 18px; color: var(--accent-yellow); font-weight: 700; font-family: 'Tiro Bangla';">যোগাযোগ করুন</div>
+                <div style="font-size: 18px; color: var(--accent-yellow); font-weight: 700; font-family: 'Tiro Bangla';"></div>
             </div>
             <div class="footer-links">
-                <a href="#"><i class="fab fa-telegram-plane"></i> টেলিগ্রাম</a>
+                <a href="https://t.me/syllabuserbaire"><i class="fab fa-telegram-plane"></i> টেলিগ্রাম চ্যানেল</a>
                 <a href="#"><i class="fas fa-robot"></i> সাপোর্ট বট</a>
             </div>
         </div>
-        <div class="footer-bottom">&copy; 2025 SYLLABUSER BAIRE - Education Made Simple.</div>
+        <div class="footer-bottom">&copy; 2025 SYLLABUSER BAIRE - Education Made Simple </div>
     </footer>
 
     <script>
@@ -346,7 +347,7 @@
                 sideAuthLink.href = "dashboard.html";
                 logoutLi.style.display = "block";
             } else {
-                authText.innerText = "ACCOUNT";
+                authText.innerText = "Log In";
                 authBtn.href = "login.html";
                 sideAuthLink.innerText = "লগইন করুন";
                 sideAuthLink.href = "login.html";
@@ -367,16 +368,28 @@
 
             if (isLoggedIn) {
                 iconBox.innerHTML = '<i class="fas fa-certificate modal-icon icon-gold"></i>';
-                msgP.innerText = "কোর্সে Enroll করার জন্য ধন্যবাদ, Dasborad থেকে আপনার পছন্দের course Erroll করুন";
+                msgP.innerText = "Dashboard-এ কোর্সটি যুক্ত করা হচ্ছে...";
             } else {
                 iconBox.innerHTML = '<i class="fas fa-user-lock modal-icon icon-blue"></i>';
-                msgP.innerText = "Login করা না থাকলে Login করবেন এবং এবং Dasboad থেকে কোর্স সিলেক্ট করে নিবেন";
+                msgP.innerText = "লগইন করার পর এই কোর্সটি অটোমেটিক সিলেক্ট করা হবে।";
             }
         }
 
+        // --- রিডাইরেক্ট ফাংশন (মেইন পরিবর্তন এখানে) ---
         function executeRedirect() {
+            const courseName = document.getElementById('modalCourseTitle').innerText;
             const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-            window.location.href = isLoggedIn ? "dashboard.html" : "login.html";
+            
+            // URL এর জন্য নাম এনকোড করা (Space বা স্পেশাল ক্যারেক্টার হ্যান্ডেল করার জন্য)
+            const encodedCourseName = encodeURIComponent(courseName);
+
+            if (isLoggedIn) {
+                // ড্যাশবোর্ডে কোর্স নিয়ে পাঠাচ্ছি
+                window.location.href = "dashboard.html?course=" + encodedCourseName;
+            } else {
+                // লগইন পেজে কোর্স নিয়ে পাঠাচ্ছি
+                window.location.href = "login.html?course=" + encodedCourseName;
+            }
         }
 
         function logout() {
@@ -397,7 +410,6 @@
             evt.currentTarget.classList.add("active");
         }
 
-        // পপ-আপের বাইরে ক্লিক করলে বন্ধ হবে
         window.onclick = function(e) {
             if(e.target == document.getElementById('enrollModal')) {
                 document.getElementById('enrollModal').style.display = "none";
@@ -408,5 +420,3 @@
     </script>
 </body>
 </html>
-
-
