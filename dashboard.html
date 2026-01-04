@@ -1,16 +1,15 @@
-
 <!DOCTYPE html>
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ড্যাশবোর্ড | সিলেবাসের বাইরে</title>
-    
-    <!-- ফন্ট ইমপোর্ট (Tiro Bangla & Montserrat) -->
+
+    <!-- ফন্ট ইমপোর্ট -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
@@ -39,7 +38,7 @@
             font-family: 'Tiro Bangla', 'SolaimanLipi', serif;
         }
 
-        /* --- প্রিমিয়াম হেডার --- */
+        /* --- প্রিমিয়াম হেডার --- */
         header {
             background: var(--white);
             padding: 10px 5%;
@@ -77,13 +76,12 @@
         .btn-home { background: #000; color: #fff; }
         .btn-logout { background: #ffebee; color: var(--danger); }
 
-        /* --- কন্টেন্ট এরিয়া --- */
+        /* --- কন্টেন্ট এরিয়া --- */
         .container { padding: 30px 5% 100px; }
-        
+
         .welcome-header { margin-bottom: 25px; }
         .welcome-header h2 { font-size: 28px; color: #000; margin-bottom: 2px; font-weight: 700; }
-        
-        /* উইশ টেক্সট ইউআই */
+
         .wish-text {
             font-size: 16px;
             color: #666;
@@ -91,21 +89,32 @@
             font-family: 'Tiro Bangla', serif;
         }
 
-        /* ফিক্সড ইমেইল ট্যাগ ইউআই */
-        .user-tag { 
-            display: inline-block; 
-            font-family: 'Montserrat', sans-serif; 
-            font-size: 13px; 
-            background: #fff8e1; 
-            color: var(--dark-gold); 
-            padding: 5px 12px; 
+        .user-tag {
+            display: inline-block;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            background: #fff8e1;
+            color: var(--dark-gold);
+            padding: 5px 12px;
             border-radius: 6px;
             font-weight: 700;
             border: 1px solid #ffe082;
             min-width: 100px;
         }
 
-        /* --- এডিট বাটন ইউআই --- */
+        /* --- ট্যাব এনিমেশন --- */
+        .tab-view {
+            display: none;
+            animation: fadeInSlide 0.3s ease;
+        }
+
+        .tab-view.active { display: block; }
+
+        @keyframes fadeInSlide {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .manage-section-btn {
             background: #000;
             color: #fff;
@@ -125,7 +134,6 @@
             font-family: 'Tiro Bangla', serif;
         }
 
-        /* --- কোর্স গ্রিড --- */
         .course-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -175,7 +183,6 @@
             text-transform: uppercase;
         }
 
-        /* --- সিলেক্টর বক্স --- */
         .selector-box {
             background: #fff;
             padding: 25px;
@@ -207,7 +214,6 @@
         .btn-add { background: #e8f5e9; color: #2e7d32; }
         .btn-remove { background: #ffebee; color: #c62828; }
 
-        /* --- টিউটোরিয়াল এরিয়া --- */
         .info-card {
             background: #fff;
             padding: 20px;
@@ -217,7 +223,7 @@
             box-shadow: var(--shadow);
         }
 
-        /* --- নিচের ট্যাব নেভিগেশন --- */
+        /* --- বটম নেভিগেশন --- */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -244,7 +250,7 @@
         .nav-item i { font-size: 22px; margin-bottom: 4px; }
         .nav-item span { font-size: 13px; font-weight: 700; font-family: 'Tiro Bangla', serif; }
 
-        /* --- লগআউট মোডাল এনিমেশন --- */
+        /* --- লগআউট মোডাল --- */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -259,10 +265,7 @@
             transition: opacity 0.3s ease;
         }
 
-        .modal-overlay.active {
-            display: flex;
-            opacity: 1;
-        }
+        .modal-overlay.active { display: flex; opacity: 1; }
 
         .modal-card {
             background: #fff;
@@ -276,10 +279,7 @@
             box-shadow: 0 20px 50px rgba(0,0,0,0.1);
         }
 
-        .modal-overlay.active .modal-card {
-            transform: scale(1);
-        }
-
+        .modal-overlay.active .modal-card { transform: scale(1); }
         .modal-card i { font-size: 50px; color: var(--danger); margin-bottom: 15px; }
         .modal-btns { display: flex; gap: 10px; margin-top: 25px; }
         .m-btn {
@@ -288,6 +288,36 @@
         .m-cancel { background: #f0f0f0; color: #333; }
         .m-confirm { background: var(--danger); color: #fff; }
 
+        /* --- নতুন টোস্ট নোটিফিকেশন --- */
+        .toast-container {
+            position: fixed;
+            bottom: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3000;
+            pointer-events: none;
+        }
+
+        .toast {
+            background: rgba(0, 0, 0, 0.9);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-family: 'Tiro Bangla', serif;
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            animation: slideUpFade 0.4s ease forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes slideUpFade {
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
@@ -297,13 +327,16 @@
         <div class="modal-card">
             <i class="fas fa-exclamation-circle"></i>
             <h3 style="font-family: 'Tiro Bangla'; font-size: 22px; margin-bottom: 10px;">আপনি কি নিশ্চিত?</h3>
-            <p style="font-family: 'Tiro Bangla'; color: #666; line-height: 1.6;">লগআউট করলে আপনার ড্যাশবোর্ডের সকল কোর্স সিলেকশন ডাটা <b>স্থায়ীভাবে মুছে যাবে</b>।</p>
+            <p style="font-family: 'Tiro Bangla'; color: #666; line-height: 1.6;">লগআউট করলে আপনার ড্যাশবোর্ডের সকল কোর্স সিলেকশন ডাটা <b>স্থায়ীভাবে মুছে যাবে</b>।</p>
             <div class="modal-btns">
                 <button class="m-btn m-cancel" onclick="closeModal()">না, থাক</button>
                 <button class="m-btn m-confirm" onclick="confirmLogout()">লগআউট</button>
             </div>
         </div>
     </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
 
     <header>
         <div class="header-left">
@@ -323,12 +356,12 @@
         <div class="welcome-header">
             <h2 id="welcomeUser">আসসালামু আলাইকুম!</h2>
             <div class="wish-text">আপনার প্রস্তুতির জন্য শুভকামনা</div>
-            <div class="user-tag" id="userEmailTag">user@example.com</div>
+            <div class="user-tag" id="userNameTag">user@example.com</div>
         </div>
 
         <section id="main-content">
             <!-- ড্যাশবোর্ড ট্যাব -->
-            <div id="tab-dashboard" class="tab-view">
+            <div id="tab-dashboard" class="tab-view active">
                 <button class="manage-section-btn" onclick="toggleEdit()" id="editToggleBtn">
                     <i class="fas fa-plus-circle"></i> কোর্স যোগ বা পরিবর্তন করুন
                 </button>
@@ -344,15 +377,28 @@
                 </div>
             </div>
 
-            <!-- টিউটোরিয়াল ট্যাব -->
-            <div id="tab-tutorial" class="tab-view" style="display: none;">
+            <!-- টিউটোরিয়াল ট্যাব -->
+            <div id="tab-tutorial" class="tab-view">
                 <div class="info-card">
                     <h4 style="font-family: Montserrat; font-weight: 800; font-size: 16px; margin-bottom: 5px;">01. ADD COURSES</h4>
-                    <p>ম্যানেজ বাটন থেকে আপনার প্রয়োজনীয় কোর্সটি লিস্টে যুক্ত করুন।</p>
+                    <p>ম্যানেজ বাটন থেকে আপনার প্রয়োজনীয় কোর্সটি লিস্টে যুক্ত করুন।</p>
                 </div>
                 <div class="info-card">
                     <h4 style="font-family: Montserrat; font-weight: 800; font-size: 16px; margin-bottom: 5px;">02. ACCESS CLASS</h4>
                     <p>কার্ডের "ENTER CLASS" বাটনে ক্লিক করলে সরাসরি ক্লাসের লিংক ওপেন হবে।</p>
+                </div>
+            </div>
+            
+            <!-- ফলাফল ট্যাব -->
+            <div id="tab-results" class="tab-view">
+                <div class="info-card">
+                    <h4 style="font-family: Montserrat; font-weight: 800; font-size: 18px; margin-bottom: 15px; color: #000;">আপনার ফলাফল</h4>
+                    <div id="results-content">
+                        <p style="font-family: 'Tiro Bangla'; font-size: 16px; margin-bottom: 15px;">আপনার কোর্স ভিত্তিক পরীক্ষার ফলাফল এখানে প্রদর্শিত হবে।</p>
+                        <div id="results-grid" class="course-grid">
+                            <!-- Results will be loaded here -->
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -365,29 +411,71 @@
         </div>
         <div class="nav-item" onclick="switchTab(this, 'tab-tutorial')">
             <i class="fas fa-play-circle"></i>
-            <span>টিউটোরিয়াল</span>
+            <span>টিউটোরিয়াল</span>
+        </div>
+        <div class="nav-item" onclick="switchTab(this, 'tab-results')">
+            <i class="fas fa-chart-bar"></i>
+            <span>ফলাফল</span>
+        </div>
+        <div class="nav-item" onclick="window.location.href='routine.html'">
+            <i class="fas fa-calendar-alt"></i>
+            <span>রুটিন</span>
         </div>
     </nav>
 
     <script>
+        // আপডেটেড কোর্স লিস্ট (ইনডেক্স পেজের কোর্সগুলো যুক্ত করা হয়েছে)
         const allCourses = [
-            { id: 1, name: "Final Revision Course", desc: "HSC এর পূর্ণাঙ্গ রিভিশন গাইডলাইন ও সল্যুশন।", link: "revision.html" },
-            { id: 2, name: "BP Chemistry", desc: "কেমিস্ট্রির সকল বেসিক ও সিকিউ মাস্টারক্লাস।", link: "chemistry.html" },
-            { id: 3, name: "Udvash FRB", desc: "উদ্ভাস এর ফাইনাল রিভিশন ব্যাচের কন্টেন্ট।", link: "udvash.html" },
-            { id: 4, name: "ACS FRB", desc: "এসিএস এর সকল শর্ট সিলেবাস এক্সক্লুসিভ কোর্স।", link: "acs.html" },
-            { id: 5, name: "Physics Booster", desc: "ফিজিক্সের গাণিতিক সমস্যার দ্রুত সমাধান কৌশল।", link: "physics.html" }
+            { id: 1, name: "Physics Master Batch", desc: "HSC 26 এর জন্য পূর্ণাঙ্গ ফিজিক্স কোর্স। প্রতিটি অধ্যায়ের কনসেপ্ট হবে ক্লিয়ার।", link: "physics.html" },
+            { id: 2, name: "Chemistry Mission", desc: "জৈব ও অজৈব রসায়নের স্পেশাল ব্যাচ।", link: "chemistry.html" },
+            { id: 3, name: "Higher Math A-Z", desc: "এইচএসসি ২৫ এর শেষ মুহূর্তের প্রস্তুতি।", link: "math.html" },
+            { id: 4, name: "Final Revision Course", desc: "HSC এর পূর্ণাঙ্গ রিভিশন গাইডলাইন ও সল্যুশন।", link: "revision.html" },
+            { id: 5, name: "BP Chemistry", desc: "কেমিস্ট্রির সকল বেসিক ও সিকিউ মাস্টারক্লাস।", link: "bp-chemistry.html" },
+            { id: 6, name: "Udvash FRB", desc: "উদ্ভাস এর ফাইনাল রিভিশন ব্যাচের কন্টেন্ট।", link: "udvash.html" },
+            { id: 7, name: "ACS FRB", desc: "এসিএস এর সকল শর্ট সিলেবাস এক্সক্লুসিভ কোর্স।", link: "acs.html" },
+            { id: 8, name: "Physics Booster", desc: "ফিজিক্সের গাণিতিক সমস্যার দ্রুত সমাধান কৌশল।", link: "physics-booster.html" }
         ];
 
         window.onload = function() {
             const auth = localStorage.getItem('isLoggedIn');
-            const email = localStorage.getItem('userEmail');
+            const name = localStorage.getItem('userName');
 
             if (auth !== 'true') {
                 window.location.href = "login.html";
                 return;
             }
 
-            if(email) document.getElementById('userEmailTag').innerText = email;
+            if(name) document.getElementById('userNameTag').innerText = name;
+
+            // --- অটো এনরোলমেন্ট লজিক ---
+            const urlParams = new URLSearchParams(window.location.search);
+            const targetCourseName = urlParams.get('course');
+
+            if (targetCourseName) {
+                const decodedName = decodeURIComponent(targetCourseName);
+
+                // কোর্স খুঁজে বের করা
+                const courseToAdd = allCourses.find(c => c.name === decodedName);
+
+                if (courseToAdd) {
+                    let userCourses = JSON.parse(localStorage.getItem('userCourses') || "[]");
+
+                    // যদি কোর্সটি আগে থেকে না থাকে, তবে যুক্ত করুন
+                    if (!userCourses.includes(courseToAdd.id)) {
+                        userCourses.push(courseToAdd.id);
+                        localStorage.setItem('userCourses', JSON.stringify(userCourses));
+
+                        // নোটিফিকেশন দেখানো
+                        showToast(`"${decodedName}" সফলভাবে যোগ করা হয়েছে!`);
+                    } else {
+                        showToast(`"${decodedName}" আগে থেকেই আছে।`);
+                    }
+                }
+
+                // URL থেকে প্যারামিটার মুছে ফেলা (রিফ্রেশে আবার না আসার জন্য)
+                window.history.replaceState({}, document.title, "dashboard.html");
+            }
+
             renderDashboard();
         };
 
@@ -471,19 +559,40 @@
 
         function switchTab(el, id) {
             document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-            document.querySelectorAll('.tab-view').forEach(v => v.style.display = 'none');
+            document.querySelectorAll('.tab-view').forEach(v => v.classList.remove('active'));
             el.classList.add('active');
-            document.getElementById(id).style.display = 'block';
+            document.getElementById(id).classList.add('active');
+
+            // If switching to results tab, load results data
+            if (id === 'tab-results') {
+                loadResultsData();
+            }
         }
 
-        // --- লগআউট ও ওয়ার্নিং ফাংশন ---
-        function showWarning() { 
+        // --- নোটিফিকেশন ফাংশন ---
+        function showToast(message) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `<i class="fas fa-check-circle" style="color: var(--accent-yellow)"></i> ${message}`;
+
+            container.appendChild(toast);
+
+            // ৩ সেকেন্ড পর রিমুভ হবে
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(20px)';
+                setTimeout(() => toast.remove(), 400);
+            }, 3000);
+        }
+
+        function showWarning() {
             const modal = document.getElementById('logoutModal');
             modal.style.display = 'flex';
             setTimeout(() => modal.classList.add('active'), 10);
         }
 
-        function closeModal() { 
+        function closeModal() {
             const modal = document.getElementById('logoutModal');
             modal.classList.remove('active');
             setTimeout(() => modal.style.display = 'none', 300);
@@ -493,7 +602,142 @@
             localStorage.clear();
             window.location.href = "index.html";
         }
+
+        // --- ফলাফল লোড করার ফাংশন ---
+        function loadResultsData() {
+            const resultsGrid = document.getElementById('results-grid');
+            const userCourses = JSON.parse(localStorage.getItem('userCourses') || "[]");
+
+            if (userCourses.length === 0) {
+                resultsGrid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #999; font-family: 'Tiro Bangla';"><p>আপনার কোনো কোর্স নেই। ফলাফল দেখার জন্য কোর্স যোগ করুন।</p></div>`;
+                return;
+            }
+
+            // Get user's course objects
+            const userCourseObjects = allCourses.filter(c => userCourses.includes(c.id));
+
+            if (userCourseObjects.length === 0) {
+                resultsGrid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #999; font-family: 'Tiro Bangla';"><p>আপনার কোনো কোর্স নেই। ফলাফল দেখার জন্য কোর্স যোগ করুন।</p></div>`;
+                return;
+            }
+
+            // Generate results cards for each course
+            let resultsHTML = '';
+
+            userCourseObjects.forEach(course => {
+                // Get exam results for this course from localStorage
+                const courseResults = JSON.parse(localStorage.getItem(`examResults_${course.id}`) || "[]");
+
+                if (courseResults.length > 0) {
+                    // Calculate average score
+                    const totalScore = courseResults.reduce((sum, exam) => sum + exam.score, 0);
+                    const averageScore = (totalScore / courseResults.length).toFixed(1);
+                    const totalExams = courseResults.length;
+
+                    resultsHTML += `
+                        <div class="course-card">
+                            <h3>${course.name}</h3>
+                            <p>পরীক্ষার সংখ্যা: ${totalExams}</p>
+                            <div style="margin-top: 15px; padding: 12px; background: #f9f9f9; border-radius: 10px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                    <span style="font-family: 'Montserrat'; font-weight: 700; color: #666;">গড় নম্বর:</span>
+                                    <span style="font-family: 'Montserrat'; font-weight: 800; color: #000;">${averageScore}/100</span>
+                                </div>
+                                <div class="progress-bar" style="height: 8px; background: #e0e0e0; border-radius: 4px; overflow: hidden;">
+                                    <div style="height: 100%; width: ${averageScore}%; background: var(--accent-yellow); border-radius: 4px;"></div>
+                                </div>
+                            </div>
+                            <div style="margin-top: 15px;">
+                                <button class="manage-section-btn" style="background: var(--dark-gold); padding: 10px; font-size: 14px;" onclick="showExamDetails(${course.id})">
+                                    বিস্তারিত দেখুন
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    resultsHTML += `
+                        <div class="course-card">
+                            <h3>${course.name}</h3>
+                            <p>এই কোর্সে এখনো কোনো পরীক্ষা দেওয়া হয়নি।</p>
+                            <div style="margin-top: 15px; padding: 12px; background: #f9f9f9; border-radius: 10px; text-align: center;">
+                                <span style="font-family: 'Montserrat'; font-weight: 700; color: #666;">পরীক্ষা দিন ফলাফল দেখুন</span>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            resultsGrid.innerHTML = resultsHTML;
+        }
+
+        // Function to show exam details for a specific course
+        function showExamDetails(courseId) {
+            const course = allCourses.find(c => c.id === courseId);
+            const courseResults = JSON.parse(localStorage.getItem(`examResults_${courseId}`) || "[]");
+
+            if (courseResults.length === 0) {
+                showToast("এই কোর্সে এখনো কোনো পরীক্ষা দেওয়া হয়নি।");
+                return;
+            }
+
+            // Create a modal to show exam details
+            let detailsHTML = `
+                <div class="modal-overlay active" id="examDetailsModal">
+                    <div class="modal-card" style="max-width: 500px; overflow-y: auto; max-height: 80vh;">
+                        <h3 style="font-family: 'Tiro Bangla'; font-size: 20px; margin-bottom: 15px; color: #000;">${course.name} - পরীক্ষার বিস্তারিত</h3>
+                        <div style="max-height: 400px; overflow-y: auto;">
+            `;
+
+            courseResults.forEach((exam, index) => {
+                const date = new Date(exam.date).toLocaleDateString('bn-BD');
+                detailsHTML += `
+                    <div style="padding: 12px; margin-bottom: 10px; background: #f9f9f9; border-radius: 8px; border-left: 3px solid var(--accent-yellow);">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span style="font-family: 'Montserrat'; font-weight: 700;">পরীক্ষা ${index + 1}</span>
+                            <span style="font-family: 'Montserrat'; font-weight: 700; color: #000;">${exam.score}/100</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 14px; color: #666;">
+                            <span>${exam.title || 'সাধারণ পরীক্ষা'}</span>
+                            <span>${date}</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            detailsHTML += `
+                        </div>
+                        <button class="m-btn m-cancel" style="margin-top: 15px;" onclick="closeExamDetailsModal()">বন্ধ করুন</button>
+                    </div>
+                </div>
+            `;
+
+            // Add modal to body
+            document.body.insertAdjacentHTML('beforeend', detailsHTML);
+        }
+
+        // Function to close exam details modal
+        function closeExamDetailsModal() {
+            const modal = document.getElementById('examDetailsModal');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        // Function to add sample exam results for testing
+        function addSampleResults() {
+            // Sample results for demonstration
+            const sampleResults = [
+                { title: "মডেল টেস্ট ১", score: 85, date: new Date().toISOString() },
+                { title: "মডেল টেস্ট ২", score: 92, date: new Date().toISOString() },
+                { title: "মডেল টেস্ট ৩", score: 78, date: new Date().toISOString() }
+            ];
+
+            // Add to first course as example
+            if (allCourses.length > 0) {
+                localStorage.setItem(`examResults_${allCourses[0].id}`, JSON.stringify(sampleResults));
+                showToast("ডেমো ফলাফল যোগ করা হয়েছে।");
+            }
+        }
     </script>
 </body>
 </html>
-
