@@ -179,13 +179,13 @@
         </div>
 
         <!-- এরর মেসেজ ডিসপ্লে -->
-        <div id="error-msg">ইমেইল এবং পাসওয়ার্ড প্রদান করুন!</div>
+        <div id="error-msg">নাম এবং পাসওয়ার্ড প্রদান করুন!</div>
 
         <!-- লগইন ফর্ম -->
         <form id="loginForm" onsubmit="handleLogin(event)">
             <div class="input-group">
-                <label>Email Address</label>
-                <input type="email" id="email" class="input-field" placeholder="example@mail.com">
+                <label>আপনার নাম</label>
+                <input type="text" id="name" class="input-field" placeholder="আপনার নাম লিখুন">
             </div>
 
             <div class="input-group">
@@ -202,28 +202,37 @@
     <script>
         function handleLogin(event) {
             event.preventDefault(); // পেজ রিফ্রেশ বন্ধ করা
-            
-            const email = document.getElementById('email').value.trim();
+
+            const name = document.getElementById('name').value.trim();
             const password = document.getElementById('password').value.trim();
             const errorMsg = document.getElementById('error-msg');
 
             // ভ্যালিডেশন চেক
-            if (email === "" || password === "") {
+            if (name === "" || password === "") {
                 errorMsg.style.display = 'block';
                 return;
             }
 
             // সাকসেস হলে ডাটা লোকাল স্টোরেজে সেভ করা
             localStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('userEmail', email);
+            localStorage.setItem('userName', name);
 
-            // ড্যাশবোর্ড পেজে রিডাইরেক্ট করা
-            // এখানে আপনি আপনার ড্যাশবোর্ড ফাইলের নাম দিন (যেমন: dashboard.html)
-            window.location.href = "dashboard.html"; 
+            // Check for redirect URL and enrollment parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const redirectUrl = urlParams.get('redirect') || 'dashboard.html';
+            const enrollCourse = urlParams.get('enroll');
+
+            if (enrollCourse) {
+                // Store the course to enroll after login
+                localStorage.setItem('pendingEnrollment', enrollCourse);
+            }
+
+            // Redirect to the specified page
+            window.location.href = redirectUrl;
         }
 
         // ইনপুট টাইপ করলে এরর মেসেজ হাইড করা
-        document.getElementById('email').addEventListener('input', function() {
+        document.getElementById('name').addEventListener('input', function() {
             document.getElementById('error-msg').style.display = 'none';
         });
         document.getElementById('password').addEventListener('input', function() {
