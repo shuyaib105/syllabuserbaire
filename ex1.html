@@ -4,492 +4,868 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>এক্সাম সেন্টার | সিলেবাসের বাইরে</title>
-    
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Montserrat:wght@400;500;600;700;800&display=swap');
-    </style>
-    
+
+    <!-- Fonts & Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cream': '#FFFDF5',
+                        'accent-yellow': '#FFD200',
+                        'dark-gold': '#B8860B',
+                        'black-navy': '#0f172a',
+                    },
+                    fontFamily: {
+                        tiro: ['Tiro Bangla', 'serif'],
+                        mont: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        :root {
-            --bg-cream: #FFFDF5;
-            --accent-yellow: #FFD200;
-            --dark-gold: #B8860B;
-            --text-main: #333;
-            --white: #ffffff;
-            --shadow: 0 15px 40px rgba(0,0,0,0.08);
-            --correct: #10b981;
-            --wrong: #ef4444;
-            --black: #0f172a;
-            --mark-color: #8b5cf6;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Montserrat:wght@400;500;600;700;800&display=swap');
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Tiro Bangla', serif; background-color: #FFFDF5; }
+        .eng { font-family: 'Montserrat', sans-serif; }
 
-        body {
-            background-color: var(--bg-cream);
-            color: var(--text-main);
-            /* ডিফল্ট ফন্ট হিসেবে Tiro Bangla সেট করা হয়েছে */
-            font-family: 'Tiro Bangla', serif;
-            line-height: 1.6;
-        }
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* শুধুমাত্র ইংরেজি টেক্সট বা সংখ্যার জন্য এই ক্লাসটি ব্যবহার করা হবে */
-        .eng { font-family: 'Montserrat', sans-serif !important; }
-
-        /* --- Header --- */
-        header {
-            background: var(--white);
-            padding: 12px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        .watermark {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: -1;
+            width: 80%;
         }
-        .logo-img { height: 45px; width: auto; }
-        .dashboard-btn {
-            background: var(--black);
-            color: white;
-            padding: 10px 18px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .container { max-width: 900px; margin: 20px auto; padding: 0 15px; }
-
-        .card {
-            background: var(--white);
-            padding: 40px 30px;
-            border-radius: 28px;
-            box-shadow: var(--shadow);
-            margin-bottom: 30px;
-        }
-
-        /* --- Exam Status Bar --- */
-        .exam-status-bar {
-            background: var(--black);
-            color: #fff;
-            padding: 15px 25px;
-            border-radius: 18px;
-            margin-bottom: 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 80px;
-            z-index: 998;
-        }
-        .timer-val { font-family: 'Montserrat'; font-weight: 800; color: var(--accent-yellow); font-size: 24px; }
-
-        /* --- Questions --- */
-        .question-card {
-            background: var(--white);
-            padding: 28px;
-            border-radius: 24px;
-            box-shadow: var(--shadow);
-            margin-bottom: 25px;
-            border: 1px solid #f1f5f9;
-        }
-        .q-header { display: flex; justify-content: space-between; margin-bottom: 18px; align-items: flex-start; }
-        .q-text { font-size: 20px; font-weight: 700; color: #1e293b; flex: 1; }
-        .q-num { color: var(--dark-gold); font-family: 'Montserrat'; font-weight: 800; margin-right: 12px; font-size: 22px; }
-        
-        .mark-btn {
-            background: #f1f5f9; border: none; color: #64748b; padding: 6px 12px;
-            border-radius: 8px; cursor: pointer; font-size: 11px; font-weight: 700; font-family: 'Montserrat';
-        }
-        .mark-btn.active { background: var(--mark-color); color: white; }
-
-        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        @media (max-width: 650px) { .options-grid { grid-template-columns: 1fr; } }
-
-        .opt {
-            padding: 16px 20px;
-            border: 2px solid #f1f5f9;
-            border-radius: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-size: 17px; /* বড় সাইজ */
-            background: #fafafa;
-            transition: all 0.2s;
-            font-family: 'Tiro Bangla', serif; /* বাংলা ফন্ট নিশ্চিত করা হলো */
-        }
-        .opt:hover { border-color: var(--accent-yellow); background: #fffdf5; }
-        .opt.selected { border-color: var(--dark-gold); background: #fffcf0; font-weight: 700; }
-        .opt.is-correct { border-color: var(--correct); background: #ecfdf5; color: var(--correct); }
-        .opt.is-wrong { border-color: var(--wrong); background: #fef2f2; color: var(--wrong); }
-        .opt.locked { pointer-events: none; }
-
-        /* --- Result UI --- */
-        .score-circle {
-            width: 140px; height: 140px; border-radius: 50%;
-            background: var(--black); color: white;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            margin: 0 auto 20px; border: 8px solid var(--accent-yellow);
-        }
-        .score-val { font-size: 38px; font-weight: 800; font-family: 'Montserrat'; }
-        .grid-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 30px; }
-        .stat-box { padding: 20px; border-radius: 20px; text-align: center; background: #f8fafc; border-bottom: 4px solid #ddd; }
-
-        /* --- Navigator --- */
-        .navigator-box {
-            position: fixed; right: 20px; bottom: 100px;
-            background: var(--white); padding: 20px; border-radius: 24px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            width: 260px; display: none; z-index: 1001;
-        }
-        .nav-dots { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 15px; }
-        .dot {
-            width: 38px; height: 38px; border-radius: 10px; background: #f1f5f9;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 14px; font-weight: 700; cursor: pointer; font-family: 'Montserrat';
-        }
-        .dot.answered { background: var(--black); color: white; }
-        .dot.marked { background: var(--mark-color); color: white; }
-
-        .nav-toggle {
-            position: fixed; right: 20px; bottom: 30px;
-            width: 55px; height: 55px; border-radius: 50%;
-            background: var(--black); color: white; display: flex;
-            align-items: center; justify-content: center; cursor: pointer; z-index: 1002;
-        }
-
-        .btn-primary {
-            background: var(--accent-yellow); color: #000; border: none;
-            padding: 16px 45px; border-radius: 50px; font-weight: 800;
-            font-size: 18px; cursor: pointer; font-family: 'Tiro Bangla'; transition: 0.3s;
-        }
-        .btn-dark {
-            background: var(--black); color: white; border: none;
-            padding: 14px 30px; border-radius: 15px; font-weight: 600;
-            cursor: pointer; font-family: 'Montserrat'; display: flex; align-items: center; gap: 8px;
-        }
-
-        .explanation { 
-            background: #f0fdf4; border-left: 4px solid var(--correct);
-            padding: 15px; margin-top: 15px; border-radius: 12px; font-size: 15px;
-        }
-        .qimg { max-width: 100%; border-radius: 12px; margin: 10px 0; }
     </style>
 </head>
-<body>
+<body class="bg-cream text-slate-800">
 
-    <header>
-        <img src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" class="logo-img">
-        <a href="dashboard.html" class="dashboard-btn eng">DASHBOARD</a>
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white shadow-sm px-4 md:px-[6%] py-3 flex justify-between items-center">
+        <img src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png"
+             alt="Logo" class="h-10 md:h-12 cursor-pointer transition hover:scale-105" onclick="location.reload()">
+        <a href="#" class="eng bg-black-navy text-white px-5 py-2 rounded-xl font-bold text-sm tracking-wide hover:bg-slate-800 transition">DASHBOARD</a>
     </header>
 
-    <div class="container">
-        <!-- Section: Intro -->
-        <div id="welcome-screen" class="card" style="text-align:center;">
-            <h1 style="font-size: 32px; margin-bottom: 10px;">পদার্থবিজ্ঞানঃ প্রথম পত্র</h1>
-            <p style="color: #64748b; margin-bottom: 30px;" class="eng">Physics 1st Paper | Full Syllabus MCQ</p>
-            
-            <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 35px;">
-                <div style="background: #f1f5f9; padding: 15px 25px; border-radius: 20px;">
-                    <span class="eng" style="display:block; font-size: 22px; font-weight: 800;">19</span>
-                    <small>প্রশ্ন</small>
-                </div>
-                <div style="background: #f1f5f9; padding: 15px 25px; border-radius: 20px;">
-                    <span class="eng" style="display:block; font-size: 22px; font-weight: 800;">10:00</span>
-                    <small>মিনিট</small>
-                </div>
-            </div>
-            
-            <button class="btn-primary" onclick="startExam()">পরীক্ষা শুরু করুন <i class="fas fa-arrow-right" style="margin-left:10px;"></i></button>
-        </div>
+    <main class="max-w-4xl mx-auto px-4 py-8 mb-24">
 
-        <!-- Section: Exam -->
-        <div id="exam-screen" style="display: none;">
-            <div class="exam-status-bar">
-                <div class="eng" style="font-weight:700; letter-spacing: 1px;">EXAM IN PROGRESS</div>
-                <div class="timer-val" id="timer">10:00</div>
+        <!-- Start Screen -->
+        <div id="start-screen" class="space-y-6">
+            <!-- Facebook Cover Style Photo -->
+            <div class="w-full aspect-[16/6] bg-slate-200 rounded-3xl overflow-hidden shadow-lg border-4 border-white">
+                <img src="https://images.unsplash.com/photo-1454165833767-027ffea9e77b?auto=format&fit=crop&q=80&w=1000"
+                     class="w-full h-full object-cover" alt="Cover">
             </div>
 
-            <div id="questions-list"></div>
+            <div class="bg-white rounded-[40px] p-8 md:p-12 shadow-xl border border-yellow-100 text-center">
+                <span class="eng text-dark-gold font-extrabold tracking-widest text-xs uppercase">HSC Physics Live Exam</span>
+                <h1 class="text-3xl md:text-4xl font-bold text-black-navy mt-4 mb-2">ভৌত জগৎ ও পরিমাপ</h1>
+                <p class="text-slate-500 text-lg">সিলেবাসের বাইরের বিশেষ অধ্যায় ভিত্তিক মূল্যায়ন</p>
 
-            <div style="text-align: center; padding: 40px 0;">
-                <button class="btn-primary" style="background: var(--black); color: #fff;" onclick="submitExam()">সাবমিট করুন <i class="fas fa-paper-plane" style="margin-left:10px;"></i></button>
-            </div>
-        </div>
-
-        <!-- Section: Results & Solve Sheet -->
-        <div id="result-screen" style="display: none;">
-            <div class="card">
-                <div style="text-align: center; margin-bottom: 30px;">
-                    <div class="score-circle">
-                        <span class="score-val" id="res-score">0</span>
-                        <small class="eng" style="opacity:0.7">SCORE</small>
+                <div class="my-8 space-y-4 bg-yellow-50/50 p-6 rounded-3xl border border-yellow-100 text-left max-w-lg mx-auto">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-white p-2 rounded-lg shadow-sm text-dark-gold"><i class="fas fa-clock"></i></div>
+                        <p class="text-lg">সময়সীমা: <span class="eng font-bold">১০:০০</span> মিনিট</p>
                     </div>
-                    <h2 style="font-size: 28px;">আপনার ফলাফল রিপোর্ট</h2>
-                </div>
-
-                <div class="grid-stats">
-                    <div class="stat-box" style="border-bottom-color: var(--correct);">
-                        <span class="score-val eng" style="color: var(--correct); font-size: 24px;" id="res-correct">0</span>
-                        <p>সঠিক</p>
+                    <div class="flex items-center gap-4">
+                        <div class="bg-white p-2 rounded-lg shadow-sm text-dark-gold"><i class="fas fa-list-check"></i></div>
+                        <p class="text-lg">মোট প্রশ্ন: <span class="eng font-bold">১৯</span> টি</p>
                     </div>
-                    <div class="stat-box" style="border-bottom-color: var(--wrong);">
-                        <span class="score-val eng" style="color: var(--wrong); font-size: 24px;" id="res-wrong">0</span>
-                        <p>ভুল</p>
-                    </div>
-                    <div class="stat-box" style="border-bottom-color: #94a3b8;">
-                        <span class="score-val eng" style="color: #64748b; font-size: 24px;" id="res-skip">0</span>
-                        <p>স্কিপ</p>
+                    <div class="flex items-center gap-4">
+                        <div class="bg-white p-2 rounded-lg shadow-sm text-dark-gold"><i class="fas fa-circle-exclamation"></i></div>
+                        <p class="text-lg">একবার উত্তর দিলে তা আর পরিবর্তন করা যাবে না।</p>
                     </div>
                 </div>
 
-                <div style="display: flex; gap: 15px; margin-top: 30px;">
-                    <button class="btn-dark" style="flex:1; justify-content:center;" onclick="downloadPDF('solve')"><i class="fas fa-file-pdf"></i> Solve PDF</button>
-                    <button class="btn-dark" style="flex:1; justify-content:center; background:#475569;" onclick="downloadPDF('practice')"><i class="fas fa-download"></i> Practice PDF</button>
+                <button onclick="checkLoginAndStartExam()" class="w-full max-w-md bg-black-navy text-accent-yellow py-5 rounded-lg text-xl font-bold shadow-2xl hover:translate-y-[-4px] transition active:scale-95 flex justify-center items-center gap-3">
+                    শুরু করি <i class="fas fa-rocket"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Exam View -->
+        <div id="exam-view" class="hidden">
+            <div class="sticky top-20 z-40 flex justify-center mb-8">
+                <div class="bg-black-navy text-accent-yellow px-8 py-3 rounded-2xl shadow-2xl flex items-center gap-3 font-black text-xl eng ring-4 ring-white">
+                    <i class="fas fa-hourglass-half animate-pulse"></i>
+                    <span id="timer-display">10:00</span>
                 </div>
             </div>
 
-            <div id="solve-sheet-area"></div>
-        </div>
-    </div>
+            <div id="questions-container" class="space-y-8"></div>
 
-    <!-- Navigator Elements -->
-    <div class="nav-toggle" id="nav-btn" style="display:none;" onclick="toggleNavigator()">
-        <i class="fas fa-th-large"></i>
-    </div>
-    <div class="navigator-box" id="navigator">
-        <p style="font-weight: 800; border-bottom: 1px solid #eee; padding-bottom: 10px;" class="eng">QUESTION NAV</p>
-        <div class="nav-dots" id="nav-dots-grid"></div>
-        <div style="margin-top: 15px; font-size: 11px; color: #666; display: flex; flex-wrap: wrap; gap: 10px;">
-            <span><i class="fas fa-circle" style="color:var(--black)"></i> Answered</span>
-            <span><i class="fas fa-circle" style="color:var(--mark-color)"></i> Marked</span>
+            <button onclick="finishExam()" class="w-full mt-12 bg-dark-gold text-white py-5 rounded-lg text-xl font-bold shadow-xl hover:opacity-90 transition">
+                পরীক্ষা শেষ করো <i class="fas fa-paper-plane ml-2"></i>
+            </button>
         </div>
+
+        <!-- Result View -->
+        <div id="result-view" class="hidden">
+            <div class="bg-white rounded-[40px] p-8 md:p-12 shadow-2xl border-t-8 border-accent-yellow text-center mb-10 relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-award text-8xl"></i></div>
+                <h4 class="text-xl font-bold text-slate-400 mb-2">অভিনন্দন, <span id="display-name" class="text-black-navy">ইউজার</span>!</h4>
+                <div class="text-7xl font-black text-black-navy eng" id="final-percent">0%</div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+                    <div class="bg-emerald-50 p-5 rounded-3xl border border-emerald-100">
+                        <span class="text-slate-500 text-sm">সঠিক</span>
+                        <b id="stat-correct" class="block text-2xl text-emerald-600 eng">0</b>
+                    </div>
+                    <div class="bg-rose-50 p-5 rounded-3xl border border-rose-100">
+                        <span class="text-slate-500 text-sm">ভুল</span>
+                        <b id="stat-wrong" class="block text-2xl text-rose-600 eng">0</b>
+                    </div>
+                    <div class="bg-slate-50 p-5 rounded-3xl border border-slate-100">
+                        <span class="text-slate-500 text-sm">স্কিপ</span>
+                        <b id="stat-skip" class="block text-2xl text-slate-600 eng">0</b>
+                    </div>
+                    <div class="bg-amber-50 p-5 rounded-3xl border border-amber-100">
+                        <span class="text-slate-500 text-sm">সময়</span>
+                        <b id="stat-time" class="block text-2xl text-amber-600 eng">00:00</b>
+                    </div>
+                </div>
+
+                <div class="mt-10 text-center">
+                    <p class="text-slate-500">পরীক্ষা শেষ হয়েছে। ধন্যবাদ!</p>
+                    <div class="flex flex-wrap gap-3 justify-center mt-6">
+                        <button onclick="generateSolutionSheetPDF()" class="bg-emerald-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-emerald-700 transition">
+                            <i class="fas fa-file-pdf mr-2"></i>সমাধান শীট ডাউনলোড
+                        </button>
+                        <button onclick="generateQuestionPaperPDF()" class="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition">
+                            <i class="fas fa-file-pdf mr-2"></i>প্রশ্ন পত্র ডাউনলোড
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analysis Tabs -->
+            <div class="flex bg-slate-100 p-2 rounded-lg gap-2 mb-8">
+                <button onclick="switchTab('all')" id="tab-all" class="flex-1 py-3 rounded-md font-bold transition bg-white text-black-navy shadow-sm">সবগুলো</button>
+                <button onclick="switchTab('correct')" id="tab-correct" class="flex-1 py-3 rounded-md font-bold transition text-slate-500">সঠিক</button>
+                <button onclick="switchTab('wrong')" id="tab-wrong" class="flex-1 py-3 rounded-md font-bold transition text-slate-500">ভুল</button>
+                <button onclick="switchTab('skip')" id="tab-skip" class="flex-1 py-3 rounded-md font-bold transition text-slate-500">স্কিপ</button>
+            </div>
+
+            <div id="analysis-container" class="space-y-6"></div>
+        </div>
+
+    </main>
+
+    <!-- Floating UI -->
+    <div id="floating-ui" class="hidden">
+        <div id="nav-overlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-[60] hidden" onclick="toggleNavigator()"></div>
+        <div id="nav-panel" class="fixed bottom-24 right-6 bg-white w-[320px] rounded-[30px] p-6 shadow-2xl z-[70] hidden border border-slate-100 translate-y-4 opacity-0 transition-all duration-300">
+            <div class="flex justify-between items-center mb-4">
+                <h5 class="font-black text-slate-700">প্রশ্ন নেভিগেটর</h5>
+                <span class="bg-rose-100 text-rose-600 text-xs px-3 py-1 rounded-full font-bold eng">LEFT: <span id="left-count">19</span></span>
+            </div>
+            <div id="nav-grid" class="grid grid-cols-5 gap-3 max-h-[300px] overflow-y-auto pr-2 no-scrollbar"></div>
+        </div>
+        <button onclick="toggleNavigator()" class="fixed bottom-6 right-6 w-14 h-14 bg-black-navy text-accent-yellow rounded-lg shadow-2xl z-[70] flex items-center justify-center text-xl hover:scale-110 transition active:scale-95">
+            <i class="fas fa-th-large"></i>
+        </button>
     </div>
 
     <script>
         const questions = [
-            { "id": "1", "question_text": "1MegaW সমান কত?", "option1": "10<sup>6</sup> W", "option2": "10<sup>6</sup> Js", "option3": "1000 KW", "option4": "সবগুলো", "answer": "4", "explanation": "1 MegaW = 10^6 W, আবার 1 W = 1 J/s। এছাড়া 1000 KW = 10^6 W।" },
-            { "id": "2", "question_text": "মাত্রাহীন রাশি কোনটি?", "option1": "কোণ", "option2": "বিকৃতি", "option3": "ঘনকোণ", "option4": "সবগুলো", "answer": "4", "explanation": "আনুপাতিক রাশিসমুহ মাত্রাহীন রাশি হয়ে থাকে।" },
-            { "id": "3", "question_text": "একটি গোলকের পরিমাপ্য ব্যাসার্ধ ( 2.5 ± 0.2 ) cm হলে, এর আয়তন পরিমাপে শতকরা ত্রুটি কত?", "option1": "0.08%", "option2": "8%", "option3": "16%", "option4": "24%", "answer": "4", "explanation": "<br /><img class='qimg' src='https://www.rayvila.com/5/250307140159.jpg'>" },
-            { "id": "4", "question_text": "পুনরাবৃত্তিক ক্রটি কোনটি?", "option1": "স্ক্রু - গজের শূণ্য ত্রুটি", "option2": "দৃষ্টিভ্রম", "option3": "অনিয়মিত ত্রুটি", "option4": "সামগ্রিক ত্রুটি", "answer": "1", "explanation": "স্ক্রু গজের শুন্য ত্রুটি এর উদাহরণ।" },
-            { "id": "5", "question_text": "পদার্থবিজ্ঞান কথাটি গ্রিক শব্দ ----- থেকে এসেছে।", "option1": "Fusis", "option2": "Fuss", "option3": "Fusil", "option4": "Fusia", "answer": "1", "explanation": "গ্রিক শব্দ Fusis (প্রকৃতি) হতে এসেছে" },
-            { "id": "6", "question_text": "যদি A = B<sup>n</sup>C<sup>m</sup> এবং A, B ও C এর মাত্রা যথাক্রমে, LT, L<sup>2</sup>T <sup>-1</sup>এবং LT<sup>2</sup> হয় তবে n ও m এর মান হবে-", "option1": "2/3, 1/3", "option2": "2, 3", "option3": "4/5, -1/5", "option4": "1/5, 3/5", "answer": "4", "explanation": "<br /><img class='qimg' src='https://www.rayvila.com/5/250307140610.jpg'>" },
-            { "id": "7", "question_text": "একটি স্লাইড ক্যালিপার্সের প্রধান স্কেলের ক্ষুদ্রতম এক ঘরের মান 1mm. ভার্ণিয়ার স্কেলের 20 ঘর প্রধান স্কেলের 19 ঘরের সমান। ওই স্কেলের ভার্ণিয়ার ধ্রুবক হবে-", "option1": "0.5mm", "option2": "0.1mm", "option3": "0.01mm", "option4": "0.05mm", "answer": "4", "explanation": "ভার্নিয়ার ধ্রুবক = 1/20 = 0.05" },
-            { "id": "8", "question_text": "যদি →A×→B = −(→B × →A) হয় তবে এদের মধ্যবর্তী কোণ?", "option1": "π", "option2": "π/2", "option3": "π/4", "option4": "2π", "answer": "1", "explanation": "" },
-            { "id": "9", "question_text": "কোনটি ভেক্টর রাশি?", "option1": "বৈদ্যুতিক প্রাবল্য", "option2": "বৈদ্যুতিক বিভব", "option3": "স্বর্ণপাত ধারকযন্ত্র", "option4": "আয়তন", "answer": "1", "explanation": "" },
-            { "id": "10", "question_text": "সঠিক উত্তর কোনটি? [উক্ত প্রশ্নে ও অপশনে i, j, k. উপর ভেক্টর চিহ্ন বিবেচিত]", "option1": "k × j = i", "option2": "k × j = 1", "option3": "k × j = -i", "option4": "k × j = 0", "answer": "3", "explanation": "<br /><img class='qimg' src='https://www.rayvila.com/5/250307141851.jpg'>" },
-            { "id": "11", "question_text": "একটি বস্তুকে সে পরিমাণ বল দ্বারা পূর্বদিকে, সেই একই পরিমাণ বল দ্বারা দক্ষিণ দিকে টানা হচ্ছে। লব্ধিবল পশ্চিম দিকের সাথে কত কোণ উৎপন্ন করবে?", "option1": "45", "option2": "90", "option3": "135", "option4": "180", "answer": "3", "explanation": "<br /><img class='qimg' src='https://www.rayvila.com/5/250307155858.jpg'>" },
-            { "id": "12", "question_text": "যদি →B = x²yˆi + y²zˆj + z²xˆk হয়, তবে (1, 1, 0) বিন্দুতে →∇.→B এর মান নির্ণয় কর।", "option1": "2", "option2": "-2", "option3": "1", "option4": "-1", "answer": "1", "explanation": "<br /><img class='qimg' src='https://www.rayvila.com/5/250307160113.jpg'>" },
-            { "id": "13", "question_text": "যদি দুটি সমান ভেক্টরের লব্ধি যে কোন একটির সমান হয়,তবে ভেক্টরদ্বয়ের মধ্যবর্তী কোণ কত হবে?", "option1": "120", "option2": "90", "option3": "60", "option4": "30", "answer": "1", "explanation": "১২০ ডিগ্রি কোণে দুটি সমান ভেক্টর কাজ করলে লব্ধিও সমান হয়।" },
-            { "id": "14", "question_text": "এক মিটার চক্রগতির ব্যাসার্ধ বিশিষ্ট বৃত্তাকার চাকার মোমেন্ট ও কৌণিক ত্বরণ 20 Nm ও 10 rad/sec<sup>2</sup> হলে চাকাটির ভর কত?", "option1": "1 kg", "option2": "2 kg", "option3": "1 gm", "option4": "2 gm", "answer": "2", "explanation": "I = τ/α = 20/10 = 2 kgm². m = I/K² = 2/1 = 2 kg." },
-            { "id": "15", "question_text": "π/5 Nm মানের একটি টর্ক 30 rpm বেগে ঘূর্ণায়মান একটি চাকাকে 10s এ থামিয়ে দেয়। চাকার জড়তার ভ্রামক কত kgm<sup>2</sup> ?", "option1": "2", "option2": "2π", "option3": "4", "option4": "4/π", "answer": "1", "explanation": "<br /><img class='qimg' src='https://www.rayvila.com/5/250307160902.jpg'>" },
-            { "id": "16", "question_text": "চিত্রের কোনটি সঠিক?", "option1": "A", "option2": "B", "option3": "C", "option4": "D", "answer": "4", "explanation": "<br /><img class='qimg' src='https://www.rayvila.com/5/250307225011.jpg'>" },
-            { "id": "17", "question_text": "একটি হালকা বস্তু ও একটি ভারী বস্তু গতিশক্তি সমান। কার ভরবেগ বেশি?", "option1": "ভারী বস্তু", "option2": "হালকা বস্তু", "option3": "উভয় বস্তুর", "option4": "বলা সম্ভব নয়", "answer": "1", "explanation": "গতিশক্তি সমান হলে যার ভর বেশি তার ভরবেগ বেশি।" },
-            { "id": "18", "question_text": "একটি মোটর প্রতি মিনিটে 5kg ভরের পানি তুলে ৪√৫ m/s বেগে নিক্ষেপ করে। গভীরতা 8m হলে মোটর ক্ষমতা কত?", "option1": "1 W", "option2": "10 W", "option3": "100 W", "option4": "1000 W", "answer": "2", "explanation": "P = (mgh + 0.5mv²)/t = (5*10*8 + 0.5*5*80)/60 = 10 W" },
-            { "id": "19", "question_text": "চিত্রের ফলাফল কত?", "option1": "8 cm", "option2": "80 cm", "option3": "8 m", "option4": "8 mm", "answer": "1", "explanation": "<br /><img class='qimg' src='https://www.rayvila.com/5/250307230345.jpg'>" }
+            { q: "1MegaW সমান কত?", a1: "10⁶ W", a2: "10⁶ Js", a3: "1000 KW", a4: "সবগুলো", ans: 4, exp: "১ মেগাওয়াট = ১০⁶ ওয়াট বা ১০০০ কিলোওয়াট। সবগুলোই সঠিক।" },
+            { q: "মাত্রাহীন রাশি কোনটি?", a1: "কোণ", a2: "বিকৃতি", a3: "ঘনকোণ", a4: "সবগুলো", ans: 4, exp: "কোণ, বিকৃতি এবং ঘনকোণ - এই তিনটি রাশিই দুটি সমজাতীয় রাশির অনুপাত হওয়ায় এদের কোনো মাত্রা নেই।" },
+            { q: "একটি গোলকের পরিমাপ্য ব্যাসার্ধ ( 2.5 ± 0.2 ) cm হলে, এর আয়তন পরিমাপে শতকরা ত্রুটি কত?", a1: "0.08%", a2: "8%", a3: "16%", a4: "24%", ans: 4, exp: "শতকরা ত্রুটি = 3 × (0.2 / 2.5) × 100% = 24%" },
+            { q: "পুনরাবৃত্তিক ক্রটি কোনটি?", a1: "স্ক্রু - গজের শূণ্য ত্রুটি", a2: "দৃষ্টিভ্রম", a3: "অনিয়মিক ত্রুটি", a4: "সামগ্রিক ত্রুটি", ans: 1, exp: "যান্ত্রিক ত্রুটি প্রতিবার পাঠে একইভাবে ঘটে।" },
+            { q: "পদার্থবিজ্ঞান কথাটি গ্রিক শব্দ ----- থেকে এসেছে।", a1: "Fusis", a2: "Fuss", a3: "Fusil", a4: "Fusia", ans: 1, exp: "গ্রিক শব্দ 'Fusis' অর্থ প্রকৃতি।" },
+            { q: "ভেক্টর রাশি কোনটি?", a1: "কাজ", a2: "ক্ষমতা", a3: "বেগ", a4: "ভর", ans: 3, exp: "বেগের মান ও দিক উভয়ই আছে।" },
+            { q: "বলের মাত্রা সমীকরণ কোনটি?", a1: "MLT⁻¹", a2: "MLT⁻²", a3: "ML²T⁻²", a4: "ML⁻¹T⁻²", ans: 2, exp: "F = ma থেকে MLT⁻²" },
+            { q: "১ আলোকবর্ষ সমান কত মিটার?", a1: "9.46 × 10¹²", a2: "9.46 × 10¹⁵", a3: "3 × 10⁸", a4: "1.5 × 10¹¹", ans: 2, exp: "আলো এক বছরে যে দূরত্ব অতিক্রম করে।" },
+            { q: "স্ক্রু গজের ন্যূনাঙ্ক বের করার সূত্র কোনটি?", a1: "পিচ / বৃত্তাকার স্কেলের ভাগ সংখ্যা", a2: "পিচ × ভাগ সংখ্যা", a3: "ভার্নিয়ার ধ্রুবক / ১০", a4: "প্রধান স্কেলের ঘর / ১০০", ans: 1, exp: "LC = Pitch / N" },
+            { q: "পাস্কাল কিসের একক?", a1: "বল", a2: "ক্ষমতা", a3: "চাপ", a4: "কাজ", ans: 3, exp: "চাপের SI একক পাস্কাল (Pa)" },
+            { q: "ঘনত্বের মাত্রা কোনটি?", a1: "ML⁻³", a2: "ML⁻²", a3: "ML³", a4: "M⁻¹L³", ans: 1, exp: "ভর/আয়তন থেকে ML⁻³" },
+            { q: "১ ন্যানোমিটার সমান কত মিটার?", a1: "10⁻⁶", a2: "10⁻⁹", a3: "10⁻¹²", a4: "10⁻³", ans: 2, exp: "ন্যানো মানে ১০ এর ঘাত -৯।" },
+            { q: "ভেক্টর বিভাজনের উদাহরণ কোনটি?", a1: "নৌকা চালানো", a2: "পাখির ওড়া", a3: "লন রোলার টানা", a4: "সবগুলো", ans: 4, exp: "সবগুলোই ভেক্টর বিভাজনের মাধ্যমে কাজ করে।" },
+            { q: "শূন্য ভেক্টরের পাদবিন্দু ও শীর্ষবিন্দু কোথায় থাকে?", a1: "আলাদা জায়গায়", a2: "একই বিন্দুতে", a3: "অসীমে", a4: "বিপরীত দিকে", ans: 2, exp: "যার মান শূন্য তার আদি ও শেষ বিন্দু একই।" },
+            { q: "সান্দ্রতা গুনাঙ্কের একক কোনটি?", a1: "N s m⁻²", a2: "N s m²", a3: "N m⁻²", a4: "kg m s⁻¹", ans: 1, exp: "Poiseuille বা N s m⁻²" },
+            { q: "কৌণিক ভরবেগের মাত্রা কোনটি?", a1: "MLT⁻¹", a2: "ML²T⁻¹", a3: "ML²T⁻²", a4: "MLT⁻²", ans: 2, exp: "L = r × p থেকে ML²T⁻¹" },
+            { q: "ভার্নিয়ার ধ্রুবক ০.১ মিমি বলতে কী বোঝায়?", a1: "প্রধান স্কেলের ক্ষুদ্রতম ঘর ০.১ মিমি", a2: "প্রধান ও ভার্নিয়ার স্কেলের ১ ঘরের পার্থক্য ০.১ মিমি", a3: "ভার্নিয়ার স্কেলের ১০ ঘর = ১ মিমি", a4: "সবগুলো", ans: 2, exp: "VC মানে স্কেল দুটির ক্ষুদ্রতম ঘরের পার্থক্য।" },
+            { q: "১ ক্যালরি সমান কত জুল?", a1: "4.18", a2: "4.2", a3: "4.184", a4: "সবগুলো", ans: 4, exp: "প্রায় ৪.১৮ বা ৪.২ জুল।" },
+            { q: "কাজ করার সামর্থ্যকে কী বলে?", a1: "ক্ষমতা", a2: "বল", a3: "শক্তি", a4: "টর্ক", ans: 3, exp: "শক্তি হলো কাজ করার সামর্থ্য।" }
         ];
 
+        let userName = "";
+        let timeLeft = 10 * 60;
+        let timerInterval;
         let userAnswers = new Array(questions.length).fill(null);
-        let markedQuestions = new Set();
-        let timeLeft = 600;
-        let timerId;
+        let markedQuestions = new Array(questions.length).fill(false); // Track marked questions
+        let startTime;
+
+        function checkLoginAndStartExam() {
+            // Check if user is logged in by checking for stored login status
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            
+            if (!isLoggedIn) {
+                // If not logged in, redirect to login page
+                alert("আপনি লগইন করেননি! লগইন পেজে পাঠানো হচ্ছে...");
+                window.location.href = "login.html"; // Redirect to login page
+                return;
+            }
+            
+            // If logged in, proceed with exam
+            startExam();
+        }
 
         function startExam() {
-            document.getElementById('welcome-screen').style.display = 'none';
-            document.getElementById('exam-screen').style.display = 'block';
-            document.getElementById('nav-btn').style.display = 'flex';
+            // Get username from localStorage (assuming it's stored during login)
+            userName = localStorage.getItem('userName') || "ছাত্র";
+            
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('exam-view').classList.remove('hidden');
+            document.getElementById('floating-ui').classList.remove('hidden');
+
             renderQuestions();
             renderNavigator();
             startTimer();
+            startTime = Date.now();
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                const mins = Math.floor(timeLeft / 60);
+                const secs = timeLeft % 60;
+                document.getElementById('timer-display').innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+                if(timeLeft <= 0) finishExam();
+            }, 1000);
         }
 
         function renderQuestions() {
-            const list = document.getElementById('questions-list');
-            list.innerHTML = questions.map((q, idx) => `
-                <div class="question-card" id="q-card-${idx}">
-                    <div class="q-header">
-                        <div class="q-text">
-                            <span class="q-num">${idx + 1}.</span> ${q.question_text}
-                        </div>
-                        <button class="mark-btn" id="mark-${idx}" onclick="toggleMark(${idx})">MARK</button>
+            const container = document.getElementById('questions-container');
+            container.innerHTML = questions.map((q, i) => `
+                <div id="q-box-${i}" class="bg-white p-8 rounded-[35px] shadow-sm border border-slate-100 transition-all hover:shadow-md">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="eng text-xs font-bold text-dark-gold bg-yellow-50 px-3 py-1 rounded-full uppercase tracking-widest">Question ${i+1}</span>
+                        <button onclick="toggleMark(${i})" class="mark-btn w-8 h-8 rounded-full border-2 flex items-center justify-center text-lg transition-colors ${markedQuestions[i] ? 'bg-rose-500 text-white border-rose-500' : 'border-slate-300 hover:border-rose-400 hover:text-rose-500'}">
+                            <i class="fas fa-flag"></i>
+                        </button>
                     </div>
-                    <div class="options-grid">
-                        ${[1, 2, 3, 4].map(i => `
-                            <div class="opt" id="opt-${idx}-${i}" onclick="selectOption(${idx}, ${i})">
-                                <span class="eng" style="font-weight:800; opacity:0.5">${String.fromCharCode(64+i)}</span>
-                                <span>${q['option'+i]}</span>
-                            </div>
+                    <h3 class="text-lg font-bold mb-6 text-black-navy leading-relaxed">${q.q}</h3>
+                    <div class="grid gap-3">
+                        ${[1, 2, 3, 4].map(num => `
+                            <button onclick="selectOption(${i}, ${num})" id="opt-${i}-${num}" class="option-btn text-left p-3 rounded-2xl border-2 border-slate-50 bg-slate-50/50 hover:bg-white hover:border-accent-yellow transition-all flex items-center gap-4 text-base group">
+                                <span class="eng w-7 h-7 rounded-lg bg-white shadow-sm flex items-center justify-center font-bold text-dark-gold group-hover:bg-accent-yellow group-hover:text-black-navy transition-colors">${String.fromCharCode(64+num)}</span>
+                                <span class="flex-1">${q['a'+num]}</span>
+                            </button>
                         `).join('')}
                     </div>
                 </div>
             `).join('');
         }
 
-        function selectOption(qIdx, optIdx) {
+        function selectOption(qIdx, optNum) {
             if(userAnswers[qIdx] !== null) return;
-            userAnswers[qIdx] = optIdx;
-            for(let i=1; i<=4; i++) {
-                const el = document.getElementById(`opt-${qIdx}-${i}`);
-                el.classList.add('locked');
-                if(i === optIdx) el.classList.add('selected');
-            }
-            updateNavUI();
-        }
 
-        function toggleMark(idx) {
-            const btn = document.getElementById(`mark-${idx}`);
-            if(markedQuestions.has(idx)) {
-                markedQuestions.delete(idx);
-                btn.classList.remove('active');
-            } else {
-                markedQuestions.add(idx);
-                btn.classList.add('active');
-            }
-            updateNavUI();
-        }
+            userAnswers[qIdx] = optNum;
+            const container = document.getElementById(`q-box-${qIdx}`);
+            const buttons = container.querySelectorAll('.option-btn');
 
-        function startTimer() {
-            timerId = setInterval(() => {
-                timeLeft--;
-                let m = Math.floor(timeLeft / 60);
-                let s = timeLeft % 60;
-                document.getElementById('timer').innerText = `${m}:${s < 10 ? '0'+s : s}`;
-                if(timeLeft <= 0) submitExam();
-            }, 1000);
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                btn.classList.add('opacity-60', 'cursor-not-allowed');
+                if(idx + 1 === optNum) {
+                    btn.classList.remove('opacity-60', 'bg-slate-50/50', 'border-slate-50');
+                    btn.classList.add('bg-accent-yellow', 'text-black-navy', 'border-accent-yellow', 'opacity-100', 'scale-[1.02]', 'shadow-lg');
+                    btn.querySelector('span.eng').classList.add('bg-black-navy', 'text-accent-yellow');
+                }
+            });
+            updateNavigator();
         }
 
         function renderNavigator() {
-            const grid = document.getElementById('nav-dots-grid');
+            const grid = document.getElementById('nav-grid');
             grid.innerHTML = questions.map((_, i) => `
-                <div class="dot" id="dot-${i}" onclick="jumpTo(${i})">${i+1}</div>
+                <button onclick="scrollToQuestion(${i})" id="nav-dot-${i}" class="w-full aspect-square rounded-xl bg-slate-100 text-slate-400 font-bold eng text-sm transition-all border border-transparent relative">
+                    ${i+1}
+                    <span class="mark-indicator absolute top-0 right-0 w-4 h-4 rounded-full bg-white border border-slate-200 flex items-center justify-center text-[8px] ${markedQuestions[i] ? 'visible' : 'invisible'}">
+                        <i class="fas fa-flag text-rose-500"></i>
+                    </span>
+                </button>
             `).join('');
         }
 
-        function updateNavUI() {
-            questions.forEach((_, i) => {
-                const dot = document.getElementById(`dot-${i}`);
-                dot.classList.remove('answered', 'marked');
-                if(userAnswers[i] !== null) dot.classList.add('answered');
-                if(markedQuestions.has(i)) dot.classList.add('marked');
+        function updateNavigator() {
+            let answered = 0;
+            userAnswers.forEach((ans, i) => {
+                const dot = document.getElementById(`nav-dot-${i}`);
+                if(ans !== null) {
+                    dot.classList.remove('bg-slate-100', 'text-slate-400');
+                    dot.classList.add('bg-black-navy', 'text-accent-yellow');
+                    answered++;
+                } else {
+                    dot.classList.remove('bg-black-navy', 'text-accent-yellow');
+                    dot.classList.add('bg-slate-100', 'text-slate-400');
+                }
+
+                // Update the mark indicator
+                const markIndicator = dot.querySelector('.mark-indicator');
+                if(markedQuestions[i]) {
+                    markIndicator.classList.remove('invisible');
+                    markIndicator.classList.add('visible');
+                } else {
+                    markIndicator.classList.remove('visible');
+                    markIndicator.classList.add('invisible');
+                }
             });
+            document.getElementById('left-count').innerText = questions.length - answered;
         }
 
-        function jumpTo(idx) {
-            document.getElementById(`q-card-${idx}`).scrollIntoView({ behavior: 'smooth', block: 'center' });
-            toggleNavigator(false);
+        function toggleNavigator() {
+            const panel = document.getElementById('nav-panel');
+            const overlay = document.getElementById('nav-overlay');
+            const isHidden = panel.classList.contains('hidden');
+
+            if(isHidden) {
+                panel.classList.remove('hidden');
+                overlay.classList.remove('hidden');
+                setTimeout(() => {
+                    panel.classList.remove('translate-y-4', 'opacity-0');
+                }, 10);
+            } else {
+                panel.classList.add('translate-y-4', 'opacity-0');
+                setTimeout(() => {
+                    panel.classList.add('hidden');
+                    overlay.classList.add('hidden');
+                }, 300);
+            }
         }
 
-        function toggleNavigator(force) {
-            const nav = document.getElementById('navigator');
-            nav.style.display = (force === false) ? 'none' : (nav.style.display === 'block' ? 'none' : 'block');
+        function toggleMark(qIdx) {
+            markedQuestions[qIdx] = !markedQuestions[qIdx];
+            updateNavigator();
+
+            // Update the flag button appearance
+            const flagBtn = document.querySelector(`#q-box-${qIdx} .mark-btn`);
+            if(markedQuestions[qIdx]) {
+                flagBtn.classList.add('bg-rose-500', 'text-white', 'border-rose-500');
+                flagBtn.classList.remove('border-slate-300', 'hover:border-rose-400', 'hover:text-rose-500');
+            } else {
+                flagBtn.classList.remove('bg-rose-500', 'text-white', 'border-rose-500');
+                flagBtn.classList.add('border-slate-300', 'hover:border-rose-400', 'hover:text-rose-500');
+            }
         }
 
-        function submitExam() {
-            clearInterval(timerId);
-            document.getElementById('exam-screen').style.display = 'none';
-            document.getElementById('nav-btn').style.display = 'none';
-            document.getElementById('navigator').style.display = 'none';
-            document.getElementById('result-screen').style.display = 'block';
+        function scrollToQuestion(i) {
+            const el = document.getElementById(`q-box-${i}`);
+            window.scrollTo({ top: el.offsetTop - 120, behavior: 'smooth' });
+            toggleNavigator();
+        }
+
+        function finishExam() {
+            clearInterval(timerInterval);
+            const timeSpent = Math.floor((Date.now() - startTime) / 1000);
+
+            document.getElementById('exam-view').classList.add('hidden');
+            document.getElementById('floating-ui').classList.add('hidden');
+            document.getElementById('result-view').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
 
             let correct = 0, wrong = 0, skip = 0;
             userAnswers.forEach((ans, i) => {
                 if(ans === null) skip++;
-                else if(ans == questions[i].answer) correct++;
+                else if(ans === questions[i].ans) correct++;
                 else wrong++;
             });
 
-            document.getElementById('res-score').innerText = correct;
-            document.getElementById('res-correct').innerText = correct;
-            document.getElementById('res-wrong').innerText = wrong;
-            document.getElementById('res-skip').innerText = skip;
+            // Use the login name from localStorage if available, otherwise use the temporary name
+            const loginName = localStorage.getItem('userName') || localStorage.getItem('userEmail') || "ছাত্র";
+            document.getElementById('display-name').innerText = loginName;
+            document.getElementById('final-percent').innerText = Math.round((correct/questions.length)*100) + "%";
+            document.getElementById('stat-correct').innerText = correct;
+            document.getElementById('stat-wrong').innerText = wrong;
+            document.getElementById('stat-skip').innerText = skip;
+            document.getElementById('stat-time').innerText = `${Math.floor(timeSpent/60).toString().padStart(2, '0')}:${(timeSpent%60).toString().padStart(2, '0')}`;
 
-            renderSolveSheet();
-            window.scrollTo(0, 0);
+            switchTab('all');
+
+            // Automatically send results to Telegram
+            sendToTelegram();
         }
 
-        function renderSolveSheet() {
-            const area = document.getElementById('solve-sheet-area');
-            area.innerHTML = `<h2 style="margin: 40px 0 25px; text-align:center;">বিস্তারিত সমাধান ও ব্যাখ্যা</h2>`;
-            
-            questions.forEach((q, i) => {
-                const userChoice = userAnswers[i];
-                const correctChoice = q.answer;
+        function switchTab(type) {
+            const tabs = ['all', 'correct', 'wrong', 'skip'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`tab-${t}`);
+                if(t === type) {
+                    btn.classList.add('bg-white', 'text-black-navy', 'shadow-sm');
+                    btn.classList.remove('text-slate-500');
+                } else {
+                    btn.classList.remove('bg-white', 'text-black-navy', 'shadow-sm');
+                    btn.classList.add('text-slate-500');
+                }
+            });
 
-                area.innerHTML += `
-                    <div class="question-card">
-                        <div class="q-header">
-                            <div class="q-text"><span class="q-num">${i+1}.</span> ${q.question_text}</div>
+            const container = document.getElementById('analysis-container');
+            container.innerHTML = "";
+
+            questions.forEach((q, i) => {
+                const u = userAnswers[i];
+                const isCorrect = u === q.ans;
+                const isSkip = u === null;
+
+                if(type === 'correct' && !isCorrect) return;
+                if(type === 'wrong' && (isCorrect || isSkip)) return;
+                if(type === 'skip' && !isSkip) return;
+
+                let borderClass = "border-slate-200";
+                let statusText = "স্কিপড";
+                let statusColor = "text-slate-500";
+
+                if(!isSkip) {
+                    if(isCorrect) {
+                        borderClass = "border-emerald-500 shadow-emerald-50 shadow-[0_0_20px_rgba(16,185,129,0.05)]";
+                        statusText = "সঠিক";
+                        statusColor = "text-emerald-600";
+                    } else {
+                        borderClass = "border-rose-500 shadow-rose-50 shadow-[0_0_20px_rgba(244,63,94,0.05)]";
+                        statusText = "ভুল";
+                        statusColor = "text-rose-600";
+                    }
+                }
+
+                container.innerHTML += `
+                    <div class="bg-white p-6 rounded-[30px] border-l-[10px] ${borderClass} shadow-sm">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="eng text-xs font-bold text-slate-400">QUESTION ${i+1}</span>
+                            <span class="text-sm font-black ${statusColor}">${statusText}</span>
                         </div>
-                        <div class="options-grid">
-                            ${[1,2,3,4].map(j => {
-                                let cls = '';
-                                if(j == correctChoice) cls = 'is-correct';
-                                else if(j == userChoice && userChoice != correctChoice) cls = 'is-wrong';
-                                return `
-                                    <div class="opt locked ${cls}">
-                                        <span class="eng" style="font-weight:800">${String.fromCharCode(64+j)}</span>
-                                        <span>${q['option'+j]}</span>
-                                        ${j == correctChoice ? '<i class="fas fa-check-circle" style="margin-left:auto"></i>' : ''}
-                                    </div>
-                                `;
+                        <h4 class="text-base font-bold mb-4">${q.q}</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-4">
+                            ${[1,2,3,4].map(num => {
+                                let optCls = "bg-slate-50 text-slate-600";
+                                if(num === q.ans) optCls = "bg-emerald-50 text-emerald-700 font-bold ring-1 ring-emerald-200";
+                                if(u === num && !isCorrect) optCls = "bg-rose-50 text-rose-700 font-bold ring-1 ring-rose-200";
+                                return `<div class="p-2 rounded-xl text-xs ${optCls}">
+                                    <span class="eng mr-2 opacity-50">${String.fromCharCode(64+num)}.</span> ${q['a'+num]}
+                                </div>`;
                             }).join('')}
                         </div>
-                        <div class="explanation">
-                            <strong>ব্যাখ্যা:</strong> ${q.explanation}
+                        <div class="bg-yellow-50/50 p-4 rounded-2xl border border-yellow-100 text-sm">
+                            <strong class="text-dark-gold block mb-1"><i class="fas fa-lightbulb"></i> ব্যাখ্যা:</strong>
+                            <p class="text-slate-600">${q.exp}</p>
                         </div>
                     </div>
                 `;
             });
         }
 
-        function downloadPDF(type) {
-            const temp = document.createElement('div');
-            temp.style.padding = '40px';
-            temp.style.background = 'white';
-            temp.style.fontFamily = "'Tiro Bangla', serif";
 
-            let content = `
-                <div style="text-align:center; border-bottom: 2px solid #333; padding-bottom:15px; margin-bottom:30px;">
-                    <img src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" style="height:60px;">
-                    <h1 style="margin:5px 0;">সিলেবাসের বাইরে</h1>
-                    <p>পদার্থবিজ্ঞানঃ প্রথম পত্র | ${type === 'solve' ? 'সমাধান কপি' : 'অনুশীলন কপি'}</p>
+        function downloadPDF(type) {
+            // Calculate results from user answers
+            let correct = 0, wrong = 0, skip = 0;
+            userAnswers.forEach((ans, i) => {
+                if(ans === null) skip++;
+                else if(ans === questions[i].ans) correct++;
+                else wrong++;
+            });
+
+            // Calculate time spent, with fallback if startTime is not defined
+            const timeSpent = startTime ? Math.floor((Date.now() - startTime) / 1000) : 0;
+
+            // Create a temporary container for the PDF content
+            const element = document.createElement('div');
+            const logo = "https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png";
+
+            // Get the actual username from localStorage
+            const actualUserName = localStorage.getItem('userName') || localStorage.getItem('userEmail') || "ছাত্র";
+
+            // Build the HTML content
+            let html = `
+                <div style="padding: 40px; font-family: 'Tiro Bangla', serif; position: relative; background: white;">
+                    <!-- Watermark -->
+                    <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-30deg); opacity: 0.04; z-index: -1; width: 80%;">
+                        <img src="${logo}" style="width: 100%;">
+                    </div>
+
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <img src="${logo}" style="height: 60px; margin: 0 auto 15px; display: block;">
+                        <h1 style="font-size: 28px; color: #B8860B; margin: 0; font-weight: bold;">${type === 'solve' ? 'রেজাল্ট শীট' : 'প্রশ্ন শীট'}</h1>
+                        <p style="color: #64748b; margin: 5px 0; font-size: 16px;">${actualUserName}</p>
+                        <p style="color: #64748b; margin: 5px 0; font-size: 16px;">${new Date().toLocaleDateString('bn-BD')}</p>
+                    </div>
+
+                    <div style="margin: 30px 0;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                            <div style="background: #f5f5f5; padding: 15px; border-radius: 10px; flex: 1; margin-right: 10px; text-align: center;">
+                                <div style="font-size: 24px; font-weight: bold; color: #0f9d58;">${correct}</div>
+                                <div style="color: #64748b; font-size: 14px;">সঠিক</div>
+                            </div>
+                            <div style="background: #f5f5f5; padding: 15px; border-radius: 10px; flex: 1; margin: 0 5px; text-align: center;">
+                                <div style="font-size: 24px; font-weight: bold; color: #db4437;">${wrong}</div>
+                                <div style="color: #64748b; font-size: 14px;">ভুল</div>
+                            </div>
+                            <div style="background: #f5f5f5; padding: 15px; border-radius: 10px; flex: 1; margin: 0 5px; text-align: center;">
+                                <div style="font-size: 24px; font-weight: bold; color: #64748b;">${skip}</div>
+                                <div style="color: #64748b; font-size: 14px;">স্কিপ</div>
+                            </div>
+                            <div style="background: #f5f5f5; padding: 15px; border-radius: 10px; flex: 1; margin-left: 10px; text-align: center;">
+                                <div style="font-size: 24px; font-weight: bold; color: #ff9800;">${Math.floor(timeSpent/60)}:${(timeSpent%60).toString().padStart(2, '0')}</div>
+                                <div style="color: #64748b; font-size: 14px;">সময়</div>
+                            </div>
+                        </div>
+                    </div>
+            `;
+
+            if(type === 'solve') {
+                html += '<div style="margin: 30px 0;">';
+                questions.forEach((q, i) => {
+                    const u = userAnswers[i];
+                    const isCorrect = u === q.ans;
+                    const isSkip = u === null;
+
+                    let statusText = "স্কিপড";
+                    let statusColor = "#64748b";
+
+                    if(!isSkip) {
+                        if(isCorrect) {
+                            statusText = "সঠিক";
+                            statusColor = "#0f9d58";
+                        } else {
+                            statusText = "ভুল";
+                            statusColor = "#db4437";
+                        }
+                    }
+
+                    html += `
+                        <div style="margin-bottom: 20px; padding: 15px; border-left: 5px solid ${isSkip ? '#64748b' : isCorrect ? '#0f9d58' : '#db4437'}; background: #f9f9f9; border-radius: 5px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                <div style="font-weight: bold; font-size: 16px;">প্রশ্ন ${i+1}</div>
+                                <div style="color: ${statusColor}; font-weight: bold; font-size: 16px;">${statusText}</div>
+                            </div>
+                            <div style="margin-bottom: 10px;"><strong style="font-size: 16px;">${q.q}</strong></div>
+                            <div style="margin-bottom: 10px;">
+                    `;
+
+                    [1,2,3,4].forEach(num => {
+                        let optCls = isSkip ? "#64748b" : (num === q.ans ? "#0f9d58" : (u === num && !isCorrect ? "#db4437" : "#64748b"));
+                        let optText = (num === q.ans ? "✓ " : (u === num && !isCorrect ? "✗ " : "")) + q['a'+num];
+                        html += `<div style="margin: 5px 0; color: ${optCls}; font-size: 15px;">${String.fromCharCode(64+num)}. ${optText}</div>`;
+                    });
+
+                    html += `
+                            </div>
+                            <div style="background: #fff3cd; padding: 10px; border-radius: 5px; border: 1px solid #ffeaa7; margin-top: 10px;">
+                                <strong style="color: #856404; font-size: 15px;">ব্যাখ্যা: </strong>
+                                <span style="color: #856404; font-size: 15px;">${q.exp}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            } else {
+                html += '<div style="margin: 30px 0;">';
+                questions.forEach((q, i) => {
+                    html += `
+                        <div style="margin-bottom: 20px; padding: 15px; border-left: 5px solid #64748b; background: #f9f9f9; border-radius: 5px;">
+                            <div style="font-weight: bold; margin-bottom: 10px; font-size: 16px;">প্রশ্ন ${i+1}</div>
+                            <div style="margin-bottom: 10px;"><strong style="font-size: 16px;">${q.q}</strong></div>
+                            <div style="margin-bottom: 10px;">
+                    `;
+                    [1,2,3,4].forEach(num => {
+                        html += `<div style="margin: 5px 0; font-size: 15px;">${String.fromCharCode(64+num)}. ${q['a'+num]}</div>`;
+                    });
+                    html += `
+                            </div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            }
+
+            html += `
                 </div>
             `;
 
-            questions.forEach((q, i) => {
-                content += `
-                    <div style="margin-bottom: 20px; page-break-inside: avoid;">
-                        <p><strong>${i+1}. ${q.question_text}</strong></p>
-                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:5px; font-size:14px;">
-                            <span>(ক) ${q.option1}</span> <span>(খ) ${q.option2}</span>
-                            <span>(গ) ${q.option3}</span> <span>(ঘ) ${q.option4}</span>
-                        </div>
-                        ${type === 'solve' ? `
-                            <p style="color:#10b981; margin-top:5px; font-weight:bold;">সঠিক উত্তর: ${q['option'+q.answer]}</p>
-                            <div style="font-size:12px; color:#666; background:#f9f9f9; padding:8px; border-left:3px solid #ddd;">${q.explanation}</div>
-                        ` : ''}
-                    </div>
-                `;
+            element.innerHTML = html;
+
+            // Configure html2pdf options
+            const options = {
+                margin: [10, 5, 10, 5], // [top, left, bottom, right]
+                filename: type === 'solve' ? 'result-sheet.pdf' : 'question-sheet.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: {
+                    scale: 2,
+                    useCORS: true,
+                    logging: false // Reduce console output
+                },
+                jsPDF: {
+                    unit: 'mm',
+                    format: 'a4',
+                    orientation: 'portrait'
+                },
+                pagebreak: { mode: ['avoid-all'] }
+            };
+
+            // Generate and download the PDF
+            html2pdf().set(options).from(element).save().then(() => {
+                // Clean up the temporary element after PDF generation
+                element.remove();
+            }).catch(error => {
+                console.error('Error generating PDF:', error);
+                alert('PDF তৈরিতে সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।');
+            });
+        }
+
+        function sendToTelegram() {
+            // Get user name from localStorage (the login name) and results
+            const userName = localStorage.getItem('userName') || localStorage.getItem('userEmail') || "ছাত্র";
+            const total = questions.length;
+            const correct = parseInt(document.getElementById("stat-correct").innerText);
+            const wrong = parseInt(document.getElementById("stat-wrong").innerText);
+            const skip = parseInt(document.getElementById("stat-skip").innerText);
+            const timing = document.getElementById("stat-time").innerText;
+            const percentage = Math.round((correct / total) * 100);
+
+            // Create a detailed message with exam name, name, correct, skip, wrong, marks, and timing
+            let telegramMessage = `পরীক্ষার নাম: HSC Physics Live Exam\n`;
+            telegramMessage += `নাম: ${userName}\n`;
+            telegramMessage += `সঠিক: ${correct}\n`;
+            telegramMessage += `ভুল: ${wrong}\n`;
+            telegramMessage += `স্কিপ: ${skip}\n`;
+            telegramMessage += `মোট নম্বর: ${percentage}%\n`;
+            telegramMessage += `সময়: ${timing}`;
+
+            // Telegram Bot API details
+            const botToken = '8369663037:AAG9UYR0kiq3mtdhKXm66B29J2ckLRdz40s';
+            const chatId = '-1003658489498'; // Your confirmed group ID
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+            // Send the message to Telegram
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: telegramMessage,
+                    parse_mode: 'Markdown'
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.ok) {
+                    console.log('ফলাফল টেলিগ্রাম গ্রুপে সফলভাবে পাঠানো হয়েছে!');
+                } else {
+                    console.error('Error sending to Telegram:', data);
+                    // Show a notification if sending fails
+                    alert('টেলিগ্রামে ফলাফল পাঠানো যায়নি। দয়া করে নেটওয়ার্ক পরীক্ষা করুন।');
+                }
+            })
+            .catch(error => {
+                console.error('Error sending to Telegram:', error);
+                // Show a notification if sending fails
+                alert('টেলিগ্রামে ফলাফল পাঠানো যায়নি। দয়া করে নেটওয়ার্ক পরীক্ষা করুন।');
+            });
+        }
+
+        function generateSolutionSheetPDF() {
+            // Calculate results from user answers
+            let correct = 0, wrong = 0, skip = 0;
+            userAnswers.forEach((ans, i) => {
+                if(ans === null) skip++;
+                else if(ans === questions[i].ans) correct++;
+                else wrong++;
             });
 
-            temp.innerHTML = content;
-            html2pdf().set({
-                margin: 10,
-                filename: `SB_Physics_${type}.pdf`,
-                html2canvas: { scale: 2 },
+            // Calculate time spent, with fallback if startTime is not defined
+            const timeSpent = startTime ? Math.floor((Date.now() - startTime) / 1000) : 0;
+
+            // Create a temporary container for the PDF content
+            const element = document.createElement('div');
+            const logo = "https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png";
+
+            // Get the actual username from localStorage
+            const actualUserName = localStorage.getItem('userName') || localStorage.getItem('userEmail') || "ছাত্র/ছাত্রী";
+
+            element.innerHTML = `
+                <div style="padding: 40px; font-family: 'Tiro Bangla', serif; position: relative;">
+                    <!-- Watermark -->
+                    <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-30deg); opacity: 0.04; z-index: -1; width: 80%;">
+                        <img src="${logo}" style="width: 100%;">
+                    </div>
+
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <img src="${logo}" style="height: 60px; margin: 0 auto 15px; display: block;">
+                        <h1 style="font-size: 28px; color: #B8860B; margin: 0;">সমাধান শীট</h1>
+                        <p style="color: #64748b; margin: 5px 0;">${actualUserName}</p>
+                        <p style="color: #64748b; margin: 5px 0;">${new Date().toLocaleDateString('bn-BD')}</p>
+                    </div>
+
+                    <div style="margin: 30px 0;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                            <div style="background: #f5f5f5; padding: 15px; border-radius: 10px; flex: 1; margin-right: 10px; text-align: center;">
+                                <div style="font-size: 24px; font-weight: bold; color: #0f9d58;">${correct}</div>
+                                <div style="color: #64748b; font-size: 14px;">সঠিক</div>
+                            </div>
+                            <div style="background: #f5f5f5; padding: 15px; border-radius: 10px; flex: 1; margin: 0 5px; text-align: center;">
+                                <div style="font-size: 24px; font-weight: bold; color: #db4437;">${wrong}</div>
+                                <div style="color: #64748b; font-size: 14px;">ভুল</div>
+                            </div>
+                            <div style="background: #f5f5f5; padding: 15px; border-radius: 10px; flex: 1; margin: 0 5px; text-align: center;">
+                                <div style="font-size: 24px; font-weight: bold; color: #64748b;">${skip}</div>
+                                <div style="color: #64748b; font-size: 14px;">স্কিপ</div>
+                            </div>
+                            <div style="background: #f5f5f5; padding: 15px; border-radius: 10px; flex: 1; margin-left: 10px; text-align: center;">
+                                <div style="font-size: 24px; font-weight: bold; color: #ff9800;">${Math.floor(timeSpent/60)}:${(timeSpent%60).toString().padStart(2, '0')}</div>
+                                <div style="color: #64748b; font-size: 14px;">সময়</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin: 30px 0;">
+                        ${questions.map((q, i) => {
+                            const u = userAnswers[i];
+                            const isCorrect = u === q.ans;
+                            const isSkip = u === null;
+
+                            let statusText = "স্কিপড";
+                            let statusColor = "#64748b";
+                            let statusBg = "#f1f5f9";
+
+                            if(!isSkip) {
+                                if(isCorrect) {
+                                    statusText = "সঠিক";
+                                    statusColor = "#0f9d58";
+                                    statusBg = "#dcfce7";
+                                } else {
+                                    statusText = "ভুল";
+                                    statusColor = "#db4437";
+                                    statusBg = "#fee2e2";
+                                }
+                            }
+
+                            return `
+                                <div style="background: white; padding: 20px; margin-bottom: 15px; border-radius: 10px; border-left: 5px solid ${statusColor}; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                        <span style="font-weight: bold; color: #0f172a;">প্রশ্ন ${i+1}</span>
+                                        <span style="background: ${statusBg}; color: ${statusColor}; padding: 5px 10px; border-radius: 20px; font-size: 12px;">${statusText}</span>
+                                    </div>
+                                    <div style="margin: 10px 0; line-height: 1.6; color: #334155;">${q.q}</div>
+
+                                    <div style="margin: 15px 0;">
+                                        <div style="font-weight: bold; color: #0f172a; margin-bottom: 5px;">আপনার উত্তর:</div>
+                                        <div style="background: #f8fafc; padding: 10px; border-radius: 8px;">
+                                            ${u !== null ? q['a'+u] : 'উত্তর দেননি'}
+                                        </div>
+                                    </div>
+
+                                    <div style="margin: 15px 0;">
+                                        <div style="font-weight: bold; color: #0f172a; margin-bottom: 5px;">সঠিক উত্তর:</div>
+                                        <div style="background: #dcfce7; padding: 10px; border-radius: 8px; color: #0f9d58; font-weight: bold;">
+                                            ${q['a'+q.ans]}
+                                        </div>
+                                    </div>
+
+                                    <div style="margin: 15px 0;">
+                                        <div style="font-weight: bold; color: #0f172a; margin-bottom: 5px;">ব্যাখ্যা:</div>
+                                        <div style="background: #fffbeb; padding: 10px; border-radius: 8px; color: #d97706;">
+                                            ${q.exp}
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+
+            // Generate PDF
+            const opt = {
+                margin: 5,
+                filename: `solution_sheet_${Date.now()}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            }).from(temp).save();
+            };
+
+            html2pdf().set(opt).from(element).save();
+        }
+
+        function generateQuestionPaperPDF() {
+            // Create a temporary container for the PDF content
+            const element = document.createElement('div');
+            const logo = "https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png";
+
+            element.innerHTML = `
+                <div style="padding: 40px; font-family: 'Tiro Bangla', serif; position: relative;">
+                    <!-- Watermark -->
+                    <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-30deg); opacity: 0.04; z-index: -1; width: 80%;">
+                        <img src="${logo}" style="width: 100%;">
+                    </div>
+
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <img src="${logo}" style="height: 60px; margin: 0 auto 15px; display: block;">
+                        <h1 style="font-size: 28px; color: #B8860B; margin: 0;">প্রশ্ন পত্র</h1>
+                        <p style="color: #64748b; margin: 5px 0;">${new Date().toLocaleDateString('bn-BD')}</p>
+                    </div>
+
+                    <div style="margin: 30px 0;">
+                        ${questions.map((q, i) => {
+                            return `
+                                <div style="background: white; padding: 20px; margin-bottom: 15px; border-radius: 10px; border-left: 5px solid #3b82f6; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                        <span style="font-weight: bold; color: #0f172a;">প্রশ্ন ${i+1}</span>
+                                    </div>
+                                    <div style="margin: 10px 0; line-height: 1.6; color: #334155;">${q.q}</div>
+
+                                    <div style="margin: 15px 0;">
+                                        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 10px;">
+                                            <div style="background: #f8fafc; padding: 10px; border-radius: 8px;">
+                                                <strong>A.</strong> ${q.a1}
+                                            </div>
+                                            <div style="background: #f8fafc; padding: 10px; border-radius: 8px;">
+                                                <strong>B.</strong> ${q.a2}
+                                            </div>
+                                            <div style="background: #f8fafc; padding: 10px; border-radius: 8px;">
+                                                <strong>C.</strong> ${q.a3}
+                                            </div>
+                                            <div style="background: #f8fafc; padding: 10px; border-radius: 8px;">
+                                                <strong>D.</strong> ${q.a4}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+
+            // Generate PDF
+            const opt = {
+                margin: 5,
+                filename: `question_paper_${Date.now()}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(element).save();
         }
     </script>
 </body>
 </html>
-
