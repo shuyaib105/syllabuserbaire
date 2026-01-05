@@ -626,7 +626,7 @@
 
         function sendToTelegram() {
             // Get user name from localStorage (the login name) and results
-            const userName = localStorage.getItem('userName') || localStorage.getItem('userEmail') || "ছাত্র";
+            const loginName = localStorage.getItem('userName') || localStorage.getItem('userEmail') || "ছাত্র";
             const total = questions.length;
             const correct = parseInt(document.getElementById("stat-correct").innerText);
             const wrong = parseInt(document.getElementById("stat-wrong").innerText);
@@ -636,7 +636,7 @@
 
             // Create a detailed message with exam name, name, correct, skip, wrong, marks, and timing
             let telegramMessage = `পরীক্ষার নাম: HSC Physics Live Exam\n`;
-            telegramMessage += `নাম: ${userName}\n`;
+            telegramMessage += `নাম: ${loginName}\n`;  // Using loginName instead of userName
             telegramMessage += `সঠিক: ${correct}\n`;
             telegramMessage += `ভুল: ${wrong}\n`;
             telegramMessage += `স্কিপ: ${skip}\n`;
