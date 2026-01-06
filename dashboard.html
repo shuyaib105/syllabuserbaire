@@ -288,6 +288,120 @@
         .m-cancel { background: #f0f0f0; color: #333; }
         .m-confirm { background: var(--danger); color: #fff; }
 
+        /* --- প্রোফাইল স্টাইল --- */
+        .profile-container {
+            padding: 20px 0;
+        }
+
+        .profile-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #f0f0f0;
+            margin-bottom: 25px;
+        }
+
+        .profile-avatar-large {
+            flex-shrink: 0;
+        }
+
+        .profile-info-main {
+            flex: 1;
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 15px;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 10px 20px;
+            background: #f9f9f9;
+            border-radius: 12px;
+            min-width: 80px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--dark-gold);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+            font-family: 'Tiro Bangla', serif;
+        }
+
+        .profile-details {
+            margin-bottom: 25px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #f9f9f9;
+        }
+
+        .detail-item label {
+            width: 140px;
+            font-weight: 700;
+            color: #555;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .detail-item span {
+            flex: 1;
+            color: #333;
+            font-family: 'Tiro Bangla', serif;
+        }
+
+        .profile-actions {
+            margin-top: 15px;
+        }
+
+        .btn-edit {
+            background: #e3f2fd;
+            color: #1565c0;
+            padding: 6px 12px;
+            border-radius: 8px;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 11px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .name-edit-input, .email-edit-input, .roll-edit-input, .institution-edit-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--accent-yellow);
+            border-radius: 10px;
+            font-family: 'Tiro Bangla', serif;
+            font-size: 16px;
+            margin: 5px 0;
+        }
+
+        .profile-section {
+            margin: 25px 0;
+        }
+
         /* --- নতুন টোস্ট নোটিফিকেশন --- */
         .toast-container {
             position: fixed;
@@ -346,9 +460,6 @@
             <a href="index.html" class="nav-btn btn-home">
                 <i class="fas fa-home"></i> HOME
             </a>
-            <button class="nav-btn btn-logout" onclick="showWarning()">
-                <i class="fas fa-sign-out-alt"></i> LOGOUT
-            </button>
         </div>
     </header>
 
@@ -388,19 +499,77 @@
                     <p>কার্ডের "ENTER CLASS" বাটনে ক্লিক করলে সরাসরি ক্লাসের লিংক ওপেন হবে।</p>
                 </div>
             </div>
-            
-            <!-- ফলাফল ট্যাব -->
-            <div id="tab-results" class="tab-view">
-                <div class="info-card">
-                    <h4 style="font-family: Montserrat; font-weight: 800; font-size: 18px; margin-bottom: 15px; color: #000;">আপনার ফলাফল</h4>
-                    <div id="results-content">
-                        <p style="font-family: 'Tiro Bangla'; font-size: 16px; margin-bottom: 15px;">আপনার কোর্স ভিত্তিক পরীক্ষার ফলাফল এখানে প্রদর্শিত হবে।</p>
-                        <div id="results-grid" class="course-grid">
-                            <!-- Results will be loaded here -->
+
+            <!-- প্রোফাইল ট্যাব -->
+            <div id="tab-profile" class="tab-view">
+                <div class="profile-container">
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <div class="profile-avatar-large">
+                                <i class="fas fa-user-circle" style="font-size: 100px; color: var(--accent-yellow);"></i>
+                            </div>
+                            <div class="profile-info-main">
+                                <h2 id="profile-name" style="font-family: 'Montserrat'; font-weight: 800; font-size: 26px; margin-bottom: 5px; color: #000;">Loading...</h2>
+                                <div class="profile-stats">
+                                    <div class="stat-box">
+                                        <div class="stat-value" id="course-count">0</div>
+                                        <div class="stat-label">কোর্স</div>
+                                    </div>
+                                    <div class="stat-box">
+                                        <div class="stat-value" id="progress-value">0%</div>
+                                        <div class="stat-label">অগ্রগতি</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="profile-details">
+                            <div class="detail-item">
+                                <label>ইমেইল:</label>
+                                <span id="profile-email">Loading...</span>
+                                <button class="action-btn btn-edit" onclick="toggleEditEmail()">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </div>
+                            <div class="detail-item">
+                                <label>নাম:</label>
+                                <span id="profile-name-display" style="flex: 1;">Loading...</span>
+                                <button class="action-btn btn-edit" onclick="toggleEditName()">
+                                    <i class="fas fa-edit"></i> সম্পাদনা
+                                </button>
+                            </div>
+                            <div class="detail-item">
+                                <label>রোল নম্বর:</label>
+                                <span id="profile-roll">যোগ করুন</span>
+                                <button class="action-btn btn-edit" onclick="toggleEditRoll()">
+                                    <i class="fas fa-plus"></i> যোগ করুন
+                                </button>
+                            </div>
+                            <div class="detail-item">
+                                <label>শিক্ষা প্রতিষ্ঠান:</label>
+                                <span id="profile-institution">যোগ করুন</span>
+                                <button class="action-btn btn-edit" onclick="toggleEditInstitution()">
+                                    <i class="fas fa-plus"></i> যোগ করুন
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="profile-section">
+                            <h4 style="font-family: Montserrat; font-weight: 800; font-size: 18px; margin-bottom: 15px; color: #000;">আপনার এনরোল করা কোর্সগুলো</h4>
+                            <div id="enrolled-courses-list" class="course-grid">
+                                <!-- Enrolled courses will be loaded here -->
+                            </div>
+                        </div>
+
+                        <div class="profile-logout-section" style="margin-top: 25px; text-align: center;">
+                            <button class="manage-section-btn" style="background: var(--danger); width: auto; padding: 12px 30px;" onclick="showWarning()">
+                                <i class="fas fa-sign-out-alt"></i> লগআউট
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
+            
         </section>
     </div>
 
@@ -413,39 +582,40 @@
             <i class="fas fa-play-circle"></i>
             <span>টিউটোরিয়াল</span>
         </div>
-        <div class="nav-item" onclick="switchTab(this, 'tab-results')">
-            <i class="fas fa-chart-bar"></i>
-            <span>ফলাফল</span>
-        </div>
         <div class="nav-item" onclick="window.location.href='routine.html'">
             <i class="fas fa-calendar-alt"></i>
             <span>রুটিন</span>
+        </div>
+        <div class="nav-item" onclick="switchTab(this, 'tab-profile')">
+            <i class="fas fa-user"></i>
+            <span>প্রোফাইল</span>
         </div>
     </nav>
 
     <script>
         // আপডেটেড কোর্স লিস্ট (ইনডেক্স পেজের কোর্সগুলো যুক্ত করা হয়েছে)
         const allCourses = [
-            { id: 1, name: "Physics Master Batch", desc: "HSC 26 এর জন্য পূর্ণাঙ্গ ফিজিক্স কোর্স। প্রতিটি অধ্যায়ের কনসেপ্ট হবে ক্লিয়ার।", link: "physics.html" },
-            { id: 2, name: "Chemistry Mission", desc: "জৈব ও অজৈব রসায়নের স্পেশাল ব্যাচ।", link: "chemistry.html" },
-            { id: 3, name: "Higher Math A-Z", desc: "এইচএসসি ২৫ এর শেষ মুহূর্তের প্রস্তুতি।", link: "math.html" },
-            { id: 4, name: "Final Revision Course", desc: "HSC এর পূর্ণাঙ্গ রিভিশন গাইডলাইন ও সল্যুশন।", link: "revision.html" },
-            { id: 5, name: "BP Chemistry", desc: "কেমিস্ট্রির সকল বেসিক ও সিকিউ মাস্টারক্লাস।", link: "bp-chemistry.html" },
-            { id: 6, name: "Udvash FRB", desc: "উদ্ভাস এর ফাইনাল রিভিশন ব্যাচের কন্টেন্ট।", link: "udvash.html" },
-            { id: 7, name: "ACS FRB", desc: "এসিএস এর সকল শর্ট সিলেবাস এক্সক্লুসিভ কোর্স।", link: "acs.html" },
-            { id: 8, name: "Physics Booster", desc: "ফিজিক্সের গাণিতিক সমস্যার দ্রুত সমাধান কৌশল।", link: "physics-booster.html" }
+            { id: 1, name: "Physics Second Part", desc: "HSC 26 এর জন্য পূর্ণাঙ্গ ফিজিক্স  দ্বিতীয় পত্রের কোর্স। প্রতিটি অধ্যায়ের কনসেপ্ট হবে ক্লিয়ার।", link: "phy2f.html" },
+            
         ];
 
         window.onload = function() {
             const auth = localStorage.getItem('isLoggedIn');
             const name = localStorage.getItem('userName');
+            const email = localStorage.getItem('userEmail') || 'user@example.com';
 
             if (auth !== 'true') {
                 window.location.href = "login.html";
                 return;
             }
 
-            if(name) document.getElementById('userNameTag').innerText = name;
+            if(name) {
+                document.getElementById('userNameTag').innerText = name;
+                document.getElementById('profile-name').innerText = name;
+                document.getElementById('profile-name-display').innerText = name;
+            }
+
+            document.getElementById('profile-email').innerText = email;
 
             // --- অটো এনরোলমেন্ট লজিক ---
             const urlParams = new URLSearchParams(window.location.search);
@@ -477,6 +647,9 @@
             }
 
             renderDashboard();
+
+            // Initialize profile stats
+            updateProfileStats();
         };
 
         function renderDashboard() {
@@ -563,9 +736,9 @@
             el.classList.add('active');
             document.getElementById(id).classList.add('active');
 
-            // If switching to results tab, load results data
-            if (id === 'tab-results') {
-                loadResultsData();
+            // If switching to profile tab, load profile data
+            if (id === 'tab-profile') {
+                loadProfileData();
             }
         }
 
@@ -737,6 +910,231 @@
                 localStorage.setItem(`examResults_${allCourses[0].id}`, JSON.stringify(sampleResults));
                 showToast("ডেমো ফলাফল যোগ করা হয়েছে।");
             }
+        }
+
+        // --- প্রোফাইল নাম সম্পাদনা ফাংশন ---
+        function toggleEditName() {
+            const profileName = document.getElementById('profile-name');
+            const name = localStorage.getItem('userName') || 'user@example.com';
+
+            // Check if we're currently in edit mode
+            if (profileName.innerHTML.includes('input')) {
+                // Save the new name
+                const inputField = profileName.querySelector('input');
+                const newName = inputField.value.trim();
+
+                if (newName) {
+                    // Update localStorage
+                    localStorage.setItem('userName', newName);
+
+                    // Update the name display
+                    profileName.innerHTML = newName;
+
+                    // Update the header name as well
+                    document.getElementById('userNameTag').innerText = newName;
+
+                    // Show success message
+                    showToast("নাম সফলভাবে আপডেট করা হয়েছে!");
+                } else {
+                    // If empty, revert to the stored name
+                    profileName.innerHTML = name;
+                }
+            } else {
+                // Switch to edit mode
+                profileName.innerHTML = `<input type="text" class="name-edit-input" value="${name}" />`;
+                const inputField = profileName.querySelector('input');
+                inputField.focus();
+                inputField.select();
+            }
+        }
+
+        // Function to load profile data when profile tab is opened
+        function loadProfileData() {
+            const name = localStorage.getItem('userName') || 'user@example.com';
+            document.getElementById('profile-name').innerText = name;
+
+            // Load enrolled courses
+            loadEnrolledCoursesInProfile();
+        }
+
+        // Function to load enrolled courses in profile
+        function loadEnrolledCoursesInProfile() {
+            const enrolledList = document.getElementById('enrolled-courses-list');
+            const userCourses = JSON.parse(localStorage.getItem('userCourses') || "[]");
+
+            if (userCourses.length === 0) {
+                enrolledList.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #999; font-family: 'Tiro Bangla';"><p>আপনি এখনো কোনো কোর্স এনরোল করেননি।</p></div>`;
+                return;
+            }
+
+            // Get user's course objects
+            const userCourseObjects = allCourses.filter(c => userCourses.includes(c.id));
+
+            if (userCourseObjects.length === 0) {
+                enrolledList.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #999; font-family: 'Tiro Bangla';"><p>আপনি এখনো কোনো কোর্স এনরোল করেননি।</p></div>`;
+                return;
+            }
+
+            // Generate course cards for enrolled courses
+            let coursesHTML = '';
+
+            userCourseObjects.forEach(course => {
+                coursesHTML += `
+                    <div class="course-card">
+                        <h3>${course.name}</h3>
+                        <p>${course.desc}</p>
+                    </div>
+                `;
+            });
+
+            enrolledList.innerHTML = coursesHTML;
+
+            // Update course count
+            document.getElementById('course-count').textContent = userCourses.length;
+        }
+
+        // Function to toggle email editing
+        function toggleEditEmail() {
+            const profileEmail = document.getElementById('profile-email');
+            const email = localStorage.getItem('userEmail') || 'user@example.com';
+
+            // Check if we're currently in edit mode
+            if (profileEmail.innerHTML.includes('input')) {
+                // Save the new email
+                const inputField = profileEmail.querySelector('input');
+                const newEmail = inputField.value.trim();
+
+                if (newEmail && validateEmail(newEmail)) {
+                    // Update localStorage
+                    localStorage.setItem('userEmail', newEmail);
+
+                    // Update the email display
+                    profileEmail.innerHTML = newEmail;
+
+                    // Show success message
+                    showToast("ইমেইল সফলভাবে আপডেট করা হয়েছে!");
+                } else if (newEmail) {
+                    // Invalid email
+                    showToast("দয়া করে একটি বৈধ ইমেইল লিখুন!");
+                    // Revert to edit mode
+                    profileEmail.innerHTML = `<input type="email" class="email-edit-input" value="${email}" />`;
+                    const inputField = profileEmail.querySelector('input');
+                    inputField.focus();
+                    inputField.select();
+                } else {
+                    // If empty, revert to the stored email
+                    profileEmail.innerHTML = email;
+                }
+            } else {
+                // Switch to edit mode
+                profileEmail.innerHTML = `<input type="email" class="email-edit-input" value="${email}" />`;
+                const inputField = profileEmail.querySelector('input');
+                inputField.focus();
+                inputField.select();
+            }
+        }
+
+        // Function to toggle roll editing
+        function toggleEditRoll() {
+            const profileRoll = document.getElementById('profile-roll');
+            const roll = localStorage.getItem('userRoll') || '';
+
+            // Check if we're currently in edit mode
+            if (profileRoll.innerHTML.includes('input')) {
+                // Save the new roll
+                const inputField = profileRoll.querySelector('input');
+                const newRoll = inputField.value.trim();
+
+                if (newRoll) {
+                    // Update localStorage
+                    localStorage.setItem('userRoll', newRoll);
+
+                    // Update the roll display
+                    profileRoll.innerHTML = newRoll;
+
+                    // Show success message
+                    showToast("রোল নম্বর সফলভাবে আপডেট করা হয়েছে!");
+                } else {
+                    // If empty, revert to placeholder
+                    profileRoll.innerHTML = 'যোগ করুন';
+                }
+            } else {
+                // Switch to edit mode
+                profileRoll.innerHTML = `<input type="text" class="roll-edit-input" value="${roll || ''}" placeholder="আপনার রোল নম্বর লিখুন" />`;
+                const inputField = profileRoll.querySelector('input');
+                inputField.focus();
+                inputField.select();
+            }
+        }
+
+        // Function to toggle institution editing
+        function toggleEditInstitution() {
+            const profileInstitution = document.getElementById('profile-institution');
+            const institution = localStorage.getItem('userInstitution') || '';
+
+            // Check if we're currently in edit mode
+            if (profileInstitution.innerHTML.includes('input')) {
+                // Save the new institution
+                const inputField = profileInstitution.querySelector('input');
+                const newInstitution = inputField.value.trim();
+
+                if (newInstitution) {
+                    // Update localStorage
+                    localStorage.setItem('userInstitution', newInstitution);
+
+                    // Update the institution display
+                    profileInstitution.innerHTML = newInstitution;
+
+                    // Show success message
+                    showToast("শিক্ষা প্রতিষ্ঠান সফলভাবে আপডেট করা হয়েছে!");
+                } else {
+                    // If empty, revert to placeholder
+                    profileInstitution.innerHTML = 'যোগ করুন';
+                }
+            } else {
+                // Switch to edit mode
+                profileInstitution.innerHTML = `<input type="text" class="institution-edit-input" value="${institution || ''}" placeholder="আপনার শিক্ষা প্রতিষ্ঠান লিখুন" />`;
+                const inputField = profileInstitution.querySelector('input');
+                inputField.focus();
+                inputField.select();
+            }
+        }
+
+        // Function to validate email
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        // Function to update profile stats
+        function updateProfileStats() {
+            const userCourses = JSON.parse(localStorage.getItem('userCourses') || "[]");
+            document.getElementById('course-count').textContent = userCourses.length;
+
+            // Calculate progress based on completed courses or other metrics
+            // For now, we'll show a simple progress calculation
+            const progress = userCourses.length > 0 ? Math.min(100, userCourses.length * 10) : 0;
+            document.getElementById('progress-value').textContent = progress + '%';
+        }
+
+        // Function to load profile data when profile tab is opened
+        function loadProfileData() {
+            const name = localStorage.getItem('userName') || 'user@example.com';
+            const email = localStorage.getItem('userEmail') || 'user@example.com';
+            const roll = localStorage.getItem('userRoll') || '';
+            const institution = localStorage.getItem('userInstitution') || '';
+
+            document.getElementById('profile-name').innerText = name;
+            document.getElementById('profile-name-display').innerText = name;
+            document.getElementById('profile-email').innerText = email;
+            document.getElementById('profile-roll').innerText = roll || 'যোগ করুন';
+            document.getElementById('profile-institution').innerText = institution || 'যোগ করুন';
+
+            // Update stats
+            updateProfileStats();
+
+            // Load enrolled courses
+            loadEnrolledCoursesInProfile();
         }
     </script>
 </body>
