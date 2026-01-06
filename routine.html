@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>রুটিন | সিলেবাসের বাইরে</title>
-    
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Font & Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+
     <!-- PDF Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Montserrat:wght@400;500;600;700;800&display=swap');
-        
+
         :root {
             --bg-cream: #FFFDF5;
             --accent-yellow: #FFD200;
@@ -28,7 +28,7 @@
             font-family: 'Tiro Bangla', serif;
             background-color: var(--bg-cream);
         }
-        
+
         .font-mont { font-family: 'Montserrat', sans-serif; }
 
         /* Custom Scrollbar */
@@ -171,11 +171,11 @@
     </header>
 
     <main class="max-w-5xl mx-auto px-4 py-12">
-        
+
         <!-- Welcome Area -->
         <div class="text-center mb-16 no-print">
             <span class="font-mont font-bold text-xs tracking-[0.3em] text-[#B8860B] mb-3 inline-block uppercase">Academic Portal</span>
-            <h1 class="text-4xl md:text-5xl font-black mb-6 leading-tight">পরীক্ষার সময়সূচী ও রুটিন</h1>
+            <h1 class="text-4xl md:text-5xl font-black mb-6 leading-tight">পরীক্ষার সময়সূচী ও রুটিন</h1>
             <p class="text-gray-500 max-w-xl mx-auto font-medium">আপনার কাঙ্ক্ষিত কোর্সটি নির্বাচন করুন এবং আপনার পরীক্ষার রুটিন দেখে নিন। আপনি চাইলে রুটিনটি পিডিএফ হিসেবে সংরক্ষণ করতে পারেন।</p>
         </div>
 
@@ -184,18 +184,17 @@
             <div class="relative group">
                 <select id="courseSelect" onchange="showRoutine()" class="custom-select w-full bg-white border-2 border-yellow-100 px-8 py-5 rounded-[2rem] text-lg font-bold focus:border-[#FFD200] focus:ring-8 focus:ring-yellow-50 outline-none transition-all cursor-pointer shadow-xl group-hover:border-yellow-300">
                     <option value="" disabled selected>কোর্স সিলেক্ট করুন</option>
-                    <option value="hsc">HSC প্রিলিমিনারি ব্যাচ</option>
-                    <option value="bcs">BCS সাধারণ বিজ্ঞান (স্পেশাল)</option>
-                    <option value="admission">বিশ্ববিদ্যালয় ভর্তি প্রস্তুতি</option>
+
+                    <option value="physics2">Physics Second Part Free Exam</option>
                 </select>
             </div>
         </div>
 
         <!-- Routine Display Area -->
         <div id="routineWrapper" class="hidden">
-            
+
             <div id="routinePaper" class="bg-white p-8 md:p-12 rounded-[3rem] shadow-2xl border border-yellow-50 relative overflow-hidden">
-                
+
                 <!-- PDF Watermark Decoration -->
                 <div class="absolute -right-20 -top-20 w-64 h-64 bg-yellow-50 rounded-full blur-3xl opacity-50"></div>
                 <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-yellow-50 rounded-full blur-3xl opacity-50"></div>
@@ -219,8 +218,7 @@
                         <thead>
                             <tr class="rounded-2xl overflow-hidden">
                                 <th class="rounded-l-2xl text-left">তারিখ</th>
-                                <th class="text-left">পরীক্ষার বিষয়/টপিক</th>
-                                <th class="rounded-r-2xl text-center">সময়</th>
+                                <th class="rounded-r-2xl text-left">পরীক্ষার বিষয়/টপিক</th>
                             </tr>
                         </thead>
                         <tbody id="routineTableBody">
@@ -229,10 +227,15 @@
                     </table>
                 </div>
 
+                <!-- Exam Time Info -->
+                <div class="mt-8 text-center bg-yellow-50 p-4 rounded-xl border border-yellow-200">
+                    <p class="font-bold text-lg">প্রতিটি পরীক্ষা সকাল ১০ টা থেকে রাত ১০ টা পর্যন্ত হবে</p>
+                </div>
+
                 <!-- Footer Info in PDF -->
                 <div class="mt-12 text-center border-t pt-8 border-gray-50">
                     <p class="text-sm font-bold text-gray-400">যেকোনো তথ্যের জন্য যোগাযোগ করুন: <span class="text-black font-mont">mdshuyaibislam5050@gmail.com</span></p>
-                    <p class="text-[10px] font-mont font-black tracking-[0.5em] text-gray-300 uppercase mt-4">Powered by Shuyaib Islam</p>
+                    <p class="text-[10px] font-mont font-black tracking-[0.5em] text-gray-300 uppercase mt-4">Powered by Syllabaserbaire</p>
                 </div>
             </div>
         </div>
@@ -248,23 +251,19 @@
     <script>
         // Routine Data Object
         const routineData = {
-            "hsc": [
-                { date: "১০ মে, ২০২৫", subject: "পদার্থবিজ্ঞান ১ম পত্র (ভেক্টর)", time: "রাত ৯:০০" },
-                { date: "১২ মে, ২০২৫", subject: "রসায়ন ১ম পত্র (পরমাণুর মডেল)", time: "রাত ৯:০০" },
-                { date: "১৫ মে, ২০২৫", subject: "উচ্চতর গণিত (ম্যাট্রিক্স)", time: "রাত ৯:০০" },
-                { date: "১৮ মে, ২০২৫", subject: "পূর্ণাঙ্গ সাপ্তাহিক মডেল টেস্ট-০১", time: "বিকাল ৪:০০" }
-            ],
-            "bcs": [
-                { date: "০১ জুন, ২০২৫", subject: "ভৌত বিজ্ঞান: আলো ও শব্দ", time: "রাত ১০:০০" },
-                { date: "০৩ জুন, ২০২৫", subject: "আধুনিক বিজ্ঞান: মহাকাশ", time: "রাত ১০:০০" },
-                { date: "০৬ জুন, ২০২৫", subject: "জীববিজ্ঞান: মানবদেহ (পর্ব-১)", time: "রাত ১০:০০" },
-                { date: "০৯ জুন, ২০২৫", subject: "সাধারণ বিজ্ঞান ফাইনাল মক", time: "রাত ১০:০০" }
-            ],
-            "admission": [
-                { date: "২০ জুন, ২০২৫", subject: "প্রশ্নব্যাংক সমাধান: ঢাকা বিশ্ববিদ্যালয়", time: "সকাল ১১:০০" },
-                { date: "২২ জুন, ২০২৫", subject: "গণিত শর্টকাট টেকনিক (অন্তরীকরণ)", time: "সকাল ১১:০০" },
-                { date: "২৫ জুন, ২০২৫", subject: "ইংরেজি: গ্রামার ও পিনপয়েন্ট এরর", time: "সকাল ১১:০০" },
-                { date: "২৮ জুন, ২০২৫", subject: "মেগা অ্যাডমিশন টেস্ট-০৫", time: "সকাল ১০:০০" }
+
+            "physics2": [
+                { date: "২৫ জানুয়ারি, ২০২৬", subject: "তাপগতিবিদ্যা", time: "রাত ৯:০০" },
+                { date: "২৬ জানুয়ারি, ২০২৬", subject: "স্থির তড়িৎ ", time: "রাত ৯:০০" },
+                { date: "২৭ জানুয়ারি, ২০২৬", subject: "চল তড়িৎ", time: "রাত ৯:০০" },
+                { date: "২৮ জানুয়ারি, ২০২৬", subject: "তড়িৎ প্রবাহের চৌম্বক ক্রিয়া ও চুম্বকত্ব ", time: "রাত ৯:০০" },
+                { date: "২৯ জানুয়ারি, ২০২৬", subject: "তড়িৎচুম্বকীয় আবেশ ও পরবর্তী প্রবাহ ", time: "রাত ৯:০০" },
+                { date: "৩০ জানুয়ারি, ২০২৬", subject: " জ্যামিতিক ও ভৌত আলোকবিজ্ঞান ", time: "রাত ৯:০০" },
+                { date: "৩১ জানুয়ারি, ২০২৬", subject: "আধুনিক পদার্থবিজ্ঞানের সূচনা ", time: "রাত ৯:০০" },
+                { date: "১ ফেব্রুয়ারি, ২০২৬", subject: "পরমাণুর মডেল এবং নিউক্লিয়ার পদার্থবিজ্ঞান ", time: "রাত ৯:০০" },
+                { date: "২ ফেব্রুয়ারি, ২০২৬", subject: "সেমিকন্ডাক্টর ও ইলেকট্রনিক্স ", time: "রাত ৯:০০" },
+                { date: "৩ ফেব্রুয়ারি, ২০২৬", subject: "জ্যোতির্বিজ্ঞান ", time: "রাত ৯:০০" },
+                { date: "৫ ফেব্রুয়ারি, ২০২৬", subject: "Physics Second Part Final Exam", time: "রাত ৯:০০" }
             ]
         };
 
@@ -287,16 +286,11 @@
                     <td class="rounded-l-2xl bg-white border-b border-gray-200">
                         <div class="flex items-center gap-3">
                             <div class="w-2 h-2 rounded-full bg-yellow-400"></div>
-                            <span class="font-bold">${row.date}</span>
+                            <span class="font-bold">\${row.date}</span>
                         </div>
                     </td>
-                    <td class="bg-white border-b border-gray-200">
-                        <span class="font-bold text-gray-700">${row.subject}</span>
-                    </td>
-                    <td class="rounded-r-2xl bg-white text-center border-b border-gray-200">
-                        <span class="bg-yellow-50 text-[#B8860B] px-4 py-2 rounded-xl font-mont font-extrabold text-sm border border-yellow-100 inline-block">
-                            ${row.time}
-                        </span>
+                    <td class="rounded-r-2xl bg-white border-b border-gray-200">
+                        <span class="font-bold text-gray-700">\${row.subject}</span>
                     </td>
                 </tr>
             `).join('');
@@ -313,4 +307,3 @@
     </script>
 </body>
 </html>
-
