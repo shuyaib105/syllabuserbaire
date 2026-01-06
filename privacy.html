@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>প্রাইভেসি পলিসি | সিলেবাসের বাইরে</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+        :root {
+            --bg-cream: #FFFDF5;
+            --accent-yellow: #FFD200;
+            --dark-gold: #B8860B;
+            --deep-slate: #0f172a;
+        }
+
+        body {
+            font-family: 'Tiro Bangla', serif;
+            background-color: var(--bg-cream);
+            color: var(--deep-slate);
+            line-height: 1.8;
+        }
+
+        .font-mont { font-family: 'Montserrat', sans-serif; }
+
+        .policy-card {
+            background: white;
+            border: 1px solid rgba(184, 134, 11, 0.1);
+            border-radius: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.02);
+            padding: 2.5rem;
+            transition: 0.3s;
+        }
+
+        .policy-card:hover {
+            border-color: var(--accent-yellow);
+            box-shadow: 0 20px 50px rgba(184, 134, 11, 0.08);
+        }
+
+        .icon-box {
+            width: 50px;
+            height: 50px;
+            background: var(--bg-cream);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-gold);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .gradient-line {
+            height: 4px;
+            width: 80px;
+            background: linear-gradient(90deg, var(--dark-gold), var(--accent-yellow));
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <nav class="flex justify-between items-center px-[6%] py-6 sticky top-0 bg-white/80 backdrop-blur-md z-50 border-b border-yellow-100/50">
+        <img src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" class="h-10">
+        <a href="index.html" class="font-mont text-xs font-bold tracking-widest text-white bg-slate-900 px-6 py-2.5 rounded-xl hover:bg-slate-800 transition">BACK TO HOME</a>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-6 py-20">
+        
+        <header class="text-center mb-20">
+            <h4 class="font-mont text-dark-gold font-bold tracking-[0.4em] uppercase text-[10px] mb-4">Security & Trust</h4>
+            <h1 class="text-4xl md:text-6xl font-bold text-slate-900 mb-6">গোপনীয়তা <span class="text-dark-gold">নীতি</span></h1>
+            <p class="text-slate-500 max-w-2xl mx-auto">আপনার তথ্যের নিরাপত্তা আমাদের কাছে সর্বোচ্চ অগ্রাধিকার। আমরা কীভাবে আপনার তথ্য পরিচালনা করি তা নিচে স্বচ্ছভাবে ব্যাখ্যা করা হলো।</p>
+        </header>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            
+            <div class="policy-card">
+                <div class="icon-box"><i class="fas fa-user-shield"></i></div>
+                <h3 class="text-xl font-bold mb-3">ব্যক্তিগত তথ্য সংগ্রহ</h3>
+                <div class="gradient-line"></div>
+                <p class="text-slate-600 text-sm">
+                    আমরা আপনার কোনো **Personal Data** (নাম, ফোন নম্বর বা ইমেইল) সরাসরি সংগ্রহ করি না। আপনার সকল কার্যক্রম সম্পূর্ণ বেনামী থাকে।
+                </p>
+            </div>
+
+            <div class="policy-card">
+                <div class="icon-box"><i class="fas fa-hdd"></i></div>
+                <h3 class="text-xl font-bold mb-3">লোকাল স্টোরেজ ব্যবহার</h3>
+                <div class="gradient-line"></div>
+                <p class="text-slate-600 text-sm">
+                    আপনার পরীক্ষার ফলাফল বা সেটিংস আপনার ডিভাইসের **Local Storage**-এ জমা থাকে। আপনি ব্রাউজার ক্যাশ পরিষ্কার করলে এই তথ্য মুছে যাবে।
+                </p>
+            </div>
+
+            <div class="policy-card">
+                <div class="icon-box"><i class="fas fa-cloud-slash"></i></div>
+                <h3 class="text-xl font-bold mb-3">নো সার্ভার ব্যাকআপ</h3>
+                <div class="gradient-line"></div>
+                <p class="text-slate-600 text-sm">
+                    আমাদের কোনো **Central Database বা Cloud Server** নেই যেখানে আপনার ব্যক্তিগত তথ্য জমা রাখা হয়। ফলে আপনার ডেটা আমাদের কাছেও দৃশ্যমান নয়।
+                </p>
+            </div>
+
+            <div class="policy-card">
+                <div class="icon-box"><i class="fas fa-bug"></i></div>
+                <h3 class="text-xl font-bold mb-3">ক্লিন কোড ও বাগ চেক</h3>
+                <div class="gradient-line"></div>
+                <p class="text-slate-600 text-sm">
+                    আমাদের ওয়েবসাইট অত্যন্ত **Clean** কোডিংয়ের মাধ্যমে তৈরি। আমরা নিয়মিত বাগ এবং সিকিউরিটি হোলগুলো চেক করি যেন আপনার ব্যবহারের অভিজ্ঞতা নিরবচ্ছিন্ন থাকে।
+                </p>
+            </div>
+
+        </div>
+
+        <div class="mt-16 bg-white border border-yellow-200 rounded-[40px] p-10 md:p-16 text-center">
+            <div class="w-16 h-16 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl">
+                <i class="fas fa-lock"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-slate-900 mb-4">আপনার ডেটা, আপনার নিয়ন্ত্রণ</h3>
+            <p class="text-slate-500 max-w-2xl mx-auto mb-8">
+                যেহেতু আমরা আপনার কোনো ডেটা আমাদের সার্ভারে রাখি না, তাই আপনার ডেটা নিয়ে চিন্তার কোনো অবকাশ নেই। আপনার ব্যক্তিগত গোপনীয়তা বজায় রাখা আমাদের নৈতিক দায়িত্ব।
+            </p>
+            <p class="font-mont text-[10px] tracking-[0.3em] uppercase text-dark-gold font-bold">Safe & Secure Learning Experience</p>
+        </div>
+
+    </main>
+
+    <footer class="py-12 text-center text-slate-400 font-mont text-[10px] tracking-[0.4em] uppercase border-t border-yellow-100">
+        &copy; 2025 Syllabuser Baire &bull; Privacy First Policy
+    </footer>
+
+</body>
+</html>
+
