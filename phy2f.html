@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics Second Part Free Exams | এক্সাম ড্যাশবোর্ড</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg: #F8F9FA;
+            --white: #ffffff;
+            --black: #0F172A;
+            --accent: #FFD200;
+            --text-dark: #1E293B;
+            --text-light: #64748B;
+            --border: #E2E8F0;
+            --card-bg: #FFFFFF;
+            --card-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            --card-hover: #FFFDF5;
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-dark);
+            font-family: 'Tiro Bangla', serif;
+            line-height: 1.6;
+        }
+
+        .eng { font-family: 'Montserrat', sans-serif !important; }
+
+        /* --- Header --- */
+        header {
+            background: var(--white);
+            padding: 12px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-box img { height: 40px; cursor: pointer; }
+
+        .profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #F1F5F9;
+            padding: 6px 12px;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .profile-btn:hover {
+            background: var(--white);
+            border-color: var(--accent);
+        }
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+            background: var(--black);
+            color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 14px;
+        }
+
+        /* --- Container --- */
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .course-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .course-header h1 {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--black);
+            margin-bottom: 5px;
+        }
+
+        .course-header p {
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        .search-wrapper {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            background: var(--white);
+            padding: 16px 20px 16px 50px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            font-family: 'Tiro Bangla', serif;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+        }
+
+        .search-wrapper i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+        }
+
+        /* --- Card List --- */
+        .card-container {
+            background: var(--white);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border);
+        }
+
+        .card-row {
+            display: grid;
+            grid-template-columns: 2.5fr 1fr 1fr 1.2fr;
+            padding: 22px 30px;
+            border-bottom: 1px solid #F1F5F9;
+            align-items: center;
+            transition: 0.3s;
+        }
+
+        .card-row:last-child { border-bottom: none; }
+        .card-row:hover { background: var(--card-hover); }
+
+        .subject-tag {
+            background: #E0F2FE;
+            color: #0369A1;
+            padding: 2px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 800;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+
+        .topic-name {
+            display: block;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--black);
+        }
+
+        .meta-info {
+            color: var(--text-light);
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .meta-info i { margin-right: 6px; color: #CBD5E1; }
+
+        .btn-start {
+            background: var(--black);
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 14px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 700;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-start:hover {
+            background: var(--accent);
+            color: var(--black);
+            transform: translateX(3px);
+        }
+
+        /* মোবাইল রেসপন্সিভ */
+        @media (max-width: 800px) {
+            .card-row {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                padding: 25px;
+                text-align: center;
+            }
+            .btn-start { width: 100%; }
+        }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-box">
+            <img src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" onclick="location.href='dashboard.html'">
+        </div>
+
+        <!-- প্রোফাইল আইকনে ক্লিক করলে ড্যাশবোর্ডে যাবে -->
+        <a href="dashboard.html" class="profile-btn">
+            <div class="avatar eng" style="background: var(--black); color: var(--accent);">D</div>
+            <span class="eng" style="font-weight: 800; font-size: 12px;">DASHBOARD</span>
+        </a>
+    </header>
+
+    <div class="container">
+        <!-- একদম উপরে কোর্সের নাম -->
+        <div class="course-header">
+            <h1 class="eng">Physics Second Part Free Exams</h1>
+            <p>অধ্যায় ভিত্তিক এক্সাম তালিকা</p>
+        </div>
+
+        <div class="search-wrapper">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" class="search-input" placeholder="অধ্যায় সার্চ করুন..." onkeyup="filterExams()">
+        </div>
+
+        <div class="card-container">
+            <!-- তাপগতিবিদ্যা কার্ড -->
+            <div class="card-row" data-search="physics পদার্থবিজ্ঞান তাপগতিবিদ্যা">
+                <div>
+                    <span class="subject-tag eng">PHYSICS 2ND PAPER</span>
+                    <span class="topic-name">তাপগতিবিদ্যা</span>
+                </div>
+                <div class="meta-info eng"><i class="far fa-clock"></i> 30:00</div>
+                <div class="meta-info eng"><i class="far fa-list-alt"></i> 25</div>
+                <div>
+                    <a href="thermodynamics_exam.html" class="btn-start">শুরু করুন <i class="fas fa-chevron-right" style="font-size: 10px;"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // লগইন চেক স্ক্রিপ্ট
+        window.onload = function() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            // if (!isLoggedIn) window.location.href = 'index.html';
+        };
+
+        // সার্চ ফাংশন
+        function filterExams() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let rows = document.querySelectorAll('.card-row');
+
+            rows.forEach(row => {
+                let tags = row.getAttribute('data-search').toLowerCase();
+                let text = row.innerText.toLowerCase();
+                if (tags.includes(input) || text.includes(input)) {
+                    row.classList.remove('hidden');
+                } else {
+                    row.classList.add('hidden');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
