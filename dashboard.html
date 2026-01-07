@@ -602,7 +602,7 @@
         window.onload = function() {
             const auth = localStorage.getItem('isLoggedIn');
             const name = localStorage.getItem('userName');
-            const email = localStorage.getItem('userEmail') || 'user@example.com';
+            const email = localStorage.getItem('userEmail') || 'user@example.com'; 
 
             if (auth !== 'true') {
                 window.location.href = "login.html";
@@ -776,142 +776,7 @@
             window.location.href = "index.html";
         }
 
-        // --- ফলাফল লোড করার ফাংশন ---
-        function loadResultsData() {
-            const resultsGrid = document.getElementById('results-grid');
-            const userCourses = JSON.parse(localStorage.getItem('userCourses') || "[]");
-
-            if (userCourses.length === 0) {
-                resultsGrid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #999; font-family: 'Tiro Bangla';"><p>আপনার কোনো কোর্স নেই। ফলাফল দেখার জন্য কোর্স যোগ করুন।</p></div>`;
-                return;
-            }
-
-            // Get user's course objects
-            const userCourseObjects = allCourses.filter(c => userCourses.includes(c.id));
-
-            if (userCourseObjects.length === 0) {
-                resultsGrid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #999; font-family: 'Tiro Bangla';"><p>আপনার কোনো কোর্স নেই। ফলাফল দেখার জন্য কোর্স যোগ করুন।</p></div>`;
-                return;
-            }
-
-            // Generate results cards for each course
-            let resultsHTML = '';
-
-            userCourseObjects.forEach(course => {
-                // Get exam results for this course from localStorage
-                const courseResults = JSON.parse(localStorage.getItem(`examResults_${course.id}`) || "[]");
-
-                if (courseResults.length > 0) {
-                    // Calculate average score
-                    const totalScore = courseResults.reduce((sum, exam) => sum + exam.score, 0);
-                    const averageScore = (totalScore / courseResults.length).toFixed(1);
-                    const totalExams = courseResults.length;
-
-                    resultsHTML += `
-                        <div class="course-card">
-                            <h3>${course.name}</h3>
-                            <p>পরীক্ষার সংখ্যা: ${totalExams}</p>
-                            <div style="margin-top: 15px; padding: 12px; background: #f9f9f9; border-radius: 10px;">
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                                    <span style="font-family: 'Montserrat'; font-weight: 700; color: #666;">গড় নম্বর:</span>
-                                    <span style="font-family: 'Montserrat'; font-weight: 800; color: #000;">${averageScore}/100</span>
-                                </div>
-                                <div class="progress-bar" style="height: 8px; background: #e0e0e0; border-radius: 4px; overflow: hidden;">
-                                    <div style="height: 100%; width: ${averageScore}%; background: var(--accent-yellow); border-radius: 4px;"></div>
-                                </div>
-                            </div>
-                            <div style="margin-top: 15px;">
-                                <button class="manage-section-btn" style="background: var(--dark-gold); padding: 10px; font-size: 14px;" onclick="showExamDetails(${course.id})">
-                                    বিস্তারিত দেখুন
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    resultsHTML += `
-                        <div class="course-card">
-                            <h3>${course.name}</h3>
-                            <p>এই কোর্সে এখনো কোনো পরীক্ষা দেওয়া হয়নি।</p>
-                            <div style="margin-top: 15px; padding: 12px; background: #f9f9f9; border-radius: 10px; text-align: center;">
-                                <span style="font-family: 'Montserrat'; font-weight: 700; color: #666;">পরীক্ষা দিন ফলাফল দেখুন</span>
-                            </div>
-                        </div>
-                    `;
-                }
-            });
-
-            resultsGrid.innerHTML = resultsHTML;
-        }
-
-        // Function to show exam details for a specific course
-        function showExamDetails(courseId) {
-            const course = allCourses.find(c => c.id === courseId);
-            const courseResults = JSON.parse(localStorage.getItem(`examResults_${courseId}`) || "[]");
-
-            if (courseResults.length === 0) {
-                showToast("এই কোর্সে এখনো কোনো পরীক্ষা দেওয়া হয়নি।");
-                return;
-            }
-
-            // Create a modal to show exam details
-            let detailsHTML = `
-                <div class="modal-overlay active" id="examDetailsModal">
-                    <div class="modal-card" style="max-width: 500px; overflow-y: auto; max-height: 80vh;">
-                        <h3 style="font-family: 'Tiro Bangla'; font-size: 20px; margin-bottom: 15px; color: #000;">${course.name} - পরীক্ষার বিস্তারিত</h3>
-                        <div style="max-height: 400px; overflow-y: auto;">
-            `;
-
-            courseResults.forEach((exam, index) => {
-                const date = new Date(exam.date).toLocaleDateString('bn-BD');
-                detailsHTML += `
-                    <div style="padding: 12px; margin-bottom: 10px; background: #f9f9f9; border-radius: 8px; border-left: 3px solid var(--accent-yellow);">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                            <span style="font-family: 'Montserrat'; font-weight: 700;">পরীক্ষা ${index + 1}</span>
-                            <span style="font-family: 'Montserrat'; font-weight: 700; color: #000;">${exam.score}/100</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; font-size: 14px; color: #666;">
-                            <span>${exam.title || 'সাধারণ পরীক্ষা'}</span>
-                            <span>${date}</span>
-                        </div>
-                    </div>
-                `;
-            });
-
-            detailsHTML += `
-                        </div>
-                        <button class="m-btn m-cancel" style="margin-top: 15px;" onclick="closeExamDetailsModal()">বন্ধ করুন</button>
-                    </div>
-                </div>
-            `;
-
-            // Add modal to body
-            document.body.insertAdjacentHTML('beforeend', detailsHTML);
-        }
-
-        // Function to close exam details modal
-        function closeExamDetailsModal() {
-            const modal = document.getElementById('examDetailsModal');
-            if (modal) {
-                modal.remove();
-            }
-        }
-
-        // Function to add sample exam results for testing
-        function addSampleResults() {
-            // Sample results for demonstration
-            const sampleResults = [
-                { title: "মডেল টেস্ট ১", score: 85, date: new Date().toISOString() },
-                { title: "মডেল টেস্ট ২", score: 92, date: new Date().toISOString() },
-                { title: "মডেল টেস্ট ৩", score: 78, date: new Date().toISOString() }
-            ];
-
-            // Add to first course as example
-            if (allCourses.length > 0) {
-                localStorage.setItem(`examResults_${allCourses[0].id}`, JSON.stringify(sampleResults));
-                showToast("ডেমো ফলাফল যোগ করা হয়েছে।");
-            }
-        }
-
+      
         // --- প্রোফাইল নাম সম্পাদনা ফাংশন ---
         function toggleEditName() {
             const profileName = document.getElementById('profile-name');
