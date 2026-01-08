@@ -48,6 +48,31 @@
             z-index: -1;
             width: 80%;
         }
+
+        #cover-carousel {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel-container {
+            display: flex;
+            width: 200%; /* Two slides side by side */
+            height: 100%;
+            transition: transform 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .carousel-item {
+            width: 50%; /* Each slide takes half the container width */
+            height: 100%;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel-item img {
+            object-fit: cover;
+            object-position: center;
+        }
     </style>
 </head>
 <body class="bg-cream text-slate-800">
@@ -63,10 +88,18 @@
 
         <!-- Start Screen -->
         <div id="start-screen" class="space-y-6">
-            <!-- Facebook Cover Style Photo -->
-            <div class="w-full aspect-[16/6] bg-slate-200 rounded-3xl overflow-hidden shadow-lg border-4 border-white">
-                <img src="https://images.unsplash.com/photo-1454165833767-027ffea9e77b?auto=format&fit=crop&q=80&w=1000"
-                     class="w-full h-full object-cover" alt="Cover">
+            <!-- Scrolling Cover Carousel -->
+            <div class="w-full aspect-[16/5] rounded-3xl overflow-hidden shadow-lg border-4 border-white relative" id="cover-carousel">
+                <div class="carousel-container w-full h-full">
+                    <div class="carousel-item w-full h-full">
+                        <img src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/Aspect.webp"
+                             class="w-full h-full object-cover" alt="Physics Education">
+                    </div>
+                    <div class="carousel-item w-full h-full">
+                        <img src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/Aspect.webp"
+                             class="w-full h-full object-cover" alt="Physics Education">
+                    </div>
+                </div>
             </div>
 
             <div class="bg-white rounded-[40px] p-8 md:p-12 shadow-xl border border-yellow-100 text-center">
@@ -208,23 +241,64 @@
         ];
 
         let userName = "";
-        let timeLeft = 10 * 60;
+        let timeLeft = 25 * 60;
         let timerInterval;
         let userAnswers = new Array(questions.length).fill(null);
         let markedQuestions = new Array(questions.length).fill(false); // Track marked questions
         let startTime;
 
+        // Carousel functionality
+        let slideIndex = 0;
+        let carouselInterval;
+
+        function showSlides() {
+            const slides = document.querySelectorAll('.carousel-item');
+
+            // Move to next slide
+            slideIndex++;
+            if (slideIndex >= slides.length) {
+                slideIndex = 0;
+            }
+
+            // Update carousel container transform for smooth transition
+            const container = document.querySelector('.carousel-container');
+            container.style.transform = `translateX(-${slideIndex * 100}%)`;
+        }
+
+        function currentSlide(n) {
+            slideIndex = n;
+
+            // Update carousel container transform for smooth transition
+            const container = document.querySelector('.carousel-container');
+            container.style.transform = `translateX(-${slideIndex * 100}%)`;
+        }
+
+        function startCarousel() {
+            // Initially show the first slide
+            const container = document.querySelector('.carousel-container');
+            container.style.transform = `translateX(0%)`;
+
+            // Set interval to change slides every 6 seconds (slower for better viewing)
+            carouselInterval = setInterval(showSlides, 6000);
+        }
+
+        // Initialize carousel when page loads
+        document.addEventListener('DOMContentLoaded', startCarousel);
+
         function checkLoginAndStartExam() {
             // Check if user is logged in by checking for stored login status
             const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-            
+
             if (!isLoggedIn) {
                 // If not logged in, redirect to login page
                 alert("আপনি লগইন করেননি! লগইন পেজে পাঠানো হচ্ছে...");
                 window.location.href = "login.html"; // Redirect to login page
                 return;
             }
-            
+
+            // Clear the carousel interval when starting exam
+            clearInterval(carouselInterval);
+
             // If logged in, proceed with exam
             startExam();
         }
