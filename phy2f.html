@@ -246,27 +246,57 @@
             <input type="text" id="searchInput" class="search-input" placeholder="অধ্যায় সার্চ করুন..." onkeyup="filterExams()">
         </div>
 
-        <div class="card-container">
-            <!-- তাপগতিবিদ্যা কার্ড -->
-            <div class="card-row" data-search="physics পদার্থবিজ্ঞান তাপগতিবিদ্যা">
-                <div>
-                    <span class="subject-tag eng">PHYSICS 2ND PAPER</span>
-                    <span class="topic-name">তাপগতিবিদ্যা</span>
-                </div>
-                <div class="meta-info eng"><i class="far fa-clock"></i> 30:00</div>
-                <div class="meta-info eng"><i class="far fa-list-alt"></i> 25</div>
-                <div>
-                    <a href="thermodynamics_exam.html" class="btn-start">শুরু করুন <i class="fas fa-chevron-right" style="font-size: 10px;"></i></a>
-                </div>
-            </div>
+        <div class="card-container" id="exams-container">
+            <!-- Exams will be loaded dynamically here -->
         </div>
     </div>
 
     <script>
+        // Load exams data from JSON file
+        async function loadExamsData() {
+            try {
+                const response = await fetch('data/exams.json');
+                const data = await response.json();
+                displayExams(data);
+            } catch (error) {
+                console.error('Error loading exams data:', error);
+            }
+        }
+
+        // Display exams dynamically
+        function displayExams(data) {
+            const exams = data.exams; // Get exams array from the data structure
+            const container = document.getElementById('exams-container');
+            container.innerHTML = '';
+
+            exams.forEach(exam => {
+                const examRow = document.createElement('div');
+                examRow.className = 'card-row';
+                examRow.setAttribute('data-search', exam.searchTags);
+
+                examRow.innerHTML = `
+                    <div>
+                        <span class="subject-tag eng">${exam.subject}</span>
+                        <span class="topic-name">${exam.title}</span>
+                    </div>
+                    <div class="meta-info eng"><i class="far fa-clock"></i> ${exam.duration}</div>
+                    <div class="meta-info eng"><i class="far fa-list-alt"></i> ${exam.totalQuestions}</div>
+                    <div>
+                        <a href="${exam.examPage}?exam=${exam.id}" class="btn-start">শুরু করুন <i class="fas fa-chevron-right" style="font-size: 10px;"></i></a>
+                    </div>
+                `;
+
+                container.appendChild(examRow);
+            });
+        }
+
         // লগইন চেক স্ক্রিপ্ট
         window.onload = function() {
             const isLoggedIn = localStorage.getItem('isLoggedIn');
             // if (!isLoggedIn) window.location.href = 'index.html';
+
+            // Load exams data when page loads
+            loadExamsData();
         };
 
         // সার্চ ফাংশন

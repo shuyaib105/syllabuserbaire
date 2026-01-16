@@ -20,7 +20,7 @@
             "কোর্স শেষে CQ সাজেশন পিডিএফ ফাইল প্রদান"
           ],
           "enrollButton": "Enroll Now",
-          "enrollAction": "openEnrollPopup('Physics Second Part')"
+          "enrollAction": "window.location.href='phy2f.html'"
         }
       ]
     },
