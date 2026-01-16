@@ -453,13 +453,32 @@
                 const response = await fetch('data/courses.json');
                 const data = await response.json();
 
+                // Populate hero section
+                populateHeroSection(data.homepage.hero);
+
                 // Populate action buttons
                 populateActionButtons(data.actionButtons);
 
                 // Populate tabs and tab content
                 populateTabs(data.courseTabs);
+
+                // Populate footer
+                populateFooter(data.footer);
             } catch (error) {
                 console.error('Error loading data:', error);
+            }
+        }
+
+        function populateHeroSection(heroData) {
+            const heroTitle = document.querySelector('.hero-content h1');
+            const heroSubtitle = document.querySelector('.hero-content p');
+
+            if (heroTitle) {
+                heroTitle.innerHTML = heroData.title;
+            }
+
+            if (heroSubtitle) {
+                heroSubtitle.textContent = heroData.subtitle;
             }
         }
 
@@ -537,6 +556,33 @@
 
                 tabsContainer.appendChild(tabContent);
             });
+        }
+
+        function populateFooter(footerData) {
+            const logoImg = document.querySelector('.footer-logo-img');
+            const linksContainer = document.querySelector('.footer-links');
+            const copyrightDiv = document.querySelector('.footer-bottom');
+
+            if (logoImg) {
+                logoImg.src = footerData.logo;
+            }
+
+            if (linksContainer) {
+                linksContainer.innerHTML = '';
+
+                footerData.links.forEach(link => {
+                    const linkElement = document.createElement('a');
+                    linkElement.href = link.url;
+                    linkElement.innerHTML = `<i class="${link.icon}" style="color: ${link.color};"></i> ${link.text}`;
+                    linkElement.style.fontFamily = "'Tiro Bangla'";
+
+                    linksContainer.appendChild(linkElement);
+                });
+            }
+
+            if (copyrightDiv) {
+                copyrightDiv.innerHTML = footerData.copyright;
+            }
         }
 
         // Override the openTab function to work with dynamic content

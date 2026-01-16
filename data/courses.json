@@ -1,4 +1,10 @@
 {
+  "homepage": {
+    "hero": {
+      "title": "তোমার <span style=\"color:var(--dark-gold)\">সেরা প্রস্তুতির</span> শুরু  হোক এখানে থেকেই ",
+      "subtitle": "সহজ ব্যাখ্যা আর আধুনিক টেকনিকের মাধ্যমে আমরা তোমার সিলেবাসের ভয় দূর করবো ইনশাআল্লাহ্‌।"
+    }
+  },
   "courseTabs": [
     {
       "id": "hsc26",
@@ -15,24 +21,6 @@
           ],
           "enrollButton": "Enroll Now",
           "enrollAction": "openEnrollPopup('Physics Second Part')"
-        }
-      ]
-    },
-    {
-      "id": "hsc25",
-      "name": "HSC 25",
-      "courses": [
-        {
-          "title": "Season Over",
-          "image": "https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/downloadfile.png",
-          "price": "EXPIRED",
-          "features": [
-            "পুরনো কনটেন্ট",
-            "পরবর্তী সিজনে আপডেট করা হবে"
-          ],
-          "enrollButton": "Registration Closed",
-          "enrollAction": "",
-          "disabled": true
         }
       ]
     },
@@ -70,5 +58,29 @@
       "url": "calender.html",
       "image": "https://img.freepik.com/free-photo/customer-service-call-center-contact-us-concept_53876-127638.jpg"
     }
-  ]
+  ],
+  "footer": {
+    "logo": "https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png",
+    "links": [
+      {
+        "text": "টেলিগ্রাম চ্যানেল",
+        "url": "https://t.me/syllabuserbaire",
+        "icon": "fab fa-telegram-plane",
+        "color": "#0088cc"
+      },
+      {
+        "text": "আমাদের সম্পর্কে",
+        "url": "about.html",
+        "icon": "fas fa-info-circle",
+        "color": "#3498db"
+      },
+      {
+        "text": "প্রাইভেসি পলিসি",
+        "url": "privacy.html",
+        "icon": "fa-solid fa-shield-alt",
+        "color": "#2ecc71"
+      }
+    ],
+    "copyright": "&copy; 2025 SYLLABUSER BAIRE"
+  }
 }
