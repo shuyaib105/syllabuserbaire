@@ -596,26 +596,39 @@
         // আপডেটেড কোর্স লিস্ট (ইনডেক্স পেজের কোর্সগুলো যুক্ত করা হয়েছে)
         const allCourses = [
             { id: 1, name: "Physics Second Part", desc: "HSC 26 এর জন্য পূর্ণাঙ্গ ফিজিক্স  দ্বিতীয় পত্রের কোর্স। প্রতিটি অধ্যায়ের কনসেপ্ট হবে ক্লিয়ার।", link: "phy2f.html" },
-            
+            { id: 2, name: "Question Bank Mastery", desc: "প্রশ্ন ব্যাংকের সম্পূর্ণ সমাধান। বোর্ড ও ভর্তি পরীক্ষার জন্য অত্যন্ত গুরুত্বপূর্ণ।", link: "ex1.html" }
         ];
 
         window.onload = function() {
             const auth = localStorage.getItem('isLoggedIn');
-            const name = localStorage.getItem('userName');
-            const email = localStorage.getItem('userEmail') || 'user@example.com'; 
+            const currentUser = localStorage.getItem('currentUser');
 
-            if (auth !== 'true') {
+            if (auth !== 'true' || !currentUser) {
                 window.location.href = "login.html";
                 return;
             }
 
-            if(name) {
+            // Load user data from JSON structure
+            const userString = localStorage.getItem('user_' + currentUser);
+            const userData = userString ? JSON.parse(userString) : null;
+
+            if(userData) {
+                // Display user's name from the JSON structure
+                document.getElementById('userNameTag').innerText = userData.profile.name;
+                document.getElementById('profile-name').innerText = userData.profile.name;
+                document.getElementById('profile-name-display').innerText = userData.profile.name;
+
+                // Set email if available in user data
+                const userEmail = userData.profile.email || userData.email || 'user@example.com';
+                document.getElementById('profile-email').innerText = userEmail;
+            } else {
+                // Fallback to old method if JSON data not found
+                const name = localStorage.getItem('userName') || currentUser;
                 document.getElementById('userNameTag').innerText = name;
                 document.getElementById('profile-name').innerText = name;
                 document.getElementById('profile-name-display').innerText = name;
+                document.getElementById('profile-email').innerText = 'user@example.com';
             }
-
-            document.getElementById('profile-email').innerText = email;
 
             // --- অটো এনরোলমেন্ট লজিক ---
             const urlParams = new URLSearchParams(window.location.search);
@@ -628,17 +641,28 @@
                 const courseToAdd = allCourses.find(c => c.name === decodedName);
 
                 if (courseToAdd) {
-                    let userCourses = JSON.parse(localStorage.getItem('userCourses') || "[]");
+                    // Load user data and update enrolled courses
+                    const userString = localStorage.getItem('user_' + currentUser);
+                    if (userString) {
+                        const userData = JSON.parse(userString);
 
-                    // যদি কোর্সটি আগে থেকে না থাকে, তবে যুক্ত করুন
-                    if (!userCourses.includes(courseToAdd.id)) {
-                        userCourses.push(courseToAdd.id);
-                        localStorage.setItem('userCourses', JSON.stringify(userCourses));
+                        // Check if course is already enrolled
+                        if (!userData.enrolledCourses.includes(decodedName)) {
+                            userData.enrolledCourses.push(decodedName);
+                            localStorage.setItem('user_' + currentUser, JSON.stringify(userData));
 
-                        // নোটিফিকেশন দেখানো
-                        showToast(`"${decodedName}" সফলভাবে যোগ করা হয়েছে!`);
-                    } else {
-                        showToast(`"${decodedName}" আগে থেকেই আছে।`);
+                            // Update userCourses for backward compatibility
+                            let userCourses = JSON.parse(localStorage.getItem('userCourses') || "[]");
+                            if (!userCourses.includes(courseToAdd.id)) {
+                                userCourses.push(courseToAdd.id);
+                                localStorage.setItem('userCourses', JSON.stringify(userCourses));
+                            }
+
+                            // নোটিফিকেশন দেখানো
+                            showToast(`"${decodedName}" সফলভাবে যোগ করা হয়েছে!`);
+                        } else {
+                            showToast(`"${decodedName}" আগে থেকেই আছে।`);
+                        }
                     }
                 }
 
@@ -654,16 +678,40 @@
 
         function renderDashboard() {
             const grid = document.getElementById('courses-grid');
-            const userCourses = JSON.parse(localStorage.getItem('userCourses') || "[]");
+            const currentUser = localStorage.getItem('currentUser');
+
+            if (!currentUser) {
+                grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #999; font-family: 'Tiro Bangla';"><p>ব্যবহারকারী খুঁজে পাওয়া যাচ্ছে না।</p></div>`;
+                return;
+            }
+
+            // Load user data from JSON structure
+            const userString = localStorage.getItem('user_' + currentUser);
+            const userData = userString ? JSON.parse(userString) : null;
+
+            let enrolledCourses = [];
+            if (userData) {
+                enrolledCourses = userData.enrolledCourses || [];
+            } else {
+                // Fallback to old method
+                const userCourseIds = JSON.parse(localStorage.getItem('userCourses') || "[]");
+
+                // Convert course IDs to course names
+                enrolledCourses = userCourseIds.map(id => {
+                    const course = allCourses.find(c => c.id === id);
+                    return course ? course.name : null;
+                }).filter(name => name !== null);
+            }
+
             grid.innerHTML = "";
 
-            if (userCourses.length === 0) {
+            if (enrolledCourses.length === 0) {
                 grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #999; font-family: 'Tiro Bangla';"><p>আপনার ড্যাশবোর্ড খালি। কোর্স যোগ করুন।</p></div>`;
                 return;
             }
 
             allCourses.forEach(c => {
-                if (userCourses.includes(c.id)) {
+                if (enrolledCourses.includes(c.name)) {
                     grid.innerHTML += `
                         <div class="course-card" onclick="secureEntry('${c.link}')">
                             <h3>${c.name}</h3>
@@ -676,7 +724,10 @@
         }
 
         function secureEntry(url) {
-            if (localStorage.getItem('isLoggedIn') === 'true') {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const currentUser = localStorage.getItem('currentUser');
+
+            if (isLoggedIn && currentUser) {
                 window.location.href = url;
             } else {
                 window.location.href = "login.html";
@@ -685,11 +736,35 @@
 
         function renderSelector() {
             const list = document.getElementById('full-list-container');
-            const userCourses = JSON.parse(localStorage.getItem('userCourses') || "[]");
+            const currentUser = localStorage.getItem('currentUser');
+
+            if (!currentUser) {
+                list.innerHTML = `<div style="text-align: center; padding: 20px; color: #999; font-family: 'Tiro Bangla';"><p>ব্যবহারকারী খুঁজে পাওয়া যাচ্ছে না।</p></div>`;
+                return;
+            }
+
+            // Load user data from JSON structure
+            const userString = localStorage.getItem('user_' + currentUser);
+            const userData = userString ? JSON.parse(userString) : null;
+
+            let enrolledCourses = [];
+            if (userData) {
+                enrolledCourses = userData.enrolledCourses || [];
+            } else {
+                // Fallback to old method
+                const userCourseIds = JSON.parse(localStorage.getItem('userCourses') || "[]");
+
+                // Convert course IDs to course names
+                enrolledCourses = userCourseIds.map(id => {
+                    const course = allCourses.find(c => c.id === id);
+                    return course ? course.name : null;
+                }).filter(name => name !== null);
+            }
+
             list.innerHTML = "";
 
             allCourses.forEach(c => {
-                const added = userCourses.includes(c.id);
+                const added = enrolledCourses.includes(c.name);
                 list.innerHTML += `
                     <div class="course-list-item">
                         <span style="font-family: Montserrat; font-weight: 700; font-size: 14px;">${c.name}</span>
@@ -702,13 +777,56 @@
         }
 
         function toggleSelect(id) {
-            let userCourses = JSON.parse(localStorage.getItem('userCourses') || "[]");
-            if (userCourses.includes(id)) {
-                userCourses = userCourses.filter(cid => cid !== id);
-            } else {
-                userCourses.push(id);
+            const currentUser = localStorage.getItem('currentUser');
+
+            if (!currentUser) {
+                showToast("ব্যবহারকারী খুঁজে পাওয়া যাচ্ছে না!");
+                return;
             }
-            localStorage.setItem('userCourses', JSON.stringify(userCourses));
+
+            // Load user data from JSON structure
+            const userString = localStorage.getItem('user_' + currentUser);
+            const userData = userString ? JSON.parse(userString) : null;
+
+            if (userData) {
+                // Find the course name based on ID
+                const course = allCourses.find(c => c.id === id);
+                if (!course) {
+                    showToast("কোর্স খুঁজে পাওয়া যাচ্ছে না!");
+                    return;
+                }
+
+                const courseName = course.name;
+
+                // Toggle course in enrolledCourses array
+                if (userData.enrolledCourses.includes(courseName)) {
+                    userData.enrolledCourses = userData.enrolledCourses.filter(name => name !== courseName);
+                } else {
+                    userData.enrolledCourses.push(courseName);
+                }
+
+                // Update the user data in localStorage
+                localStorage.setItem('user_' + currentUser, JSON.stringify(userData));
+
+                // Also update the old storage for backward compatibility
+                let userCourseIds = JSON.parse(localStorage.getItem('userCourses') || "[]");
+                if (userCourseIds.includes(id)) {
+                    userCourseIds = userCourseIds.filter(cid => cid !== id);
+                } else {
+                    userCourseIds.push(id);
+                }
+                localStorage.setItem('userCourses', JSON.stringify(userCourseIds));
+            } else {
+                // Fallback to old method
+                let userCourses = JSON.parse(localStorage.getItem('userCourses') || "[]");
+                if (userCourses.includes(id)) {
+                    userCourses = userCourses.filter(cid => cid !== id);
+                } else {
+                    userCourses.push(id);
+                }
+                localStorage.setItem('userCourses', JSON.stringify(userCourses));
+            }
+
             renderSelector();
             renderDashboard();
         }
@@ -772,7 +890,22 @@
         }
 
         function confirmLogout() {
-            localStorage.clear();
+            const currentUser = localStorage.getItem('currentUser');
+
+            // Clear all user-specific data
+            if (currentUser) {
+                localStorage.removeItem('user_' + currentUser);
+            }
+
+            // Clear other user-related data
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('userCourses');
+            localStorage.removeItem('userName');
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('userRoll');
+            localStorage.removeItem('userInstitution');
+
             window.location.href = "index.html";
         }
 
@@ -780,7 +913,18 @@
         // --- প্রোফাইল নাম সম্পাদনা ফাংশন ---
         function toggleEditName() {
             const profileName = document.getElementById('profile-name');
-            const name = localStorage.getItem('userName') || 'user@example.com';
+            const currentUser = localStorage.getItem('currentUser');
+
+            if (!currentUser) {
+                showToast("ব্যবহারকারী খুঁজে পাওয়া যাচ্ছে না!");
+                return;
+            }
+
+            // Load user data from JSON structure
+            const userString = localStorage.getItem('user_' + currentUser);
+            const userData = userString ? JSON.parse(userString) : null;
+
+            const name = userData ? userData.profile.name : localStorage.getItem('userName') || currentUser;
 
             // Check if we're currently in edit mode
             if (profileName.innerHTML.includes('input')) {
@@ -789,7 +933,13 @@
                 const newName = inputField.value.trim();
 
                 if (newName) {
-                    // Update localStorage
+                    // Update the user data in JSON structure
+                    if (userData) {
+                        userData.profile.name = newName;
+                        localStorage.setItem('user_' + currentUser, JSON.stringify(userData));
+                    }
+
+                    // Also update the old storage for backward compatibility
                     localStorage.setItem('userName', newName);
 
                     // Update the name display
@@ -797,6 +947,7 @@
 
                     // Update the header name as well
                     document.getElementById('userNameTag').innerText = newName;
+                    document.getElementById('profile-name-display').innerText = newName;
 
                     // Show success message
                     showToast("নাম সফলভাবে আপডেট করা হয়েছে!");
@@ -825,17 +976,32 @@
         // Function to load enrolled courses in profile
         function loadEnrolledCoursesInProfile() {
             const enrolledList = document.getElementById('enrolled-courses-list');
-            const userCourses = JSON.parse(localStorage.getItem('userCourses') || "[]");
+            const currentUser = localStorage.getItem('currentUser');
 
-            if (userCourses.length === 0) {
-                enrolledList.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #999; font-family: 'Tiro Bangla';"><p>আপনি এখনো কোনো কোর্স এনরোল করেননি।</p></div>`;
+            if (!currentUser) {
+                enrolledList.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #999; font-family: 'Tiro Bangla';"><p>ব্যবহারকারী খুঁজে পাওয়া যাচ্ছে না।</p></div>`;
                 return;
             }
 
-            // Get user's course objects
-            const userCourseObjects = allCourses.filter(c => userCourses.includes(c.id));
+            // Load user data from JSON structure
+            const userString = localStorage.getItem('user_' + currentUser);
+            const userData = userString ? JSON.parse(userString) : null;
 
-            if (userCourseObjects.length === 0) {
+            let enrolledCourses = [];
+            if (userData) {
+                enrolledCourses = userData.enrolledCourses || [];
+            } else {
+                // Fallback to old method
+                enrolledCourses = JSON.parse(localStorage.getItem('userCourses') || "[]");
+
+                // Get course names instead of IDs for display
+                enrolledCourses = enrolledCourses.map(id => {
+                    const course = allCourses.find(c => c.id === id);
+                    return course ? course.name : null;
+                }).filter(name => name !== null);
+            }
+
+            if (enrolledCourses.length === 0) {
                 enrolledList.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #999; font-family: 'Tiro Bangla';"><p>আপনি এখনো কোনো কোর্স এনরোল করেননি।</p></div>`;
                 return;
             }
@@ -843,25 +1009,39 @@
             // Generate course cards for enrolled courses
             let coursesHTML = '';
 
-            userCourseObjects.forEach(course => {
-                coursesHTML += `
-                    <div class="course-card">
-                        <h3>${course.name}</h3>
-                        <p>${course.desc}</p>
-                    </div>
-                `;
+            enrolledCourses.forEach(courseName => {
+                const course = allCourses.find(c => c.name === courseName);
+                if (course) {
+                    coursesHTML += `
+                        <div class="course-card">
+                            <h3>${course.name}</h3>
+                            <p>${course.desc}</p>
+                        </div>
+                    `;
+                }
             });
 
             enrolledList.innerHTML = coursesHTML;
 
             // Update course count
-            document.getElementById('course-count').textContent = userCourses.length;
+            document.getElementById('course-count').textContent = enrolledCourses.length;
         }
 
         // Function to toggle email editing
         function toggleEditEmail() {
             const profileEmail = document.getElementById('profile-email');
-            const email = localStorage.getItem('userEmail') || 'user@example.com';
+            const currentUser = localStorage.getItem('currentUser');
+
+            if (!currentUser) {
+                showToast("ব্যবহারকারী খুঁজে পাওয়া যাচ্ছে না!");
+                return;
+            }
+
+            // Load user data from JSON structure
+            const userString = localStorage.getItem('user_' + currentUser);
+            const userData = userString ? JSON.parse(userString) : null;
+
+            const email = userData ? (userData.profile.email || userData.email || 'user@example.com') : localStorage.getItem('userEmail') || 'user@example.com';
 
             // Check if we're currently in edit mode
             if (profileEmail.innerHTML.includes('input')) {
@@ -870,7 +1050,14 @@
                 const newEmail = inputField.value.trim();
 
                 if (newEmail && validateEmail(newEmail)) {
-                    // Update localStorage
+                    // Update the user data in JSON structure
+                    if (userData) {
+                        if (!userData.profile) userData.profile = {};
+                        userData.profile.email = newEmail;
+                        localStorage.setItem('user_' + currentUser, JSON.stringify(userData));
+                    }
+
+                    // Also update the old storage for backward compatibility
                     localStorage.setItem('userEmail', newEmail);
 
                     // Update the email display
@@ -902,7 +1089,18 @@
         // Function to toggle roll editing
         function toggleEditRoll() {
             const profileRoll = document.getElementById('profile-roll');
-            const roll = localStorage.getItem('userRoll') || '';
+            const currentUser = localStorage.getItem('currentUser');
+
+            if (!currentUser) {
+                showToast("ব্যবহারকারী খুঁজে পাওয়া যাচ্ছে না!");
+                return;
+            }
+
+            // Load user data from JSON structure
+            const userString = localStorage.getItem('user_' + currentUser);
+            const userData = userString ? JSON.parse(userString) : null;
+
+            const roll = userData ? (userData.profile.roll || userData.roll || '') : localStorage.getItem('userRoll') || '';
 
             // Check if we're currently in edit mode
             if (profileRoll.innerHTML.includes('input')) {
@@ -911,7 +1109,14 @@
                 const newRoll = inputField.value.trim();
 
                 if (newRoll) {
-                    // Update localStorage
+                    // Update the user data in JSON structure
+                    if (userData) {
+                        if (!userData.profile) userData.profile = {};
+                        userData.profile.roll = newRoll;
+                        localStorage.setItem('user_' + currentUser, JSON.stringify(userData));
+                    }
+
+                    // Also update the old storage for backward compatibility
                     localStorage.setItem('userRoll', newRoll);
 
                     // Update the roll display
@@ -935,7 +1140,18 @@
         // Function to toggle institution editing
         function toggleEditInstitution() {
             const profileInstitution = document.getElementById('profile-institution');
-            const institution = localStorage.getItem('userInstitution') || '';
+            const currentUser = localStorage.getItem('currentUser');
+
+            if (!currentUser) {
+                showToast("ব্যবহারকারী খুঁজে পাওয়া যাচ্ছে না!");
+                return;
+            }
+
+            // Load user data from JSON structure
+            const userString = localStorage.getItem('user_' + currentUser);
+            const userData = userString ? JSON.parse(userString) : null;
+
+            const institution = userData ? (userData.profile.institution || userData.institution || '') : localStorage.getItem('userInstitution') || '';
 
             // Check if we're currently in edit mode
             if (profileInstitution.innerHTML.includes('input')) {
@@ -944,7 +1160,14 @@
                 const newInstitution = inputField.value.trim();
 
                 if (newInstitution) {
-                    // Update localStorage
+                    // Update the user data in JSON structure
+                    if (userData) {
+                        if (!userData.profile) userData.profile = {};
+                        userData.profile.institution = newInstitution;
+                        localStorage.setItem('user_' + currentUser, JSON.stringify(userData));
+                    }
+
+                    // Also update the old storage for backward compatibility
                     localStorage.setItem('userInstitution', newInstitution);
 
                     // Update the institution display
@@ -973,27 +1196,79 @@
 
         // Function to update profile stats
         function updateProfileStats() {
-            const userCourses = JSON.parse(localStorage.getItem('userCourses') || "[]");
-            document.getElementById('course-count').textContent = userCourses.length;
+            const currentUser = localStorage.getItem('currentUser');
+
+            if (!currentUser) {
+                document.getElementById('course-count').textContent = '0';
+                document.getElementById('progress-value').textContent = '0%';
+                return;
+            }
+
+            // Load user data from JSON structure
+            const userString = localStorage.getItem('user_' + currentUser);
+            const userData = userString ? JSON.parse(userString) : null;
+
+            let enrolledCourses = [];
+            if (userData) {
+                enrolledCourses = userData.enrolledCourses || [];
+            } else {
+                // Fallback to old method
+                const userCourseIds = JSON.parse(localStorage.getItem('userCourses') || "[]");
+
+                // Convert course IDs to course names
+                enrolledCourses = userCourseIds.map(id => {
+                    const course = allCourses.find(c => c.id === id);
+                    return course ? course.name : null;
+                }).filter(name => name !== null);
+            }
+
+            document.getElementById('course-count').textContent = enrolledCourses.length;
 
             // Calculate progress based on completed courses or other metrics
             // For now, we'll show a simple progress calculation
-            const progress = userCourses.length > 0 ? Math.min(100, userCourses.length * 10) : 0;
+            const progress = enrolledCourses.length > 0 ? Math.min(100, enrolledCourses.length * 10) : 0;
             document.getElementById('progress-value').textContent = progress + '%';
         }
 
         // Function to load profile data when profile tab is opened
         function loadProfileData() {
-            const name = localStorage.getItem('userName') || 'user@example.com';
-            const email = localStorage.getItem('userEmail') || 'user@example.com';
-            const roll = localStorage.getItem('userRoll') || '';
-            const institution = localStorage.getItem('userInstitution') || '';
+            const currentUser = localStorage.getItem('currentUser');
 
-            document.getElementById('profile-name').innerText = name;
-            document.getElementById('profile-name-display').innerText = name;
-            document.getElementById('profile-email').innerText = email;
-            document.getElementById('profile-roll').innerText = roll || 'যোগ করুন';
-            document.getElementById('profile-institution').innerText = institution || 'যোগ করুন';
+            if (currentUser) {
+                // Load user data from JSON structure
+                const userString = localStorage.getItem('user_' + currentUser);
+                const userData = userString ? JSON.parse(userString) : null;
+
+                if (userData) {
+                    // Load data from JSON structure
+                    document.getElementById('profile-name').innerText = userData.profile.name;
+                    document.getElementById('profile-name-display').innerText = userData.profile.name;
+
+                    const userEmail = userData.profile.email || userData.email || 'user@example.com';
+                    document.getElementById('profile-email').innerText = userEmail;
+
+                    const userRoll = userData.profile.roll || userData.roll || '';
+                    document.getElementById('profile-roll').innerText = userRoll || 'যোগ করুন';
+
+                    const userInstitution = userData.profile.institution || userData.institution || '';
+                    document.getElementById('profile-institution').innerText = userInstitution || 'যোগ করুন';
+                } else {
+                    // Fallback to old method if JSON data not found
+                    const name = localStorage.getItem('userName') || currentUser;
+                    const email = localStorage.getItem('userEmail') || 'user@example.com';
+                    const roll = localStorage.getItem('userRoll') || '';
+                    const institution = localStorage.getItem('userInstitution') || '';
+
+                    document.getElementById('profile-name').innerText = name;
+                    document.getElementById('profile-name-display').innerText = name;
+                    document.getElementById('profile-email').innerText = email;
+                    document.getElementById('profile-roll').innerText = roll || 'যোগ করুন';
+                    document.getElementById('profile-institution').innerText = institution || 'যোগ করুন';
+                }
+            } else {
+                // If no current user, redirect to login
+                window.location.href = "login.html";
+            }
 
             // Update stats
             updateProfileStats();
