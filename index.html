@@ -51,6 +51,11 @@
             font-family: 'Noto Serif Bengali', serif !important;
         }
 
+        /* Course features in Tiro Bangla */
+        .course-feature {
+            font-family: 'Tiro Bangla', serif !important;
+        }
+
         /* English text styling - including tab buttons */
         .auth-btn,
         .img-btn span,
@@ -547,7 +552,7 @@
                         featuresHTML += `
                             <div style="display: flex; align-items: center; margin: 10px 0; transition: all 0.3s ease;">
                                 <i class="fas fa-check-circle" style="color: var(--primary-blue); margin-right: 8px; transition: all 0.3s ease;"></i>
-                                <span>${feature}</span>
+                                <span class="course-feature">${feature}</span>
                             </div>
                         `;
                     });
