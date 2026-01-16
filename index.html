@@ -329,82 +329,21 @@
             প্রস্তুতির</span> শুরু  হোক এখানে থেকেই </h1>
             <p>সহজ ব্যাখ্যা আর আধুনিক টেকনিকের মাধ্যমে আমরা তোমার সিলেবাসের ভয় দূর করবো ইনশাআল্লাহ্‌।</p>
         </div>
-        
+
     </section>
 
-    <div class="action-buttons">
-        <a href="#courses-section" class="img-btn" style="background-image: url('https://img.freepik.com/free-photo/books-stacked-table_23-2148213871.jpg');"><span>COURSES</span></a>
-        <a href="#" class="img-btn" style="background-image: url('https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=1000&auto=format&fit=crop');"><span><center>Question Bank</center></span></a>
-        <a href="calender.html" class="img-btn" style="background-image: url('https://img.freepik.com/free-photo/customer-service-call-center-contact-us-concept_53876-127638.jpg');"><span>Calender</span></a>
+    <div class="action-buttons" id="actionButtonsContainer">
+        <!-- Action buttons will be loaded dynamically -->
     </div>
 
     <section id="courses-section">
-        <div class="tab-box">
-            <button class="tab-btn active" onclick="openTab(event, 'hsc26')">HSC 26</button>
-            <button class="tab-btn" onclick="openTab(event, 'hsc25')">HSC 25</button>
-            <button class="tab-btn" onclick="openTab(event, 'qbcourse')">QB Course</button>
+        <div class="tab-box" id="tabBox">
+            <!-- Tabs will be loaded dynamically -->
         </div>
 
-        <div id="hsc26" class="tab-content active">
-            <div class="course-card">
-                <img src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/phy2f.webp" class="course-thumb">
-                <div class="course-info">
-                    <h3>Physics Second Part <span class="price-tag">FREE</span></h3>
-                    
-                    <div style="display: flex; align-items: center; margin: 10px 0; transition: all 0.3s ease;">
-                        <i class="fas fa-check-circle" style="color: var(--primary-blue); margin-right: 8px; transition: all 0.3s ease;"></i>
-                        <span>১০ টি অধ্যায় ভিত্তিক MCQ Exam</span>
-                    </div>
-                    <div style="display: flex; align-items: center; margin: 10px 0; transition: all 0.3s ease;">
-                        <i class="fas fa-check-circle" style="color: var(--primary-blue); margin-right: 8px; transition: all 0.3s ease;"></i>
-                        <span>১টি সাবজেক্ট ফাইনাল এক্সাম </span>
-                    </div>
-                    <div style="display: flex; align-items: center; margin: 10px 0; transition: all 0.3s ease;">
-                        <i class="fas fa-check-circle" style="color: var(--primary-blue); margin-right: 8px; transition: all 0.3s ease;"></i>
-                        <span>কোর্স শেষে CQ সাজেশন পিডিএফ ফাইল প্রদান </span>
-                    </div>
-                    
-                    <button class="enroll-btn" onclick="openEnrollPopup('Physics Second Part')">Enroll Now</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="hsc25" class="tab-content">
-            <div class="course-card">
-                <img src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/downloadfile.png" class="course-thumb">
-                <div class="course-info">
-                    <h3>Season Over <span class="expired-tag">EXPIRED</span></h3>
-                    <p>HSC 25 এর জন্য সিজন শেষ! পরবর্তী সিজনে আবার যোগ দিন।</p>
-                    <div style="display: flex; align-items: center; margin: 10px 0; color: #999; transition: all 0.3s ease;">
-                        <i class="fas fa-check-circle" style="color: #999; margin-right: 8px; transition: all 0.3s ease;"></i>
-                        <span>পুরনো কনটেন্ট</span>
-                    </div>
-                    <div style="display: flex; align-items: center; margin: 10px 0; color: #999; transition: all 0.3s ease;">
-                        <i class="fas fa-check-circle" style="color: #999; margin-right: 8px; transition: all 0.3s ease;"></i>
-                        <span>পরবর্তী সিজনে আপডেট করা হবে</span>
-                    </div>
-                    <button class="enroll-btn disabled" disabled>Registration Closed</button>
-                </div>
-            </div>
-        </div>
-        
-        <div id="qbcourse" class="tab-content">
-            <div class="course-card">
-                <img src="https://img.freepik.com/free-photo/assortment-school-supplies-with-copy-space_23-2148756537.jpg" class="course-thumb">
-                <div class="course-info">
-                    <h3>Question Bank Mastery <span class="price-tag">FREE</span></h3>
-                    <p>প্রশ্ন ব্যাংকের সম্পূর্ণ সমাধান। বোর্ড ও ভর্তি পরীক্ষার জন্য অত্যন্ত গুরুত্বপূর্ণ।</p>
-                    <div style="display: flex; align-items: center; margin: 10px 0; transition: all 0.3s ease;">
-                        <i class="fas fa-check-circle" style="color: var(--primary-blue); margin-right: 8px; transition: all 0.3s ease;"></i>
-                        <span>বিগত সালের প্রশ্নের সমাধান</span>
-                    </div>
-                    <div style="display: flex; align-items: center; margin: 10px 0; transition: all 0.3s ease;">
-                        <i class="fas fa-check-circle" style="color: var(--primary-blue); margin-right: 8px; transition: all 0.3s ease;"></i>
-                        <span>প্রতিদিনের অনুশীলনী প্রশ্ন</span>
-                    </div>
-                    <button class="enroll-btn" onclick="openEnrollPopup('Question Bank Mastery')">Enroll Now</button>
-                </div>
-            </div>
+        <!-- Tab content containers will be loaded dynamically -->
+        <div id="tabsContainer">
+            <!-- Dynamic tabs will be inserted here -->
         </div>
     </section>
 
@@ -507,6 +446,111 @@
                 document.getElementById('enrollModal').style.display = "none";
             }
         }
+
+        // Load data from JSON file
+        async function loadPageData() {
+            try {
+                const response = await fetch('data/courses.json');
+                const data = await response.json();
+
+                // Populate action buttons
+                populateActionButtons(data.actionButtons);
+
+                // Populate tabs and tab content
+                populateTabs(data.courseTabs);
+            } catch (error) {
+                console.error('Error loading data:', error);
+            }
+        }
+
+        function populateActionButtons(buttons) {
+            const container = document.getElementById('actionButtonsContainer');
+            container.innerHTML = '';
+
+            buttons.forEach(button => {
+                const buttonElement = document.createElement('a');
+                buttonElement.href = button.url;
+                buttonElement.className = 'img-btn';
+                buttonElement.style.backgroundImage = `url('${button.image}')`;
+                buttonElement.innerHTML = `<span>${button.title}</span>`;
+
+                container.appendChild(buttonElement);
+            });
+        }
+
+        function populateTabs(courses) {
+            const tabBox = document.getElementById('tabBox');
+            const tabsContainer = document.getElementById('tabsContainer');
+
+            tabBox.innerHTML = '';
+            tabsContainer.innerHTML = '';
+
+            courses.forEach((courseGroup, index) => {
+                // Create tab button
+                const tabButton = document.createElement('button');
+                tabButton.className = index === 0 ? 'tab-btn active' : 'tab-btn';
+                tabButton.textContent = courseGroup.name;
+                tabButton.setAttribute('onclick', `openTab(event, '${courseGroup.id}')`);
+                tabBox.appendChild(tabButton);
+
+                // Create tab content div
+                const tabContent = document.createElement('div');
+                tabContent.id = courseGroup.id;
+                tabContent.className = index === 0 ? 'tab-content active' : 'tab-content';
+
+                // Add courses to this tab
+                courseGroup.courses.forEach(course => {
+                    const courseCard = document.createElement('div');
+                    courseCard.className = 'course-card';
+
+                    // Create features list
+                    let featuresHTML = '';
+                    course.features.forEach(feature => {
+                        featuresHTML += `
+                            <div style="display: flex; align-items: center; margin: 10px 0; transition: all 0.3s ease;">
+                                <i class="fas fa-check-circle" style="color: var(--primary-blue); margin-right: 8px; transition: all 0.3s ease;"></i>
+                                <span>${feature}</span>
+                            </div>
+                        `;
+                    });
+
+                    // Determine price tag class based on price value
+                    const priceTagClass = course.price === 'EXPIRED' ? 'expired-tag' : 'price-tag';
+
+                    // Determine enroll button class and attributes
+                    const enrollBtnClass = course.disabled ? 'enroll-btn disabled' : 'enroll-btn';
+                    const enrollBtnOnclick = course.enrollAction || '';
+                    const enrollBtnDisabled = course.disabled ? 'disabled' : '';
+
+                    courseCard.innerHTML = `
+                        <img src="${course.image}" class="course-thumb">
+                        <div class="course-info">
+                            <h3>${course.title} <span class="${priceTagClass}">${course.price}</span></h3>
+                            ${course.description ? `<p>${course.description}</p>` : ''}
+                            ${featuresHTML}
+                            <button class="${enrollBtnClass}" ${enrollBtnDisabled} onclick="${enrollBtnOnclick}">${course.enrollButton}</button>
+                        </div>
+                    `;
+
+                    tabContent.appendChild(courseCard);
+                });
+
+                tabsContainer.appendChild(tabContent);
+            });
+        }
+
+        // Override the openTab function to work with dynamic content
+        function openTab(evt, tabName) {
+            const tabcontent = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabcontent.length; i++) tabcontent[i].classList.remove("active");
+            const tablinks = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < tablinks.length; i++) tablinks[i].classList.remove("active");
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // Call the function to load data when the page loads
+        window.addEventListener('load', loadPageData);
 
         window.onload = checkAuthStatus;
     </script>

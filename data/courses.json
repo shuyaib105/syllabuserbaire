@@ -1,0 +1,74 @@
+{
+  "courseTabs": [
+    {
+      "id": "hsc26",
+      "name": "HSC 26",
+      "courses": [
+        {
+          "title": "Physics Second Part",
+          "image": "https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/phy2f.webp",
+          "price": "FREE",
+          "features": [
+            "১০ টি অধ্যায় ভিত্তিক MCQ Exam",
+            "১টি সাবজেক্ট ফাইনাল এক্সাম",
+            "কোর্স শেষে CQ সাজেশন পিডিএফ ফাইল প্রদান"
+          ],
+          "enrollButton": "Enroll Now",
+          "enrollAction": "openEnrollPopup('Physics Second Part')"
+        }
+      ]
+    },
+    {
+      "id": "hsc25",
+      "name": "HSC 25",
+      "courses": [
+        {
+          "title": "Season Over",
+          "image": "https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/downloadfile.png",
+          "price": "EXPIRED",
+          "features": [
+            "পুরনো কনটেন্ট",
+            "পরবর্তী সিজনে আপডেট করা হবে"
+          ],
+          "enrollButton": "Registration Closed",
+          "enrollAction": "",
+          "disabled": true
+        }
+      ]
+    },
+    {
+      "id": "qbcourse",
+      "name": "QB Course",
+      "courses": [
+        {
+          "title": "Question Bank Mastery",
+          "image": "https://img.freepik.com/free-photo/assortment-school-supplies-with-copy-space_23-2148756537.jpg",
+          "price": "FREE",
+          "features": [
+            "বিগত সালের প্রশ্নের সমাধান",
+            "প্রতিদিনের অনুশীলনী প্রশ্ন"
+          ],
+          "enrollButton": "Enroll Now",
+          "enrollAction": "openEnrollPopup('Question Bank Mastery')"
+        }
+      ]
+    }
+  ],
+  "actionButtons": [
+    {
+      "title": "COURSES",
+      "url": "#courses-section",
+      "image": "https://img.freepik.com/free-photo/books-stacked-table_23-2148213871.jpg"
+    },
+    {
+      "title": "Question Bank",
+      "url": "#",
+      "image": "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=1000&auto=format&fit=crop"
+    },
+    {
+      "title": "Calender",
+      "url": "calender.html",
+      "image": "https://img.freepik.com/free-photo/customer-service-call-center-contact-us-concept_53876-127638.jpg"
+    }
+  ]
+}
