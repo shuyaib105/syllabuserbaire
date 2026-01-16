@@ -216,9 +216,22 @@
                 return;
             }
 
-            // সাকসেস হলে ডাটা লোকাল স্টোরেজে সেভ করা
+            // Create user data in JSON format
+            const userData = {
+                username: name,
+                password: password,  // Note: In real app, hash this!
+                createdAt: new Date().toISOString(),
+                enrolledCourses: [],
+                progress: {},
+                profile: {
+                    name: name
+                }
+            };
+
+            // Save to localStorage in JSON format
+            localStorage.setItem('user_' + name, JSON.stringify(userData));
             localStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('userName', name);
+            localStorage.setItem('currentUser', name);
 
             // Check for redirect URL and enrollment parameters
             const urlParams = new URLSearchParams(window.location.search);
@@ -226,8 +239,10 @@
             const enrollCourse = urlParams.get('enroll');
 
             if (enrollCourse) {
-                // Store the course to enroll after login
-                localStorage.setItem('pendingEnrollment', enrollCourse);
+                // Add course to user's enrolled courses
+                const user = JSON.parse(localStorage.getItem('user_' + name));
+                user.enrolledCourses.push(enrollCourse);
+                localStorage.setItem('user_' + name, JSON.stringify(user));
             }
 
             // Redirect to the specified page
